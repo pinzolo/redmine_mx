@@ -1,4 +1,5 @@
 class MxCommonColumnSet < ActiveRecord::Base
+  include MxCommentable
   unloadable
 
   belongs_to :table_list, class_name: 'MxTableList', foreign_key: :table_list_id
