@@ -8,6 +8,7 @@ class CreateMxTables < ActiveRecord::Migration
       t.integer :table_list_id, null: false
       t.string :physical_name, null: false
       t.string :logical_name
+      t.integer :current_version, null: false, default: 1
     end
 
     add_index :mx_tables, :project_id

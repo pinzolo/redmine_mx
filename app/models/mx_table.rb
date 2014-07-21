@@ -8,4 +8,5 @@ class MxTable < ActiveRecord::Base
   has_many :foreign_keys, class_name: 'MxForeignKey', foreign_key: :table_id, dependent: :destroy
   has_many :taggings, as: :mx_taggable
   has_many :tags, through: :taggins
+  has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 end
