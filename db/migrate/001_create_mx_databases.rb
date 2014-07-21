@@ -1,8 +1,8 @@
 class CreateMxDatabases < ActiveRecord::Migration
   def change
     create_table :mx_databases do |t|
-      t.integer :lock_version, null: false
       t.timestamps
+      t.integer :lock_version, null: false, default: 0
 
       t.string :name, null: false
     end

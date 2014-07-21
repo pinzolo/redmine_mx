@@ -1,8 +1,8 @@
 class CreateMxTables < ActiveRecord::Migration
   def change
     create_table :mx_tables do |t|
-      t.integer :lock_version, null: false
       t.timestamps
+      t.integer :lock_version, null: false, default: 0
 
       t.integer :project_id, null: false
       t.integer :table_list_id, null: false
