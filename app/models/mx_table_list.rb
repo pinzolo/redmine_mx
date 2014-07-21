@@ -1,4 +1,5 @@
 class MxTableList < ActiveRecord::Base
+  include MxCommentable
   unloadable
 
   belongs_to :project
