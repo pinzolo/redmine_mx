@@ -3,11 +3,11 @@ class CreateMxComments < ActiveRecord::Migration
     create_table :mx_comments do |t|
       t.timestamps
 
-      t.integer :comment_owner_id, null: false
-      t.string :comment_owner_type, null: false
+      t.integer :mx_commentable_id, null: false
+      t.string :mx_commentable_type, null: false
       t.text :comment
     end
 
-    add_index :mx_comments, [:comment_owner_type, :comment_owner_id], unique: true, name: 'mx_comments_uk1'
+    add_index :mx_comments, [:mx_commentable_type, :mx_commentable_id], unique: true, name: 'mx_comments_uk1'
   end
 end

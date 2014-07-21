@@ -1,5 +1,5 @@
 class MxComment < ActiveRecord::Base
   unloadable
 
-  belongs_to :comment_owner, polymorphic: true
+  belongs_to :mx_commentable, polymorphic: true
 end
