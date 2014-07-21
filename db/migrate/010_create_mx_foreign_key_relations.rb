@@ -6,8 +6,10 @@ class CreateMxForeignKeyRelations < ActiveRecord::Migration
       t.integer :foreign_key_id, null: false
       t.integer :source_column_id, null: false
       t.integer :referred_column_id, null: false
+      t.integer :position, null: false
     end
 
     add_index :mx_foreign_key_relations, [:foreign_key_id, :source_column_id, :referred_column_id], unique: true, name: 'mx_foreign_key_relations_uk1'
+    add_index :mx_foreign_key_relations, [:foreign_key_id, :position], unique: true, name: 'mx_foreign_key_relations_uk2'
   end
 end
