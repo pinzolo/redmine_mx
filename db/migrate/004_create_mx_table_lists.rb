@@ -6,9 +6,10 @@ class CreateMxTableLists < ActiveRecord::Migration
 
       t.integer :project_id, null: false
       t.integer :database_id, null: false
-      t.string :name, null: false
+      t.string :identifier, null: false
+      t.string :name
     end
 
-    add_index :mx_table_lists, [:project_id, :name], unique: true, name: 'mx_table_lists_uk1'
+    add_index :mx_table_lists, [:project_id, :identifier], unique: true, name: 'mx_table_lists_uk1'
   end
 end
