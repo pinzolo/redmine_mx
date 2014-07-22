@@ -24,9 +24,7 @@ module MxCommentable
     if mx_comment
       mx_comment.save
     elsif @comment.present?
-      MxComment.create(comment_owner_id: self.id,
-                       comment_owner_type: self.class.name,
-                       comment: @comment)
+      self.build_mx_comment.update_attributes(comment: @comment)
     end
   end
 end
