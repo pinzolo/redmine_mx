@@ -8,12 +8,12 @@ module MxIssueRelatable
 
   def add_issue(issue)
     iss = find_issue(issue)
-    self.issues << tag if iss && !self.issues.include?(iss)
+    issues << iss if iss && !issues.include?(iss)
   end
 
   def remove_issue(issue)
     iss = find_issue(issue)
-    self.issues.delete(iss) if iss && self.tags.include?(iss)
+    issues.delete(iss) if iss && issues.include?(iss)
   end
 
   private
