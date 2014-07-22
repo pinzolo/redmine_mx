@@ -3,8 +3,7 @@ class CreateMxComments < ActiveRecord::Migration
     create_table :mx_comments do |t|
       t.timestamps
 
-      t.integer :mx_commentable_id, null: false
-      t.string :mx_commentable_type, null: false
+      t.references :mx_commentable, polymorphic: true, null: false
       t.text :comment
     end
 
