@@ -16,6 +16,6 @@ class CreateMxCommonColumns < ActiveRecord::Migration
     end
 
     add_index :mx_common_columns, [:common_column_set_id, :physical_name], unique: true, name: 'mx_common_columns_uk1'
-    add_index :mx_common_columns, [:common_column_set_id, :type, :position], unique: true, name: 'mx_columns_uk2'
+    add_index :mx_common_columns, [:common_column_set_id, :type, :position], unique: true, name: 'mx_common_columns_uk2'
   end
 end
