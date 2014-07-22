@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
     namespace :mx, module: nil do
       resources :table_lists, controller: :mx_table_lists do
-        resources :tables, controller: :mx_tables
+        resources :tables, controller: :mx_tables do
+          resources :versions, controller: :mx_table_versions, only: [:index, :show]
+        end
         resources :common_column_sets, controller: :mx_common_column_sets
       end
     end
