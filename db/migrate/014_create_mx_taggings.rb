@@ -4,11 +4,10 @@ class CreateMxTaggings < ActiveRecord::Migration
       t.timestamps
 
       t.integer :tag_id, null: false
-      t.integer :mx_tag_owner_id, null: false
-      t.string :mx_tag_owner_type, null: false
+      t.references :mx_taggable, polymorphic: true, null: false
     end
 
-    add_index :mx_taggings, [:tag_id, :mx_tag_owner_type, :mx_tag_owner_id], unique: true, name: 'mx_taggings_uk1'
-    add_index :mx_taggings, [:mx_tag_owner_type, :mx_tag_owner_id], unique: true, name: 'mx_taggings_uk2'
+    add_index :mx_taggings, [:tag_id, :mx_taggable_type, :mx_taggable_id], unique: true, name: 'mx_taggings_uk1'
+    add_index :mx_taggings, [:mx_taggable_type, :mx_taggable_id], unique: true, name: 'mx_taggings_uk2'
   end
 end
