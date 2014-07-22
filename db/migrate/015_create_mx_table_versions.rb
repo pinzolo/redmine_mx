@@ -6,6 +6,7 @@ class CreateMxTableVersions < ActiveRecord::Migration
       t.integer :table_id, null: false
       t.integer :version, null: false
       t.text :table_data, null: false
+      t.text :change_summary
     end
 
     add_index :mx_table_versions, [:table_id, :version], unique: true, name: 'mx_table_versions_uk1'
