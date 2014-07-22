@@ -8,6 +8,6 @@ class CreateMxTaggings < ActiveRecord::Migration
     end
 
     add_index :mx_taggings, [:tag_id, :mx_taggable_type, :mx_taggable_id], unique: true, name: 'mx_taggings_uk1'
-    add_index :mx_taggings, [:mx_taggable_type, :mx_taggable_id], unique: true, name: 'mx_taggings_uk2'
+    add_index :mx_taggings, [:mx_taggable_type, :mx_taggable_id], name: 'mx_taggings_idx1'
   end
 end

@@ -5,5 +5,7 @@ class CreateMxTags < ActiveRecord::Migration
 
       t.string :name, null: false
     end
+
+    add_index :mx_tags, :name, unique: true
   end
 end
