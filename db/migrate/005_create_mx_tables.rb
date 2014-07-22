@@ -9,6 +9,8 @@ class CreateMxTables < ActiveRecord::Migration
       t.string :physical_name, null: false
       t.string :logical_name
       t.integer :current_version, null: false, default: 1
+      t.integer :created_user_id
+      t.integer :updated_user_id
     end
 
     add_index :mx_tables, :project_id
