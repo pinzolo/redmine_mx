@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Project local
   resources :projects do
-    get :bx, :controller => :bx_tables, :action => :index
+    get :mx, controller: :mx_table_lists, action: :index
 
     namespace :mx, module: nil do
       resources :table_lists, controller: :mx_table_lists do
