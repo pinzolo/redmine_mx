@@ -1,0 +1,2 @@
+module MxTableVersionsHelper
+end

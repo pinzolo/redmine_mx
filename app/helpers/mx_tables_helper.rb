@@ -1,0 +1,2 @@
+module MxTablesHelper
+end
