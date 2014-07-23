@@ -1,6 +1,6 @@
 class MxTablesController < ApplicationController
+  include MxProjectFixation
   unloadable
-
 
   def index
   end

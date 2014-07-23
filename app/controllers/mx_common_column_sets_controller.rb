@@ -1,6 +1,6 @@
 class MxCommonColumnSetsController < ApplicationController
+  include MxProjectFixation
   unloadable
-
 
   def index
   end

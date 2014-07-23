@@ -1,7 +1,6 @@
 class MxDataTypesController < ApplicationController
   unloadable
 
-
   def index
   end
 
