@@ -17,5 +17,6 @@ Redmine::Plugin.register :redmine_mx do
                                   require: :member
   end
 
-  menu :project_menu, :mx, { controller: :mx_table_lists, action: :index}, param: :project_id, caption: :'mx.label_mx'
+  menu :project_menu, :mx, { controller: :mx_table_lists, action: :index }, param: :project_id, caption: :'mx.label_mx'
+  menu :admin_menu, :mx_database, { controller: :mx_databases, action: :index }, caption: :'mx.label_mx_databases'
 end
