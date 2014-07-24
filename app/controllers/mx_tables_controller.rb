@@ -1,6 +1,9 @@
 class MxTablesController < ApplicationController
   include MxProjectFixation
+  include MxTableListFixation
   unloadable
+
+  before_filter :find_table, only: [:show, :edit, :update, :destroy]
 
   def index
   end
@@ -21,5 +24,13 @@ class MxTablesController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def find_table
+    @table = MxTable.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
 end

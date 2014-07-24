@@ -2,8 +2,8 @@ module MxProjectFixation
   extend ActiveSupport::Concern
 
   included do
-    before_filter :find_project, :authorize
     menu_item :mx
+    before_filter :find_project, :authorize
   end
 
   private
