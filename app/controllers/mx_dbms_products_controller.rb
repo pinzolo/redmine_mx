@@ -1,4 +1,4 @@
-class MxDatabasesController < ApplicationController
+class MxDbmsProductsController < ApplicationController
   unloadable
 
   def index

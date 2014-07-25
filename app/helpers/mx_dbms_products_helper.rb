@@ -1,0 +1,2 @@
+module MxDbmsProductsHelper
+end

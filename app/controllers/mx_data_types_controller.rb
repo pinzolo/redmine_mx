@@ -1,7 +1,7 @@
 class MxDataTypesController < ApplicationController
   unloadable
 
-  before_filter :find_database
+  before_filter :find_dbms_product
   before_filter :find_data_type, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -27,8 +27,8 @@ class MxDataTypesController < ApplicationController
 
   private
 
-  def find_database
-    @database = MxDatabase.find(params[:database_id])
+  def find_dbms_product
+    @dbms_product = MxDbmsProduct.find(params[:dbms_product_id])
   rescue ActiveRecord::RecordNotFound
     render_404
   end

@@ -5,7 +5,7 @@ class CreateMxTableLists < ActiveRecord::Migration
       t.integer :lock_version, null: false, default: 0
 
       t.integer :project_id, null: false
-      t.integer :database_id, null: false
+      t.integer :dbms_product_id, null: false
       t.string :identifier, null: false
       t.string :name
     end
