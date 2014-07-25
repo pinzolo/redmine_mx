@@ -1,5 +1,6 @@
 # English strings go here for Rails i18n
 en:
+  project_module_mx: MX
   mx:
     label_mx: MX
     label_mx_dbms_products: 'DBMS [MX]'

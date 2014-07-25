@@ -1,4 +1,5 @@
 ja:
+  project_module_mx: MX
   mx:
     label_mx: MX
     label_mx_dbms_products: 'DBMS [MX]'
