@@ -1,5 +1,6 @@
 class MxDbmsProductsController < ApplicationController
   unloadable
+  layout 'admin'
 
   def index
   end
