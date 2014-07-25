@@ -2,7 +2,7 @@ class MxCommonColumnSetsController < ApplicationController
   include MxProjectFixation
   unloadable
 
-  before_filter :find_table_list
+  before_filter :find_database
   before_filter :find_common_column_set, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -28,8 +28,8 @@ class MxCommonColumnSetsController < ApplicationController
 
   private
 
-  def find_table_list
-    @table_list = MxTableList.find(params[:table_list_id])
+  def find_database
+    @database = MxDatabase.find(params[:database_id])
   rescue ActiveRecord::RecordNotFound
     render_404
   end

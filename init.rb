@@ -8,15 +8,15 @@ Redmine::Plugin.register :redmine_mx do
 
   project_module :mx do
     permission :view_mx_tables, mx_tables: [:index, :show],
-                                mx_table_lists: [:index, :show],
+                                mx_databases: [:index, :show],
                                 mx_common_column_sets: [:show],
                                 mx_table_versions: [:index, :show]
     permission :manage_mx_tables, mx_tables: [:new, :edit, :create, :update, :destroy],
-                                  mx_table_lists: [:new, :edit, :create, :update, :destroy],
+                                  mx_databases: [:new, :edit, :create, :update, :destroy],
                                   mx_common_column_sets: [:new, :edit, :create, :update, :destroy],
                                   require: :member
   end
 
-  menu :project_menu, :mx, { controller: :mx_table_lists, action: :index }, param: :project_id, caption: :'mx.label_mx'
+  menu :project_menu, :mx, { controller: :mx_databases, action: :index }, param: :project_id, caption: :'mx.label_mx'
   menu :admin_menu, :mx_dbms_products, { controller: :mx_dbms_products, action: :index }, caption: :'mx.label_mx_dbms_products'
 end

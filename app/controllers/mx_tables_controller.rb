@@ -1,6 +1,6 @@
 class MxTablesController < ApplicationController
   include MxProjectFixation
-  include MxTableListFixation
+  include MxDatabaseFixation
   unloadable
 
   before_filter :find_table, only: [:show, :edit, :update, :destroy]

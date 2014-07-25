@@ -1,6 +1,6 @@
 class MxTableVersionsController < ApplicationController
   include MxProjectFixation
-  include MxTableListFixation
+  include MxDatabaseFixation
   unloadable
 
   before_filter :find_table

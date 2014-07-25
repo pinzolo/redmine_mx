@@ -8,10 +8,10 @@ Rails.application.routes.draw do
 
   # Project local
   resources :projects do
-    get :mx, controller: :mx_table_lists, action: :index
+    get :mx, controller: :mx_databases, action: :index
 
     namespace :mx, module: nil do
-      resources :table_lists, controller: :mx_table_lists do
+      resources :databases, controller: :mx_databases do
         resources :tables, controller: :mx_tables do
           resources :versions, controller: :mx_table_versions, only: [:index, :show]
         end

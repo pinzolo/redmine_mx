@@ -4,10 +4,10 @@ class CreateMxCommonColumnSets < ActiveRecord::Migration
       t.timestamps
       t.integer :lock_version, null: false, default: 0
 
-      t.integer :table_list_id, null: false
+      t.integer :database_id, null: false
       t.string :name, null: false
     end
 
-    add_index :mx_common_column_sets, [:table_list_id, :name], unique: true, name: 'mx_common_column_sets_uk1'
+    add_index :mx_common_column_sets, [:database_id, :name], unique: true, name: 'mx_common_column_sets_uk1'
   end
 end

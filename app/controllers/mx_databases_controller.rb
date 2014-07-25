@@ -1,4 +1,4 @@
-class MxTableListsController < ApplicationController
+class MxDatabasesController < ApplicationController
   include MxProjectFixation
   unloadable
 

@@ -1,6 +1,6 @@
-class CreateMxTableLists < ActiveRecord::Migration
+class CreateMxDatabases < ActiveRecord::Migration
   def change
-    create_table :mx_table_lists do |t|
+    create_table :mx_databases do |t|
       t.timestamps
       t.integer :lock_version, null: false, default: 0
 
@@ -10,6 +10,6 @@ class CreateMxTableLists < ActiveRecord::Migration
       t.string :name
     end
 
-    add_index :mx_table_lists, [:project_id, :identifier], unique: true, name: 'mx_table_lists_uk1'
+    add_index :mx_databases, [:project_id, :identifier], unique: true, name: 'mx_databases_uk1'
   end
 end

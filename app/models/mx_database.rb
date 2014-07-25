@@ -1,4 +1,4 @@
-class MxTableList < ActiveRecord::Base
+class MxDatabase < ActiveRecord::Base
   include MxCommentable
   unloadable
 
