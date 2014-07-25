@@ -1,5 +1,7 @@
 ja:
   project_module_mx: MX
+  permission_view_mx_tables: テーブル定義の閲覧
+  permission_manage_mx_tables: テーブル定義の管理
   mx:
     label_mx: MX
     label_mx_dbms_products: 'DBMS [MX]'
