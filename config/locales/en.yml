@@ -5,4 +5,9 @@ en:
   permission_manage_mx_tables: Manage table definitions
   mx:
     label_mx: MX
-    label_mx_dbms_products: 'DBMS [MX]'
+    label_dbms_products: 'DBMS [MX]'
+    label_dbms_product_new: 'New DBMS'
+    label_dbms_product_name: 'DBMS Name'
+    label_dbms_product_type: 'Base type'
+    label_dbms_product_comment: 'Comment'
+    title_dbms_products_index: 'DBMS List'

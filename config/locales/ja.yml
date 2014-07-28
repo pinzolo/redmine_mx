@@ -4,5 +4,10 @@ ja:
   permission_manage_mx_tables: テーブル定義の管理
   mx:
     label_mx: MX
-    label_mx_dbms_products: 'DBMS [MX]'
+    label_dbms_products: 'DBMS [MX]'
+    label_dbms_product_new: '新しいDBMS'
+    label_dbms_product_name: 'DBMS名'
+    label_dbms_product_type: '基本種別'
+    label_dbms_product_comment: 'コメント'
+    title_dbms_products_index: 'DBMS 一覧'
 

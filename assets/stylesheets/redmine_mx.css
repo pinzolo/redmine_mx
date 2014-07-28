@@ -1,0 +1,21 @@
+.mx-grid {
+  border: 1px solid #d3d3d3;
+  border-collapse: collapse;
+}
+
+.mx-grid td, .mx-grid th {
+  padding: 7px;
+  border: solid #d3d3d3 1px;
+}
+
+.mx-grid th {
+  background-color: #eeeeee;
+}
+
+.mx-grid tbody tr:nth-child(even) {
+  background-color: #f0f8ff;
+}
+
+.mx-grid tbody tr:hover {
+  background-color: #ffffdd;
+}

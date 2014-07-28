@@ -18,5 +18,5 @@ Redmine::Plugin.register :redmine_mx do
   end
 
   menu :project_menu, :mx, { controller: :mx_databases, action: :index }, param: :project_id, caption: :'mx.label_mx'
-  menu :admin_menu, :mx_dbms_products, { controller: :mx_dbms_products, action: :index }, caption: :'mx.label_mx_dbms_products'
+  menu :admin_menu, :mx_dbms_products, { controller: :mx_dbms_products, action: :index }, caption: :'mx.label_dbms_products'
 end

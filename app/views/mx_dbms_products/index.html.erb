@@ -1,1 +1,36 @@
-<h2>MxDbmsProductsController#index</h2>
+<div id="mx-content">
+  <div class="contextual">
+    <%= link_to l('mx.label_dbms_product_new'), new_mx_dbms_product_path, class: 'icon icon-add' %>
+  </div>
+  <h2><%= l('mx.title_dbms_products_index') %></h2>
+<% if @dbms_products.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <p id="mx-dbms-products">
+  <table class="mx-grid">
+    <thead>
+      <tr>
+        <th><%= l('mx.label_dbms_product_name') %></th>
+        <th><%= l('mx.label_dbms_product_type') %></th>
+        <th><%= l('mx.label_dbms_product_comment') %></th>
+      </tr>
+    </thead>
+    <tbody>
+  <% @dbms_products.each do |dbms_product| %>
+      <tr>
+        <td><%= link_to dbms_product.name, mx_dbms_product_path(dbms_product) %></td>
+        <td><%= MxDbmsProduct::PRODUCT_TYPES[dbms_product.type] %></td>
+        <td><%= simple_format_without_paragraph(dbms_product.comment) %></td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+  </p>
+<% end %>
+</div>
+
+<% html_title(l('mx.title_dbms_products_index')) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', :plugin => 'redmine_mx' %>
+<% end %>
