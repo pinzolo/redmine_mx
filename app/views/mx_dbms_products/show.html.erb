@@ -1,5 +1,6 @@
 <div id="mx-content">
   <div class="contextual">
+    <%= link_to l(:button_back), mx_dbms_products_path,  class: 'icon icon-cancel' %>
     <%= link_to l(:button_edit), edit_mx_dbms_product_path(@dbms_product),  class: 'icon icon-edit', accesskey: accesskey(:edit) %>
     <%= link_to l(:button_delete), mx_dbms_product_path(@dbms_product), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
   </div>
