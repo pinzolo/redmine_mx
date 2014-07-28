@@ -25,6 +25,9 @@ class MxDbmsProductsController < ApplicationController
   end
 
   def destroy
+    @dbms_product.destroy
+    flash[:notice] = l(:notice_successful_delete)
+    redirect_to action: :index
   end
 
   private
