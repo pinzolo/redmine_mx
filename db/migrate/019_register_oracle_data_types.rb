@@ -25,7 +25,7 @@ class RegisterOracleDataTypes < ActiveRecord::Migration
   end
 
   def down
-    MxDbms::Oracle.where(name: NAME).first.destroy
+    MxDbms::Oracle.where(name: NAME).first.try(:destroy)
   end
 end
 

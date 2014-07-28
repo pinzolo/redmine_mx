@@ -38,7 +38,7 @@ class RegisterSqlServerDataTypes < ActiveRecord::Migration
   end
 
   def down
-    MxDbms::SqlServer.where(name: NAME).first.destroy
+    MxDbms::SqlServer.where(name: NAME).first.try(:destroy)
   end
 end
 

@@ -34,7 +34,7 @@ class RegisterPostgresqlDataTypes < ActiveRecord::Migration
   end
 
   def down
-    MxDbms::Postgresql.where(name: NAME).first.destroy
+    MxDbms::Postgresql.where(name: NAME).first.try(:destroy)
   end
 end
 

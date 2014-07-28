@@ -40,7 +40,7 @@ class RegisterMysqlDataTypes < ActiveRecord::Migration
   end
 
   def down
-    MxDbms::Mysql.where(name: NAME).first.destroy
+    MxDbms::Mysql.where(name: NAME).first.try(:destroy)
   end
 end
 
