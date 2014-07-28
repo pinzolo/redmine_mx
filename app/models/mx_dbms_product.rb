@@ -15,4 +15,8 @@ class MxDbmsProduct < ActiveRecord::Base
       name.underscore.split('/').last
     end
   end
+
+  def type_name
+    PRODUCT_TYPES[type]
+  end
 end

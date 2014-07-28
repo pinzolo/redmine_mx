@@ -19,3 +19,33 @@
 .mx-grid tbody tr:hover {
   background-color: #ffffdd;
 }
+
+.mx-defs {
+  border: 1px solid #d3d3d3;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.mx-defs th, .mx-defs td {
+  padding: 7px;
+  border: solid #d3d3d3 1px;
+}
+
+.mx-defs th {
+  background-color: #eeeeee;
+  width: 20%;
+  vertical-align: top;
+  text-align: left;
+}
+
+.mx-defs td {
+  width: 80%;
+}
+
+.mx-section-caption {
+  border-bottom: 1px dashed #d3d3d3;
+}
+
+.mx-mark-cell {
+  text-align: center;
+}

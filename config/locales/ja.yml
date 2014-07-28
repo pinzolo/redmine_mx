@@ -9,5 +9,12 @@ ja:
     label_dbms_product_name: 'DBMS名'
     label_dbms_product_type: '基本種別'
     label_dbms_product_comment: 'コメント'
+    label_data_type_name: '名称'
+    label_data_type_sizable: 'サイズ指定可能'
+    label_data_type_scalable: 'スケール指定可能'
+    label_data_type_use_by_default: ',デフォルト使用'
     title_dbms_products_index: 'DBMS 一覧'
+    title_dbms_products_show: 'DBMS 詳細'
+    title_dbms_products_detail: 'DBMS[%{name}]'
+    title_data_types: 'データ型一覧'
 
