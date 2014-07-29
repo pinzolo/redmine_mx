@@ -2,7 +2,6 @@ class CreateMxDataTypes < ActiveRecord::Migration
   def change
     create_table :mx_data_types do |t|
       t.timestamps
-      t.integer :lock_version, null: false, default: 0
 
       t.string :name, null: false
       t.integer :dbms_product_id, null: false

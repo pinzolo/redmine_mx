@@ -10,9 +10,9 @@
     <table class="mx-grid">
       <thead>
         <tr>
-          <th><%= l('mx.label_dbms_product_name') %></th>
-          <th><%= l('mx.label_dbms_product_type') %></th>
-          <th><%= l('mx.label_dbms_product_comment') %></th>
+          <th><%= mx_label_for('dbms_product_name') %></th>
+          <th><%= mx_label_for('dbms_product_type') %></th>
+          <th><%= mx_label_for('dbms_product_comment') %></th>
         </tr>
       </thead>
       <tbody>
@@ -32,5 +32,5 @@
 <% html_title(l('mx.title_dbms_products_index')) %>
 
 <% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'redmine_mx', :plugin => 'redmine_mx' %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
 <% end %>

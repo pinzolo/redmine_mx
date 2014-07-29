@@ -13,6 +13,8 @@ class MxDbmsProductsController < ApplicationController
   end
 
   def new
+    @dbms_product = MxDbmsProduct.new
+    @vue_model = MxDbmsProductVueModel.new(@dbms_product)
   end
 
   def create
