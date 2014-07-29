@@ -8,7 +8,7 @@ function prepareMxDbmsProductVue(data) {
     data: data,
     methods: {
       addDataType: function() {
-        this.$data.data_types.push({ id: randomId(), name: '', sizable: false, scalable: false, use_by_default: false });
+        this.$data.data_types.splice(0, 0, { id: randomId(), name: '', sizable: false, scalable: false, use_by_default: false });
       },
       removeDataType: function(dataType) {
         this.$data.data_types.$remove(dataType.$index);
