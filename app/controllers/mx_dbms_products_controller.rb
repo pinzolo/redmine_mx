@@ -21,6 +21,7 @@ class MxDbmsProductsController < ApplicationController
   end
 
   def edit
+    @vue_model = MxDbmsProductVueModel.new(@dbms_product)
   end
 
   def update

@@ -4,7 +4,7 @@ function randomId() {
 
 function prepareMxDbmsProductVue(data) {
   return new Vue({
-    el: '#new_mx_dbms_product',
+    el: '#mx_dbms_product_form',
     data: data
   });
 }

@@ -32,7 +32,7 @@
         <% prefix = 'mx_dbms_product[data_types][{{data_type.id}}]' %>
         <td>
           <input type="hidden" name="<%= prefix %>[id]" v-model="data_type.id" />
-          <input type="text" name="<%= prefix %>[name]" v-model="data_type.name" />
+          <input type="text" name="<%= prefix %>[name]" v-model="data_type.name" size="40" />
         </td>
         <td class="mx-mark-cell"><input type="checkbox" name="<%= prefix %>[sizable]" value="true" v-model="data_type.sizable"/></td>
         <td class="mx-mark-cell"><input type="checkbox" name="<%= prefix %>[scalable]" value="true" v-model="data_type.scalable"/></td>

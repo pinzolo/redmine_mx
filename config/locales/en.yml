@@ -18,4 +18,5 @@ en:
     title_dbms_products_show: 'DBMS Details'
     title_dbms_products_detail: 'DBMS[%{name}]'
     title_dbms_products_new: 'New DBMS'
+    title_dbms_products_edit: 'Edit DBMS'
     title_data_types: 'Data types'

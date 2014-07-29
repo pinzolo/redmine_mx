@@ -1,13 +1,16 @@
 <div id="mx-content">
+  <div class="contextual">
+    <%= link_to l(:button_back), mx_dbms_products_path,  class: 'icon icon-cancel' %>
+  </div>
   <h2 class="mx-section-caption"><%= l('mx.title_dbms_products_new') %></h2>
-  <%= form_for(@dbms_product, url: mx_dbms_products_path, method: :post, html: { id: 'new_mx_dbms_product' }) do |f| %>
+  <%= form_for(@dbms_product, url: mx_dbms_products_path, method: :post, html: { id: 'mx_dbms_product_form' }) do |f| %>
     <%= render partial: 'form', locals: { f: f } %>
     <%= f.submit l(:button_create) %>
     <%= link_to l(:button_cancel), mx_dbms_products_path %>
   <% end %>
 </div>
 
-<% html_title(l('mx.title_dbms_products_detail', name: @dbms_product.name)) %>
+<% html_title(l('mx.title_dbms_products_new')) %>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>

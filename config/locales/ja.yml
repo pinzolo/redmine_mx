@@ -17,5 +17,6 @@ ja:
     title_dbms_products_show: 'DBMS 詳細'
     title_dbms_products_detail: 'DBMS[%{name}]'
     title_dbms_products_new: '新しいDBMS'
+    title_dbms_products_edit: 'DBMSの編集'
     title_data_types: 'データ型一覧'
 
