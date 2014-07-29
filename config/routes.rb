@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   # Global
   namespace :mx, module: nil do
-    resources :dbms_products, controller: :mx_dbms_products do
-      resources :data_types, controller: :mx_data_types
-    end
+    resources :dbms_products, controller: :mx_dbms_products
   end
 
   # Project local
