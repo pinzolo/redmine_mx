@@ -5,12 +5,12 @@ class MxDbmsProductsController < ApplicationController
   before_filter :find_dbms_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @dbms_products = MxDbmsProduct.order(:name).to_a
-    render layout: User.current.admin? ? 'admin' : 'base'
+    @dbms_products = MxDbmsProduct.order(:name)
+    render_dbms_products(@dbms_products)
   end
 
   def show
-    render layout: User.current.admin? ? 'admin' : 'base'
+    render_dbms_products(@dbms_product)
   end
 
   def new
@@ -42,5 +42,22 @@ class MxDbmsProductsController < ApplicationController
     @dbms_product = MxDbmsProduct.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def render_dbms_products(value)
+    respond_to do |format|
+      format.html { render layout: User.current.admin? ? 'admin' : 'base' }
+      serialize_options = {
+        except: [:lock_version],
+        methods: [:comment, :type],
+        include: {
+          data_types: {
+            except: [:dbms_product_id]
+          }
+        }
+      }
+      format.json { render json: value.as_json(serialize_options.merge(root: false)) }
+      format.xml { render xml: value.to_xml(serialize_options) }
+    end
   end
 end
