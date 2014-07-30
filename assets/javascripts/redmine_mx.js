@@ -24,7 +24,7 @@ function prepareMxDbmsProductVue(data) {
         enter: function (el, insert, timeout) {
           jQuery(el).animate({ opacity: 0.1 }, 0, function() {
             insert();
-          }).animate({ opacity: 1 }, 300);
+          }).animate({ opacity: 1 }, 200);
         },
         leave: function (el, remove, timeout) {
           jQuery(el).animate({ opacity: 0.1 }, 300, function() {
