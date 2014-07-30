@@ -54,3 +54,10 @@
   cursor: pointer;
 }
 
+.mx-fade {
+  transition: opacity .3s;
+}
+
+.mx-fade.v-enter, .mx-fade.v-leave {
+  opacity: 0;
+}
