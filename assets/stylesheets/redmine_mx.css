@@ -49,3 +49,8 @@
 .mx-mark-cell {
   text-align: center;
 }
+
+.mx-image-button {
+  cursor: pointer;
+}
+

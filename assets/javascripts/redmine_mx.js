@@ -14,8 +14,9 @@ function prepareMxDbmsProductVue(data) {
         this.$data.data_types.$remove(dataType.$index);
       },
       duplicateDataType: function(dataType) {
-        var data = dataType.$data.data_type;
-        this.$data.data_types.splice(dataType.$index + 1, 0, { id: randomId(), name: data.name, sizable: data.sizable, scalable: data.scalable, use_by_default: data.use_by_default });
+        var base = dataType.$data.data_type;
+        var newId = randomId();
+        this.$data.data_types.splice(dataType.$index + 1, 0, { id: newId, name: '', sizable: base.sizable, scalable: base.scalable, use_by_default: base.use_by_default });
       }
     }
   });

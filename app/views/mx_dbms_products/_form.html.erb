@@ -21,7 +21,7 @@
   <table class="mx-grid">
     <thead>
       <tr>
-        <th><a v-on="click: addDataType" href="javascript:return false;" title="<%= l(:button_add) %>"><%= image_tag 'add.png' %></a></th>
+        <th><%= mx_image_button 'add', 'v-on' => "click: addDataType" %></th>
         <th><%= mx_label_for('data_type_name', required: true) %></th>
         <th><%= mx_label_for('data_type_sizable') %></th>
         <th><%= mx_label_for('data_type_scalable') %></th>
@@ -30,17 +30,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-repeat="data_type: data_types">
+      <tr v-repeat="data_type: data_types" id="mx-data-type-{{data_type.id}}" class="mx-data-type">
         <% prefix = 'mx_dbms_product[data_types][{{data_type.id}}]' %>
-        <td><a v-on="click: duplicateDataType(this)" href="javascript:return false;" title="<%= l(:button_duplicate) %>"><%= image_tag 'duplicate.png' %></a></td>
+        <td><%= mx_image_button 'duplicate', 'v-on' => "click: duplicateDataType(this)" %></td>
         <td>
           <input type="hidden" name="<%= prefix %>[id]" v-model="data_type.id" />
-          <input type="text" name="<%= prefix %>[name]" v-model="data_type.name" size="40" />
+          <input type="text" class="mx-data-type-name" name="<%= prefix %>[name]" v-model="data_type.name" size="40" />
         </td>
-        <td class="mx-mark-cell"><input type="checkbox" name="<%= prefix %>[sizable]" value="true" v-model="data_type.sizable"/></td>
-        <td class="mx-mark-cell"><input type="checkbox" name="<%= prefix %>[scalable]" value="true" v-model="data_type.scalable"/></td>
-        <td class="mx-mark-cell"><input type="checkbox" name="<%= prefix %>[use_by_default]" value="true" v-model="data_type.use_by_default"/></td>
-        <td><a v-on="click: removeDataType(this)" href="javascript:return false;" title="<%= l(:button_delete) %>"><%= image_tag 'delete.png' %></a></td>
+        <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-sizable" name="<%= prefix %>[sizable]" value="true" v-model="data_type.sizable"/></td>
+        <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-scalable" name="<%= prefix %>[scalable]" value="true" v-model="data_type.scalable"/></td>
+        <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-use_by_default" name="<%= prefix %>[use_by_default]" value="true" v-model="data_type.use_by_default"/></td>
+        <td><%= mx_image_button 'delete', 'v-on' => "click: removeDataType(this)" %></td>
       </tr>
     </tbody>
   </table>
