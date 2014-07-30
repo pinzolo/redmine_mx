@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-repeat="data_type: data_types" id="mx-data-type-{{data_type.id}}" class="mx-data-type">
+      <tr v-repeat="data_type: data_types" id="mx-data-type-{{data_type.id}}" class="mx-data-type" v-effect="fadeOut">
         <% prefix = 'mx_dbms_product[data_types][{{data_type.id}}]' %>
         <td><%= mx_image_button 'duplicate', 'v-on' => "click: duplicateDataType(this)" %></td>
         <td>

@@ -18,6 +18,20 @@ function prepareMxDbmsProductVue(data) {
         var newId = randomId();
         this.$data.data_types.splice(dataType.$index + 1, 0, { id: newId, name: '', sizable: base.sizable, scalable: base.scalable, use_by_default: base.use_by_default });
       }
+    },
+    effects: {
+      fadeInOut: {
+        enter: function (el, insert, timeout) {
+          jQuery(el).animate({ opacity: 0.1 }, 0, function() {
+            insert();
+          }).animate({ opacity: 1 }, 300);
+        },
+        leave: function (el, remove, timeout) {
+          jQuery(el).animate({ opacity: 0.1 }, 300, function() {
+            remove();
+          });
+        }
+      }
     }
   });
 }
