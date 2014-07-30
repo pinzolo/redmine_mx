@@ -1,6 +1,6 @@
 <div id="mx-content">
   <div class="contextual">
-    <%= link_to l('mx.label_dbms_product_new'), new_mx_dbms_product_path, class: 'icon icon-add' %>
+    <%= link_to l('mx.label_dbms_product_new'), new_mx_dbms_product_path, class: 'icon icon-add' if User.current.admin? %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_dbms_products_index') %></h2>
 <% if @dbms_products.empty? %>
