@@ -15,7 +15,7 @@ class MxDbmsProductsController < ApplicationController
 
   def new
     @dbms_product = MxDbmsProduct.new
-    @vue_model = MxDbmsProductVueModel.new(@dbms_product)
+    @vue_model = MxVm::DbmsProduct.new(@dbms_product)
     render layout: 'admin'
   end
 
@@ -23,7 +23,7 @@ class MxDbmsProductsController < ApplicationController
   end
 
   def edit
-    @vue_model = MxDbmsProductVueModel.new(@dbms_product)
+    @vue_model = MxVm::DbmsProduct.new(@dbms_product)
     render layout: 'admin'
   end
 

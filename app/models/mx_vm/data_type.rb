@@ -1,10 +1,8 @@
-class MxDataTypeVueModel
-  include ActiveModel::Conversion
-  include ActiveModel::Validations
-  extend ActiveModel::Naming
-  extend ActiveModel::Translation
+class MxVm::DataType < MxVm::Base
 
   attr_accessor :id, :name, :sizable, :scalable, :use_by_default
+
+  validates :name, presence: true
 
   def initialize(params={})
     if params.is_a?(Hash)
@@ -14,18 +12,14 @@ class MxDataTypeVueModel
     end
   end
 
-  def persisted?
-    false
-  end
-
   private
 
   def build_from_hash(params)
-    [:id, :name].each { |sym| send("#{sym}=", params[sym]) }
+    simple_load_values_from_hash!(params, :id, :name)
     [:sizable, :scalable, :use_by_default].each { |sym| send("#{sym}=", params[sym].present?) }
   end
 
   def build_from_mx_data_type(data_type)
-    [:id, :name, :sizable, :scalable, :use_by_default].each { |sym| send("#{sym}=", data_type.send(sym)) }
+    simple_load_values_from_object!(data_type, :id, :name, :sizable, :scalable, :use_by_default)
   end
 end
