@@ -8,6 +8,10 @@ class MxVm::Base
     false
   end
 
+  def params_with(*attributes)
+    Hash[attributes.map { |attribute| [attribute, send(attribute)] }]
+  end
+
   private
 
   def merge_children_errors!(children, prefix)

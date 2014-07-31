@@ -20,3 +20,9 @@ Redmine::Plugin.register :redmine_mx do
   menu :project_menu, :mx, { controller: :mx_databases, action: :index }, param: :project_id, caption: :'mx.label_mx'
   menu :admin_menu, :mx_dbms_products, { controller: :mx_dbms_products, action: :index }, caption: :'mx.label_dbms_products'
 end
+
+Dir.glob(File.join(File.dirname(__FILE__), 'app/*')) do |dir|
+  next if ActiveSupport::Dependencies.autoload_paths.include?(dir) || File.basename(dir) == 'views'
+  ActiveSupport::Dependencies.autoload_paths << dir
+end
+

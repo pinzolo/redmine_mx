@@ -1,8 +1,8 @@
 class MxVm::DataType < MxVm::Base
 
-  attr_accessor :id, :name, :sizable, :scalable, :use_by_default
+  attr_accessor :id, :name, :sizable, :scalable, :use_by_default, :position
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 200 }
 
   def initialize(params={})
     if params.is_a?(Hash)
@@ -15,7 +15,7 @@ class MxVm::DataType < MxVm::Base
   private
 
   def build_from_hash(params)
-    simple_load_values_from_hash!(params, :id, :name)
+    simple_load_values_from_hash!(params, :id, :name, :position)
     [:sizable, :scalable, :use_by_default].each { |sym| send("#{sym}=", params[sym].present?) }
   end
 
