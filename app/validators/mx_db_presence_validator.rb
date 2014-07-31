@@ -7,7 +7,8 @@ class MxDbPresenceValidator < ActiveModel::EachValidator
         rel = rel.where(attr => record.send(attr))
       end
     end
-    rel = rel.where(id: record.id) if record.respond_to?(:id) && record.id
-    record.errors.add(attribute, I18n.t('activerecord.errors.messages.taken')) if rel.exists?
+    if record.respond_to?(:id) && record.id
+      record.errors.add(attribute, :taken) if rel.exists? && rel.first.id != record.id
+    end
   end
 end

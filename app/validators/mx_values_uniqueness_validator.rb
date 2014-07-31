@@ -9,7 +9,7 @@ class MxValuesUniquenessValidator < ActiveModel::Validator
     end
     if values.size != values.uniq.size
       field = options[:field] || :base
-      message = options[:message] || I18n.t('activerecord.errors.messages.duplicated')
+      message = options[:message] || I18n.t('activemodel.errors.messages.duplicated')
       record.errors.add(field, message)
     end
   end

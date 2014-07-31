@@ -1,9 +1,11 @@
+<%= error_messages_for(@vue_model) %>
 <div id="mx-content">
   <div class="contextual">
     <%= link_to l(:button_back), mx_dbms_product_path(@dbms_product),  class: 'icon icon-cancel' %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_dbms_products_edit') %></h2>
   <%= form_for(@dbms_product, url: mx_dbms_product_path(@dbms_product), method: :put, html: { id: 'mx_dbms_product_form' }) do |f| %>
+    <%= hidden_field_tag 'mx_dbms_product[lock_version]', @dbms_product.lock_version %>
     <%= render partial: 'form', locals: { f: f } %>
     <%= f.submit l(:button_update) %>
     <%= link_to l(:button_cancel), mx_dbms_product_path(@dbms_product) %>

@@ -38,6 +38,17 @@ class MxDbmsProductsController < ApplicationController
   end
 
   def update
+    @vue_model = MxVm::DbmsProduct.new(params[:mx_dbms_product].merge(id: @dbms_product.id))
+    if @vue_model.valid?
+      @dbms_product.save_with!(@vue_model)
+      flash[:notice] = l(:notice_successful_update)
+      redirect_to mx_dbms_product_path(@dbms_product)
+    else
+      render action: :edit, layout: 'admin'
+    end
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:error] = l(:notice_locking_conflict)
+      render action: :edit, layout: 'admin'
   end
 
   def destroy

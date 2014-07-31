@@ -23,11 +23,38 @@ class MxDbmsProduct < ActiveRecord::Base
 
   def save_with!(vm)
     ActiveRecord::Base.transaction do
-      self.attributes = vm.params_with(:name, :comment)
-      self.save!
-      vm.data_types.each do |data_type|
-        self.data_types.build(data_type.params_with(:name, :sizable, :scalable, :use_by_default)).save!
+      if self.persisted?
+        update_with!(vm)
+      else
+        create_with!(vm)
       end
     end
   end
+
+  private
+
+  def create_with!(vm)
+    self.attributes = vm.params_with(:name, :comment)
+    self.save!
+    vm.data_types.each do |vm_data_type|
+      self.data_types.build(vm_data_type.params_with(:name, :sizable, :scalable, :use_by_default)).save!
+    end
+  end
+
+  def update_with!(vm)
+    self.update_attributes!(vm.params_with(:name, :comment, :lock_version))
+    self.update_attribute(:type, vm.type)
+    base_data_types = Hash[self.data_types.map { |data_type| [data_type.name, data_type] }]
+    vm.data_types.each do |vm_data_type|
+      base_data_type = base_data_types.delete(vm_data_type.name)
+      data_type_params = vm_data_type.params_with(:name, :sizable, :scalable, :use_by_default)
+      if base_data_type
+        base_data_type.update_attributes!(data_type_params)
+      else
+        self.data_types.build(data_type_params).save!
+      end
+    end
+    base_data_types.values.each(&:destroy)
+  end
 end
+
