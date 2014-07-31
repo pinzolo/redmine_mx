@@ -28,7 +28,7 @@ class MxDbmsProductsController < ApplicationController
       redirect_to mx_dbms_product_path(@dbms_product)
     else
       @dbms_product = MxDbmsProduct.new
-      render action: :new
+      render action: :new, layout: 'admin'
     end
   end
 
