@@ -3,11 +3,15 @@
     <tbody>
       <tr>
         <th><%= mx_label_for('dbms_product_name', required: true) %></th>
-        <td><%= text_field 'mx_dbms_product', 'name', size: 70, 'v-model' => 'name' %></td>
+        <td class="{{classFor(this, 'name')}}">
+          <%= text_field 'mx_dbms_product', 'name', size: 70, 'v-model' => 'name' %>
+        </td>
       </tr>
       <tr>
         <th><%= mx_label_for('dbms_product_type', required: true) %></th>
-        <td><%= select 'mx_dbms_product', 'type', MxDbmsProduct::PRODUCT_TYPES.map { |k, v| [v, k] }, { include_blank: true }, 'v-model' => 'type' %></td>
+        <td class="{{classFor(this, 'type')}}">
+          <%= select 'mx_dbms_product', 'type', MxDbmsProduct::PRODUCT_TYPES.map { |k, v| [v, k] }, { include_blank: true }, 'v-model' => 'type' %>
+        </td>
       </tr>
       <tr>
         <th><%= mx_label_for('dbms_product_comment') %></th>
@@ -33,7 +37,7 @@
       <tr v-repeat="data_type: data_types" id="mx-data-type-{{data_type.id}}" class="mx-data-type mx-fade" v-transition>
         <% prefix = 'mx_dbms_product[data_types][{{data_type.id}}]' %>
         <td><%= mx_image_button 'duplicate', 'v-on' => "click: duplicateDataType(this)" %></td>
-        <td>
+        <td class="{{classFor(data_type, 'name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="data_type.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
           <input type="text" class="mx-data-type-name" name="<%= prefix %>[name]" v-model="data_type.name" size="40" />

@@ -17,6 +17,9 @@ function prepareMxDbmsProductVue(data) {
         var base = dataType.$data.data_type;
         var newId = randomId();
         this.$data.data_types.splice(dataType.$index + 1, 0, { id: newId, name: '', sizable: base.sizable, scalable: base.scalable, use_by_default: base.use_by_default });
+      },
+      classFor: function(obj, prop) {
+        return obj.errors && obj.errors[prop] ? 'mx-error' : '';
       }
     }
   });

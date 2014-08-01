@@ -61,3 +61,7 @@
 .mx-fade.v-enter, .mx-fade.v-leave {
   opacity: 0;
 }
+
+.mx-error {
+  background-color: #ffe3e3;
+}
