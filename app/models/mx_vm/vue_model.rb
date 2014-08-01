@@ -9,6 +9,7 @@ module MxVm::VueModel
     class << self
       alias_method_chain :i18n_scope, :mx_vm
     end
+    __send__(:attr_accessor, :id)
   end
 
   module ClassMethods

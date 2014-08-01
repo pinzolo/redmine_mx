@@ -1,7 +1,7 @@
 class MxVm::DbmsProduct
   include MxVm::VueModel
 
-  attr_accessor :id, :name, :type, :comment, :lock_version, :data_types
+  attr_accessor :name, :type, :comment, :lock_version, :data_types
 
   validates :name, presence: true, length: { maximum: 200 }, mx_db_presence: { class_name: 'MxDbmsProduct' }
   validates :type, presence: true, inclusion: { in: MxDbmsProduct::PRODUCT_TYPES.keys, if: 'type.present?' }
