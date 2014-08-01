@@ -5,7 +5,6 @@ class MxDbmsProduct < ActiveRecord::Base
   has_many :data_types, class_name: 'MxDataType', foreign_key: :dbms_product_id, order: :name, dependent: :destroy
 
   PRODUCT_TYPES = { 'postgresql' => 'PostgreSQL', 'mysql' => 'MySQL', 'oracle' => 'Oracle', 'sql_server' => 'SQL Server', 'other' => 'Other'}.freeze
-  PRODUCT_CLASSES = { 'postgresql' => MxDbms::Postgresql, 'mysql' => MxDbms::Mysql, 'oracle' => MxDbms::Oracle, 'sql_server' => MxDbms::SqlServer, 'other' => MxDbms::Other}.freeze
 
   class << self
     def find_sti_class(type_name)
