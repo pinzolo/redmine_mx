@@ -1,4 +1,5 @@
-class MxVm::DataType < MxVm::Base
+class MxVm::DataType
+  include MxVm::VueModel
 
   attr_accessor :id, :name, :sizable, :scalable, :use_by_default, :position
 

@@ -21,7 +21,7 @@ en:
     title_dbms_products_edit: 'Edit DBMS'
     title_data_types: 'Data types'
 
-  activemodel:
+  mx_vm:
     errors:
       messages:
         inclusion: "is not included in the list"

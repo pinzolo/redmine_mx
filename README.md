@@ -1,6 +1,6 @@
 # redmine_mx
 
-redmine_mx is a plugin for Redmine.
+redmine_mx is a plugin for Redmine that manage table definitions.
 
 ## Installation
 
@@ -30,3 +30,11 @@ $ bundle exec rake redmine:plugins NAME=redmine_mx
 # In case of using passenger
 $ touch tmp/restart.txt
 ```
+
+## Contributing
+
+1. Fork it ([https://github.com/pinzolo/redmine_mx/fork](https://github.com/pinzolo/redmine_mx/fork))
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request

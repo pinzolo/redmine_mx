@@ -1,4 +1,5 @@
-class MxVm::DbmsProduct < MxVm::Base
+class MxVm::DbmsProduct
+  include MxVm::VueModel
 
   attr_accessor :id, :name, :type, :comment, :lock_version, :data_types
 

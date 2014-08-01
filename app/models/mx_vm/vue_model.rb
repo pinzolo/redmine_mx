@@ -1,8 +1,21 @@
-class MxVm::Base
-  include ActiveModel::Conversion
-  include ActiveModel::Validations
-  extend ActiveModel::Naming
-  extend ActiveModel::Translation
+module MxVm::VueModel
+  extend ActiveSupport::Concern
+
+  included do
+    __send__(:include, ActiveModel::Conversion)
+    __send__(:include, ActiveModel::Validations)
+    extend ActiveModel::Naming
+    extend ActiveModel::Translation
+    class << self
+      alias_method_chain :i18n_scope, :mx_vm
+    end
+  end
+
+  module ClassMethods
+    def i18n_scope_with_mx_vm
+      :mx_vm
+    end
+  end
 
   def persisted?
     false
@@ -44,3 +57,4 @@ class MxVm::Base
     errors.add(field, error) unless Array.wrap(errors.messages[field]).include?(error)
   end
 end
+
