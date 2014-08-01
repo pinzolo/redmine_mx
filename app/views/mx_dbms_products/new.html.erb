@@ -6,7 +6,7 @@
   <h2 class="mx-section-caption"><%= l('mx.title_dbms_products_new') %></h2>
   <%= form_for(@dbms_product, url: mx_dbms_products_path, method: :post, html: { id: 'mx_dbms_product_form' }) do |f| %>
     <%= render partial: 'form', locals: { f: f } %>
-    <%= f.submit l(:button_create) %>
+    <%= mx_submit l(:button_create) %>
     <%= link_to l(:button_cancel), mx_dbms_products_path %>
   <% end %>
 </div>

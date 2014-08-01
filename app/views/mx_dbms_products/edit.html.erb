@@ -7,7 +7,7 @@
   <%= form_for(@dbms_product, url: mx_dbms_product_path(@dbms_product), method: :put, html: { id: 'mx_dbms_product_form' }) do |f| %>
     <%= hidden_field_tag 'mx_dbms_product[lock_version]', @dbms_product.lock_version %>
     <%= render partial: 'form', locals: { f: f } %>
-    <%= f.submit l(:button_update) %>
+    <%= mx_submit l(:button_update) %>
     <%= link_to l(:button_cancel), mx_dbms_product_path(@dbms_product) %>
   <% end %>
 </div>

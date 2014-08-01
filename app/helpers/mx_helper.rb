@@ -16,4 +16,8 @@ module MxHelper
     image_file = "#{name}.png"
     image_tag(image_file, options.reverse_merge(title: l("button_#{name}")).merge(class: 'mx-image-button'))
   end
+
+  def mx_submit(label, options={})
+    submit_tag(label, options.merge(disable_with: label))
+  end
 end
