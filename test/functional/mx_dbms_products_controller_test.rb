@@ -501,6 +501,15 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     assert_saved_dbms_product(5, params)
   end
 
+  def test_update_with_invalid_lock_version
+    by_admin
+    params = valid_update_params.tap { |p| p[:lock_version] = '1' }
+    put :update, id: 5, mx_dbms_product: params
+    assert_response :success
+    assert_template 'edit'
+    assert_tag tag: 'div', attributes: { id: 'flash_error' }
+  end
+
   def test_update_without_data_types
     by_admin
     params = valid_update_params.tap { |p| p.delete(:data_types) }
@@ -599,6 +608,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
       name: 'test',
       type: 'postgresql',
       comment: "foo\nbar\nbaz",
+      lock_version: '0',
       data_types: {
         '86' => {
           id: '86',

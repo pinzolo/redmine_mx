@@ -49,7 +49,7 @@ class MxDbmsProductsController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:error] = l(:notice_locking_conflict)
-      render action: :edit, layout: 'admin'
+    render action: :edit, layout: 'admin'
   end
 
   def destroy
