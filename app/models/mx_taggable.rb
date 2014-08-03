@@ -9,8 +9,7 @@ module MxTaggable
   def add_tag(name)
     return if tags.where(name: name).exists?
 
-    tag = MxTag.where(name: name).first || MxTag.new(name: name)
-    tags << tag
+    tags << MxTag.where(name: name).first_or_initialize
   end
 
   def remove_tag(name)
