@@ -1,4 +1,6 @@
 # redmine_mx
+[![Build Status](https://secure.travis-ci.org/pinzolo/redmine_mx.png)](http://travis-ci.org/pinzolo/redmine_mx)
+[![Coverage Status](https://coveralls.io/repos/pinzolo/redmine_mx/badge.png)](https://coveralls.io/r/pinzolo/redmine_mx)
 
 redmine_mx is a plugin for Redmine that manage table definitions.
 
