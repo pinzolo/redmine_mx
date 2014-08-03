@@ -19,6 +19,6 @@ if [ $TARGET = "redmine" ]; then
   bundle exec rake ci
 else
   # Execute plugin test
-  bundle exec redmine:plugins:test NAME=${PLUGIN_NAME}
+  bundle exec rake redmine:plugins:test NAME=${PLUGIN_NAME}
 fi
 
