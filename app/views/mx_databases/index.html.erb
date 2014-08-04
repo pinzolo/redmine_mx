@@ -25,7 +25,7 @@
       <tbody>
   <% @databases.each do |database| %>
         <tr>
-          <td><%= link_to database.identifier, project_mx_database_path(@project, database) %></td>
+          <td><%= link_to database.identifier, project_mx_database_tables_path(@project, database) %></td>
           <td><%= database.dbms_product.try(:name) %></td>
           <td><%= database.summary %></td>
           <td><%= simple_format_without_paragraph(database.comment) %></td>

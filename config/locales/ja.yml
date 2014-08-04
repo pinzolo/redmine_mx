@@ -24,6 +24,7 @@ ja:
     label_logical_name: '論理名'
     label_updated_at: '最終更新'
     label_updated_user: '最終更新者'
+
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
     title_dbms_products_detail: 'DBMS[%{name}]'
@@ -36,6 +37,9 @@ ja:
     title_databases_show: 'データベース [%{name}]'
     title_common_column_sets: '共通列一覧'
     title_tables: 'テーブル一覧'
+
+    tab_tables: 'テーブル'
+    tab_common_column_sets: '共通列'
 
   mx_vm:
     errors:

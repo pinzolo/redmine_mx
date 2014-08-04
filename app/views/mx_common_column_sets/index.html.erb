@@ -1,1 +1,39 @@
-<h2>MxCommonColumnSetsController#index</h2>
+<div id="mx-content">
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_databases_show', name: @database.identifier) %></h2>
+  <%= mx_database_tabs(@database, :common_column_sets) %>
+  <div class="contextual">
+    <%= link_to l('mx.label_common_column_set_new'), new_project_mx_database_common_column_set_path(@project, @database),  class: 'icon icon-add' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_common_column_sets') %></h2>
+<% if @database.common_column_sets.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <p id="mx-common_column_sets">
+    <table class="mx-grid">
+      <thead>
+        <tr>
+          <th><%= mx_label_for('physical_name') %></th>
+          <th><%= mx_label_for('comment') %></th>
+        </tr>
+      </thead>
+      <tbody>
+  <% @database.common_column_sets.each do |common_column_set| %>
+        <tr>
+          <td><%= link_to common_column_set.name, project_mx_database_common_column_set_path(@project, @database, common_column_set) %></td>
+          <td><%= simple_format_without_paragraph(common_column_set.comment) %></td>
+        </tr>
+  <% end %>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+</div>
+
+<% html_title(l('mx.title_databases_show', name: @database.identifier)) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>

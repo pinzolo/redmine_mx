@@ -3,6 +3,7 @@
     <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_databases_show', name: @database.identifier) %></h2>
+  <%= mx_database_tabs(@database, :tables) %>
   <div class="contextual">
     <%= link_to l('mx.label_table_new'), project_mx_database_tables_path(@project, @database),  class: 'icon icon-add' %>
   </div>

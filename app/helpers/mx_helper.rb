@@ -24,4 +24,18 @@ module MxHelper
   def class_for(object, attribute)
     object.errors[attribute.to_sym].present? ? 'mx-error' : ''
   end
+
+  def mx_database_tabs(database, selected_tab)
+    content_tag(:div, class: 'tabs') do
+      ul = content_tag(:ul) do
+        [:tables, :common_column_sets].each do |symbol|
+          link_opts = selected_tab.to_s == symbol.to_s ? { class: 'selected' } : {}
+          url_opts = { controller: "mx_#{symbol}".to_sym, action: :index, project_id: database.project, database_id: database }
+          link = link_to(l("mx.tab_#{symbol}"), url_for(url_opts), link_opts)
+          concat(content_tag(:li, link))
+        end
+      end
+      concat(ul)
+    end
+  end
 end

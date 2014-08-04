@@ -8,7 +8,7 @@ module MxDatabaseFixation
   private
 
   def find_database
-    @database = MxDatabase.find(params[:database_id])
+    @database = MxDatabase.find_database(@project, params[:database_id])
   rescue ActiveRecord::RecordNotFound
     render_404
   end

@@ -1,1 +1,45 @@
-<h2>MxTablesController#index</h2>
+<div id="mx-content">
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_databases_show', name: @database.identifier) %></h2>
+  <%= mx_database_tabs(@database, :tables) %>
+  <div class="contextual">
+    <%= link_to l('mx.label_table_new'), new_project_mx_database_table_path(@project, @database),  class: 'icon icon-add' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_tables') %></h2>
+<% if @database.tables.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <p id="mx-tables">
+    <table class="mx-grid">
+      <thead>
+        <tr>
+          <th><%= mx_label_for('physical_name') %></th>
+          <th><%= mx_label_for('logical_name') %></th>
+          <th><%= mx_label_for('comment') %></th>
+          <th><%= mx_label_for('updated_at') %></th>
+          <th><%= mx_label_for('updated_user') %></th>
+        </tr>
+      </thead>
+      <tbody>
+  <% @database.tables.each do |table| %>
+        <tr>
+          <td><%= link_to table.physical_name, project_mx_database_table_path(@project, @database, table) %></td>
+          <td><%= table.logical_name %></td>
+          <td><%= simple_format_without_paragraph(table.comment) %></td>
+          <td><%= format_time(table.updated_at) %></td>
+          <td><%= table.updated_user.try(:name) %></td>
+        </tr>
+  <% end %>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+</div>
+
+<% html_title(l('mx.title_databases_show', name: @database.identifier)) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>
