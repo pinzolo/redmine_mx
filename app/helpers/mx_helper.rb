@@ -21,7 +21,7 @@ module MxHelper
     submit_tag(label, options.merge(disable_with: label))
   end
 
-  def class_for(object, attribute)
+  def mx_cell_class_for(object, attribute)
     object.errors[attribute.to_sym].present? ? 'mx-error' : ''
   end
 

@@ -3,19 +3,19 @@
     <tbody>
       <tr>
         <th><%= mx_label_for('database_identifier', required: true) %></th>
-        <td class="<%= class_for(database, :identifier) %>">
+        <td class="<%= mx_cell_class_for(database, :identifier) %>">
           <%= f.text_field :identifier, size: 70 %>
         </td>
       </tr>
       <tr>
         <th><%= mx_label_for('dbms_product', required: true) %></th>
-        <td class="<%= class_for(database, :dbms_product_id) %>">
+        <td class="<%= mx_cell_class_for(database, :dbms_product_id) %>">
           <%= f.select :dbms_product_id, MxDbmsProduct.order(:name).map { |dbms_product| [dbms_product.name, dbms_product.id] }, include_blank: true %>
         </td>
       </tr>
       <tr>
         <th><%= mx_label_for('summary') %></th>
-        <td class="<%= class_for(database, :summary) %>">
+        <td class="<%= mx_cell_class_for(database, :summary) %>">
           <%= f.text_field :summary, size: 70 %>
         </td>
       </tr>
