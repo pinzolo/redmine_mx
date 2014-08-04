@@ -1,4 +1,3 @@
-# English strings go here for Rails i18n
 en:
   project_module_mx: 'MX'
   permission_view_mx_tables: 'View table definitions'
@@ -6,6 +5,8 @@ en:
   mx:
     label_mx: 'MX'
     label_comment: 'Comment'
+    label_summary: 'Summary'
+    label_dbms_product: 'DBMS'
     label_dbms_products: 'DBMS [MX]'
     label_dbms_product_new: 'New DBMS'
     label_dbms_product_name: 'DBMS name'
@@ -14,12 +15,18 @@ en:
     label_sizable: 'Sizable'
     label_scalable: 'Scalable'
     label_use_by_default: 'Use by default'
+    label_database_new: 'New database'
+    label_database_identifier: 'Database name'
+    label_table_count: 'Table count'
     title_dbms_products_index: 'DBMS List'
     title_dbms_products_show: 'DBMS Details'
     title_dbms_products_detail: 'DBMS[%{name}]'
     title_dbms_products_new: 'New DBMS'
     title_dbms_products_edit: 'Edit DBMS'
     title_data_types: 'Data types'
+    title_databases_index: 'Databases'
+    title_databases_new: 'New Database'
+    title_databases_edit: 'Edit Database'
 
   mx_vm:
     errors:
@@ -50,3 +57,6 @@ en:
         name: 'DBMS name'
         type: 'Base type'
         data_type_name: 'Data type name'
+      mx_vm/database:
+        identifier: 'Database name'
+        dbms_product_id: 'DBMS'

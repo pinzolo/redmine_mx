@@ -7,7 +7,7 @@ class CreateMxDatabases < ActiveRecord::Migration
       t.integer :project_id, null: false
       t.integer :dbms_product_id, null: false
       t.string :identifier, null: false
-      t.string :name
+      t.string :summary
     end
 
     add_index :mx_databases, [:project_id, :identifier], unique: true, name: 'mx_databases_uk1'

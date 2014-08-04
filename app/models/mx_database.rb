@@ -4,6 +4,23 @@ class MxDatabase < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :dbms_product, class_name: 'MxDbmsProduct'
-  has_many :tables, class_name: 'MxTable', order: :physical_name, dependent: :destroy
-  has_many :common_column_sets, class_name: 'MxCommonColumnSet', order: :name, dependent: :destroy
+  has_many :tables, class_name: 'MxTable', foreign_key: :database_id, order: :physical_name, dependent: :destroy
+  has_many :common_column_sets, class_name: 'MxCommonColumnSet', foreign_key: :database_id, order: :name, dependent: :destroy
+
+  def to_param
+    identifier
+  end
+
+  def find(*args, &block)
+    where(identifier: args.first).first || super(*args, &block)
+  end
+
+  def save_with(vm)
+    if self.persisted?
+      self.update_attributes(vm.params_with(:identifier, :dbms_product_id, :summary, :comment, :lock_version))
+    else
+      self.attributes = vm.params_with(:identifier, :dbms_product_id, :summary, :comment)
+      self.save
+    end
+  end
 end

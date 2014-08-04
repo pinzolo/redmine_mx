@@ -1,1 +1,42 @@
-<h2>MxDatabasesController#index</h2>
+<div id="mx-content">
+  <div class="contextual">
+<% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+    <%= link_to l('mx.label_database_new'), new_project_mx_database_path(@project), class: 'icon icon-add' %>
+<% end %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_databases_index') %></h2>
+<% if @databases.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <p id="mx-databases">
+    <table class="mx-grid">
+      <thead>
+        <tr>
+          <th><%= mx_label_for('database_identifier') %></th>
+          <th><%= mx_label_for('dbms_product') %></th>
+          <th><%= mx_label_for('summary') %></th>
+          <th><%= mx_label_for('comment') %></th>
+          <th><%= mx_label_for('table_count') %></th>
+        </tr>
+      </thead>
+      <tbody>
+  <% @databases.each do |database| %>
+        <tr>
+          <td><%= link_to database.identifier, project_mx_database_path(@project, database) %></td>
+          <td><%= database.dbms_product.try(:name) %></td>
+          <td><%= database.summary %></td>
+          <td><%= simple_format_without_paragraph(database.comment) %></td>
+          <td><%= database.tables.count %></td>
+        </tr>
+  <% end %>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+</div>
+
+<% html_title(l('mx.title_databases_index')) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>

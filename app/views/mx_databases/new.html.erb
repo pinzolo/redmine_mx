@@ -1,1 +1,19 @@
-<h2>MxDatabasesController#new</h2>
+<%= error_messages_for(@vue_model) %>
+<div id="mx-content">
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_databases_new') %></h2>
+  <%= form_for(@vue_model, url: project_mx_databases_path(@project), method: :post, html: { id: 'mx_database_form' }) do |f| %>
+    <%= render partial: 'form', locals: { f: f, database: @vue_model } %>
+    <%= mx_submit l(:button_create) %>
+    <%= link_to l(:button_cancel), project_mx_databases_path(@project) %>
+  <% end %>
+</div>
+
+<% html_title(l('mx.title_databases_new')) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>
+

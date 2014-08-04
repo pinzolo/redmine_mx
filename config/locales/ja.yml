@@ -5,6 +5,8 @@ ja:
   mx:
     label_mx: 'MX'
     label_comment: 'コメント'
+    label_summary: '概要'
+    label_dbms_product: 'DBMS'
     label_dbms_products: 'DBMS [MX]'
     label_dbms_product_new: '新しいDBMS'
     label_dbms_product_name: 'DBMS名'
@@ -13,12 +15,18 @@ ja:
     label_sizable: 'サイズ指定可能'
     label_scalable: 'スケール指定可能'
     label_use_by_default: ',デフォルト使用'
+    label_database_new: '新しいデータベース'
+    label_database_identifier: 'データベース名'
+    label_table_count: 'テーブル数'
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
     title_dbms_products_detail: 'DBMS[%{name}]'
     title_dbms_products_new: '新しいDBMS'
     title_dbms_products_edit: 'DBMSの編集'
     title_data_types: 'データ型一覧'
+    title_databases_index: 'データベース一覧'
+    title_databases_new: '新しいデータベース'
+    title_databases_edit: 'データベースの編集'
 
   mx_vm:
     errors:
@@ -49,4 +57,7 @@ ja:
         name: 'DBMS名'
         type: '基本種別'
         data_type_name: 'データ型名'
+      mx_vm/database:
+        identifier: 'データベース名'
+        dbms_product_id: 'DBMS'
 
