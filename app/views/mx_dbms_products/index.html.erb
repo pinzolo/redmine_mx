@@ -19,7 +19,7 @@
   <% @dbms_products.each do |dbms_product| %>
         <tr>
           <td><%= link_to dbms_product.name, mx_dbms_product_path(dbms_product) %></td>
-          <td><%= MxDbmsProduct::PRODUCT_TYPES[dbms_product.type] %></td>
+          <td><%= dbms_product.type_name %></td>
           <td><%= simple_format_without_paragraph(dbms_product.comment) %></td>
         </tr>
   <% end %>
