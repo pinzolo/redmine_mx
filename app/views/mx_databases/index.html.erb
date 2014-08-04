@@ -17,6 +17,9 @@
           <th><%= mx_label_for('summary') %></th>
           <th><%= mx_label_for('comment') %></th>
           <th><%= mx_label_for('table_count') %></th>
+  <% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+          <th></th>
+  <% end %>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +30,12 @@
           <td><%= database.summary %></td>
           <td><%= simple_format_without_paragraph(database.comment) %></td>
           <td><%= database.tables.count %></td>
+  <% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+          <td>
+            <%= link_to l(:button_edit), edit_project_mx_database_path(@project, database),  class: 'icon icon-edit' %>
+            <%= link_to l(:button_delete), project_mx_database_path(@project, database), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
+          </td>
+  <% end %>
         </tr>
   <% end %>
       </tbody>

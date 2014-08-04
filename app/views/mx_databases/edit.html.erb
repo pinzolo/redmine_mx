@@ -1,13 +1,14 @@
-<%= error_messages_for(@database) %>
+<%= error_messages_for(@vue_model) %>
 <div id="mx-content">
   <div class="contextual">
-    <%= link_to l(:button_back), project_mx_database_path(@project, @database),  class: 'icon icon-cancel' %>
+    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
   </div>
-  <h2 class="mx-section-caption"><%= l('mx.title_databases_new') %></h2>
-  <%= form_for(@database, url: project_mx_database_path(@project, @database), method: :put, html: { id: 'mx_database_form' }) do |f| %>
-    <%= render partial: 'form', locals: { f: f, database: @database } %>
+  <h2 class="mx-section-caption"><%= l('mx.title_databases_edit') %></h2>
+  <%= form_for(@vue_model, url: project_mx_database_path(@project, @database), method: :put, html: { id: 'mx_database_form' }) do |f| %>
+    <%= f.hidden_field :lock_version %>
+    <%= render partial: 'form', locals: { f: f, database: @vue_model } %>
     <%= mx_submit l(:button_update) %>
-    <%= link_to l(:button_cancel), project_mx_database_path(@project, @database) %>
+    <%= link_to l(:button_cancel), project_mx_databases_path(@project) %>
   <% end %>
 </div>
 

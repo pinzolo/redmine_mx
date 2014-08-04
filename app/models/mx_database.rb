@@ -7,12 +7,12 @@ class MxDatabase < ActiveRecord::Base
   has_many :tables, class_name: 'MxTable', foreign_key: :database_id, order: :physical_name, dependent: :destroy
   has_many :common_column_sets, class_name: 'MxCommonColumnSet', foreign_key: :database_id, order: :name, dependent: :destroy
 
-  def to_param
-    identifier
+  def self.find_database(project, id)
+    where(project_id: project.id, identifier: id).first || where(project_id: project.id, id: id).first
   end
 
-  def find(*args, &block)
-    where(identifier: args.first).first || super(*args, &block)
+  def to_param
+    identifier
   end
 
   def save_with(vm)
