@@ -9,6 +9,7 @@ class MxDatabasesController < ApplicationController
   end
 
   def show
+    redirect_to project_mx_database_tables_path(@project, @database)
   end
 
   def new

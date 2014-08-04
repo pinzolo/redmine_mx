@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_mx do
 
   project_module :mx do
     permission :view_mx_tables, mx_tables: [:index, :show],
-                                mx_databases: [:index, :show],
+                                mx_databases: [:index],
                                 mx_common_column_sets: [:index, :show],
                                 mx_table_versions: [:index, :show]
     permission :manage_mx_tables, mx_tables: [:new, :edit, :create, :update, :destroy],
