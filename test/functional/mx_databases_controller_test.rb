@@ -5,10 +5,10 @@ class MxDatabasesControllerTest < ActionController::TestCase
     :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases
 
   def setup
-    User.current = nil
     enable_mx!
     setup_mx_permissions!
     @project = Project.find('ecookbook')
+    User.current = nil
   end
 
   def test_index_by_manager
@@ -46,6 +46,26 @@ class MxDatabasesControllerTest < ActionController::TestCase
   def test_index_by_not_member
     by_not_member
     get :index, project_id: 'ecookbook'
+    assert_response 403
+  end
+
+  def test_show_by_manager
+    by_manager
+    get :show, project_id: 'ecookbook', id: 'main'
+    assert_response 302
+    assert_redirected_to project_mx_database_tables_path(@project, 'main')
+  end
+
+  def test_show_by_viewer
+    by_viewer
+    get :show, project_id: 'ecookbook', id: 'main'
+    assert_response 302
+    assert_redirected_to project_mx_database_tables_path(@project, 'main')
+  end
+
+  def test_show_by_not_member
+    by_not_member
+    get :show, project_id: 'ecookbook', id: 'main'
     assert_response 403
   end
 end
