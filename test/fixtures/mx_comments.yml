@@ -1,36 +1,50 @@
 ---
 mx_comments_001:
   id: 1
-  created_at: 2014-08-01 15:33:31.439115000 +09:00
-  updated_at: 2014-08-01 15:33:31.439115000 +09:00
+  created_at: 2014-08-05 20:06:07.850528000 +09:00
+  updated_at: 2014-08-05 20:06:07.850528000 +09:00
   mx_commentable_id: 1
   mx_commentable_type: MxDbmsProduct
   comment: Builtin DBMS as PostgreSQL type
 mx_comments_002:
   id: 2
-  created_at: 2014-08-01 15:33:31.480758000 +09:00
-  updated_at: 2014-08-01 15:33:31.480758000 +09:00
+  created_at: 2014-08-05 20:06:07.902048000 +09:00
+  updated_at: 2014-08-05 20:06:07.902048000 +09:00
   mx_commentable_id: 2
   mx_commentable_type: MxDbmsProduct
   comment: Builtin DBMS as MySQL type
 mx_comments_003:
   id: 3
-  created_at: 2014-08-01 15:33:31.526544000 +09:00
-  updated_at: 2014-08-01 15:33:31.526544000 +09:00
+  created_at: 2014-08-05 20:06:07.944996000 +09:00
+  updated_at: 2014-08-05 20:06:07.944996000 +09:00
   mx_commentable_id: 3
   mx_commentable_type: MxDbmsProduct
   comment: Builtin DBMS as Oracle type
 mx_comments_004:
   id: 4
-  created_at: 2014-08-01 15:33:31.551707000 +09:00
-  updated_at: 2014-08-01 15:33:31.551707000 +09:00
+  created_at: 2014-08-05 20:06:07.978232000 +09:00
+  updated_at: 2014-08-05 20:06:07.978232000 +09:00
   mx_commentable_id: 4
   mx_commentable_type: MxDbmsProduct
   comment: Builtin DBMS as SQL Server type
 mx_comments_005:
   id: 5
-  created_at: 2014-08-01 15:33:31.551707000 +09:00
-  updated_at: 2014-08-01 15:33:31.551707000 +09:00
+  created_at: 2014-08-05 20:06:08.030751000 +09:00
+  updated_at: 2014-08-05 20:06:08.030751000 +09:00
   mx_commentable_id: 5
   mx_commentable_type: MxDbmsProduct
   comment: Builtin DBMS as Other type
+mx_comments_006:
+  id: 6
+  created_at: 2014-08-05 20:18:01.295174000 +09:00
+  updated_at: 2014-08-05 20:18:01.295174000 +09:00
+  mx_commentable_id: 1
+  mx_commentable_type: MxDatabase
+  comment: "Tis is main database.\r\nUsing PostgreSQL."
+mx_comments_007:
+  id: 7
+  created_at: 2014-08-05 20:18:32.049178000 +09:00
+  updated_at: 2014-08-05 20:18:32.049178000 +09:00
+  mx_commentable_id: 2
+  mx_commentable_type: MxDatabase
+  comment: "This is sub database.\r\nUsing MySQL."

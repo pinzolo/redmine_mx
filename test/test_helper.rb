@@ -21,3 +21,25 @@ end
 def by_not_admin
   @request.session[:user_id] = 2
 end
+
+def by_manager
+  @request.session[:user_id] = 2
+end
+
+def by_viewer
+  @request.session[:user_id] = 3
+end
+
+def by_not_member
+  @request.session[:user_id] = 4
+end
+
+def enable_mx!(project=nil)
+  prj = project || Project.find('ecookbook')
+  prj.enable_module!('mx')
+end
+
+def setup_mx_permissions!
+  Role.find(1).add_permission!(:view_mx_tables, :manage_mx_tables)
+  Role.find(2).add_permission!(:view_mx_tables)
+end
