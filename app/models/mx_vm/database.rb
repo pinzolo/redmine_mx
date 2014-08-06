@@ -11,21 +11,7 @@ class MxVm::Database
   validates :summary, length: { maximum: 200 }
 
   def initialize(params={})
-    if params.is_a?(Hash)
-      build_from_hash(params)
-    elsif params.is_a?(MxDatabase)
-      build_from_mx_database(params)
-    end
-  end
-
-  private
-
-  def build_from_hash(params)
-    simple_load_values_from_hash!(params, :id, :identifier, :dbms_product_id, :summary, :comment, :lock_version)
-  end
-
-  def build_from_mx_database(database)
-    simple_load_values_from_object!(database, :id, :identifier, :dbms_product_id, :summary, :comment, :lock_version)
+    simple_load_values!(params, :id, :identifier, :dbms_product_id, :summary, :comment, :lock_version)
   end
 end
 

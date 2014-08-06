@@ -89,7 +89,105 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  #TODO: create
+  def test_create_by_manager_with_valid_params
+    by_manager
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: valid_create_params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, valid_create_params)
+  end
+
+  def test_create_by_viewer
+    by_viewer
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: valid_create_params
+    end
+    assert_response 403
+  end
+
+  def test_create_by_not_member
+    by_not_member
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: valid_create_params
+    end
+    assert_response 403
+  end
+
+  def test_create_without_identifier
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(:identifier) }
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'new'
+    assert_equal "can't be blank", assigns(:vue_model).errors[:identifier].first
+  end
+
+  def test_create_with_empty_identifier
+    assert_create_with_overriden_params(:identifier, '', "can't be blank")
+  end
+
+  def test_create_with_too_long_identifier
+    assert_create_with_overriden_params(:identifier, 'a' * 201)
+    assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
+  end
+
+  def test_create_with_just_long_identifier
+    by_manager
+    params = valid_create_params.tap { |p| p[:identifier] = 'a' * 200 }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
+
+  def test_create_with_invalid_format_identifier
+    assert_create_with_overriden_params(:identifier, 'a-b', 'is invalid')
+  end
+
+  def test_create_with_already_taken_identifier
+    assert_create_with_overriden_params(:identifier, 'main', 'has already been taken')
+  end
+
+  def test_create_without_dbms_product_id
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(:dbms_product_id) }
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'new'
+    assert_equal "can't be blank", assigns(:vue_model).errors[:dbms_product_id].first
+  end
+
+  def test_create_with_empty_dbms_product_id
+    assert_create_with_overriden_params(:dbms_product_id, '', "can't be blank")
+  end
+
+  def test_create_with_invalid_dbms_product_id_that_not_in_mx_dbms_products
+    assert_create_with_overriden_params(:dbms_product_id, 6, 'is invalid')
+  end
+
+  def test_create_with_too_long_summary
+    assert_create_with_overriden_params(:summary, 'a' * 201)
+    assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
+  end
+
+  def test_create_with_just_long_summary
+    by_manager
+    params = valid_create_params.tap { |p| p[:summary] = 'a' * 200 }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
 
   def test_edit_by_manager
     by_manager
@@ -120,7 +218,110 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  #TODO: update
+  def test_update_by_manager_with_valid_params
+    by_manager
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: valid_update_params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(2, valid_update_params)
+  end
+
+  def test_update_by_viewer
+    by_viewer
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_by_not_member
+    by_not_member
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_without_identifier
+    by_manager
+    params = valid_update_params.tap { |p| p.delete(:identifier) }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'edit'
+    assert_equal "can't be blank", assigns(:vue_model).errors[:identifier].first
+  end
+
+  def test_update_with_empty_identifier
+    assert_update_with_overriden_params(:identifier, '', "can't be blank")
+  end
+
+  def test_update_with_too_long_identifier
+    assert_update_with_overriden_params(:identifier, 'a' * 201)
+    assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
+  end
+
+  def test_update_with_just_long_identifier
+    by_manager
+    params = valid_update_params.tap { |p| p[:identifier] = 'a' * 200 }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(2, params)
+  end
+
+  def test_update_with_invalid_format_identifier
+    assert_update_with_overriden_params(:identifier, 'a-b', 'is invalid')
+  end
+
+  def test_update_with_already_taken_identifier
+    assert_update_with_overriden_params(:identifier, 'main', 'has already been taken')
+  end
+
+  def test_update_without_dbms_product_id
+    by_manager
+    params = valid_update_params.tap { |p| p.delete(:dbms_product_id) }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'edit'
+    assert_equal "can't be blank", assigns(:vue_model).errors[:dbms_product_id].first
+  end
+
+  def test_update_with_empty_dbms_product_id
+    assert_update_with_overriden_params(:dbms_product_id, '', "can't be blank")
+  end
+
+  def test_update_with_invalid_dbms_product_id_that_not_in_mx_dbms_products
+    assert_update_with_overriden_params(:dbms_product_id, 6, 'is invalid')
+  end
+
+  def test_update_with_too_long_summary
+    assert_update_with_overriden_params(:summary, 'a' * 201)
+    assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
+  end
+
+  def test_update_with_just_long_summary
+    by_manager
+    params = valid_update_params.tap { |p| p[:summary] = 'a' * 200 }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(2, params)
+  end
+
+  def test_update_with_invalid_lock_version
+    assert_update_with_overriden_params(:lock_version, '1')
+    assert_conflict_flash
+  end
 
   def test_destroy_by_manager
     by_manager
@@ -146,5 +347,50 @@ class MxDatabasesControllerTest < ActionController::TestCase
       delete :destroy, project_id: @project, id: 'main'
     end
     assert_response 403
+  end
+
+  private
+
+  def valid_create_params
+    {
+      identifier: 'test',
+      dbms_product_id: 1,
+      summary: 'summary',
+      comment: "foo\nbar\nbaz"
+    }
+  end
+
+  def valid_update_params
+    valid_create_params.merge(lock_version: '0')
+  end
+
+  def assert_create_with_overriden_params(attribute, invalid_value, error=nil)
+    by_manager
+    params = valid_create_params.tap { |p| p[attribute] = invalid_value }
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'new'
+    assert_equal error, assigns(:vue_model).errors[attribute].first if error
+  end
+
+  def assert_update_with_overriden_params(attribute, invalid_value, error=nil)
+    by_manager
+    params = valid_create_params.tap { |p| p[attribute] = invalid_value }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'edit'
+    assert_equal error, assigns(:vue_model).errors[attribute].first if error
+  end
+
+  def assert_saved_database(id, params)
+    database = MxDatabase.find(id)
+    assert_equal params[:identifier], database.identifier
+    assert_equal params[:dbms_product_id].to_i, database.dbms_product_id
+    assert_equal params[:summary], database.summary
+    assert_equal params[:comment], database.comment
   end
 end

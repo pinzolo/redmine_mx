@@ -22,7 +22,7 @@ class MxDatabasesController < ApplicationController
       @database = MxDatabase.new(project_id: @project.id)
       @database.save_with(@vue_model)
       flash[:notice] = l(:notice_successful_create)
-      redirect_to project_mx_database_path(@project, @database)
+      redirect_to project_mx_databases_path(@project)
     else
       render action: :new
     end
@@ -37,7 +37,7 @@ class MxDatabasesController < ApplicationController
     if @vue_model.valid?
       @database.save_with(@vue_model)
       flash[:notice] = l(:notice_successful_update)
-      redirect_to project_mx_database_path(@project, @database)
+      redirect_to project_mx_databases_path(@project)
     else
       render action: :edit
     end

@@ -43,3 +43,7 @@ def setup_mx_permissions!
   Role.find(1).add_permission!(:view_mx_tables, :manage_mx_tables)
   Role.find(2).add_permission!(:view_mx_tables)
 end
+
+def assert_conflict_flash
+  assert_tag tag: 'div', attributes: { id: 'flash_error' }, content: I18n.t(:notice_locking_conflict)
+end
