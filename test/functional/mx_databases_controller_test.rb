@@ -49,6 +49,12 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  def test_index_with_invalid_project
+    by_manager
+    get :index, project_id: 'invalid'
+    assert_response 404
+  end
+
   def test_show_by_manager
     by_manager
     get :show, project_id: @project, id: 'main'
@@ -69,6 +75,18 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  def test_show_with_invalid_project
+    by_manager
+    get :show, project_id: 'invalid', id: 'main'
+    assert_response 404
+  end
+
+  def test_show_with_invalid_id
+    by_manager
+    get :show, project_id: @project, id: 'other'
+    assert_response 404
+  end
+
   def test_new_by_manager
     by_manager
     get :new, project_id: @project
@@ -87,6 +105,12 @@ class MxDatabasesControllerTest < ActionController::TestCase
     by_not_member
     get :new, project_id: @project
     assert_response 403
+  end
+
+  def test_new_with_invalid_project
+    by_manager
+    get :new, project_id: 'invalid'
+    assert_response 404
   end
 
   def test_create_by_manager_with_valid_params
@@ -113,6 +137,14 @@ class MxDatabasesControllerTest < ActionController::TestCase
       post :create, project_id: @project, mx_vm_database: valid_create_params
     end
     assert_response 403
+  end
+
+  def test_create_with_invalid_project
+    by_viewer
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: 'invalid', mx_vm_database: valid_create_params
+    end
+    assert_response 404
   end
 
   def test_create_without_identifier
@@ -204,6 +236,18 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  def test_edit_with_invalid_project
+    by_manager
+    get :edit, project_id: 'invalid', id: 'main'
+    assert_response 404
+  end
+
+  def test_edit_with_invalid_id
+    by_manager
+    get :edit, project_id: @project, id: 'other'
+    assert_response 404
+  end
+
   def test_update_by_manager_with_valid_params
     by_manager
     assert_no_difference 'MxDatabase.count' do
@@ -228,6 +272,22 @@ class MxDatabasesControllerTest < ActionController::TestCase
       put :update, project_id: @project, id: 'sub', mx_vm_database: valid_update_params
     end
     assert_response 403
+  end
+
+  def test_update_with_invalid_project
+    by_manager
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: 'invalid', id: 'sub', mx_vm_database: valid_update_params
+    end
+    assert_response 404
+  end
+
+  def test_update_with_invalid_id
+    by_manager
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'other', mx_vm_database: valid_update_params
+    end
+    assert_response 404
   end
 
   def test_update_without_identifier
@@ -319,6 +379,22 @@ class MxDatabasesControllerTest < ActionController::TestCase
       delete :destroy, project_id: @project, id: 'main'
     end
     assert_response 403
+  end
+
+  def test_destroy_with_invalid_project
+    by_not_member
+    assert_no_difference 'MxDatabase.count' do
+      delete :destroy, project_id: 'invalid', id: 'main'
+    end
+    assert_response 404
+  end
+
+  def test_destroy_with_invalid_id
+    by_not_member
+    assert_no_difference 'MxDatabase.count' do
+      delete :destroy, project_id: 'invalid', id: 'other'
+    end
+    assert_response 404
   end
 
   private
