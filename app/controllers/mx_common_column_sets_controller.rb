@@ -13,6 +13,8 @@ class MxCommonColumnSetsController < ApplicationController
   end
 
   def new
+    @common_column_set = MxCommonColumnSet.new
+    @vue_model = MxVm::CommonColumnSet.new
   end
 
   def create
