@@ -507,7 +507,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     put :update, id: 5, mx_dbms_product: params
     assert_response :success
     assert_template 'edit'
-    assert_tag tag: 'div', attributes: { id: 'flash_error' }
+    assert_conflict_flash
   end
 
   def test_update_without_data_types
