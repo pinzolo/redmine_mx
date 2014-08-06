@@ -1,7 +1,7 @@
 Redmine::Plugin.register :redmine_mx do
   name 'Redmine MX'
   author 'pinzolo'
-  description 'redmine_mx is a plugin for Redmine'
+  description "redmine_mx is a Redmine's plugin for management table definitions"
   version '0.0.1'
   url 'https://github.com/pinzolo/redmine_mx'
   author_url 'https://github.com/pinzolo'
