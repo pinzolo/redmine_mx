@@ -209,7 +209,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     assert_match(/is too long/, assigns(:vue_model).errors[:name].first)
   end
 
-  def test_create_with_already_existed_name
+  def test_create_with_already_taken_name
     by_admin
     params = valid_create_params.tap { |p| p[:name] = 'MySQL' }
     assert_no_difference 'MxDbmsProduct.count' do
