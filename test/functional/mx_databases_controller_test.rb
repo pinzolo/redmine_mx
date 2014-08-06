@@ -116,22 +116,15 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_create_without_identifier
-    by_manager
-    params = valid_create_params.tap { |p| p.delete(:identifier) }
-    assert_no_difference 'MxDatabase.count' do
-      post :create, project_id: @project, mx_vm_database: params
-    end
-    assert_response :success
-    assert_template 'new'
-    assert_equal "can't be blank", assigns(:vue_model).errors[:identifier].first
+    assert_create_with_value_deleted_params(:identifier, "can't be blank")
   end
 
   def test_create_with_empty_identifier
-    assert_create_with_overriden_params(:identifier, '', "can't be blank")
+    assert_create_with_value_overriden_params(:identifier, '', "can't be blank")
   end
 
   def test_create_with_too_long_identifier
-    assert_create_with_overriden_params(:identifier, 'a' * 201)
+    assert_create_with_value_overriden_params(:identifier, 'a' * 201)
     assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
   end
 
@@ -147,34 +140,27 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_invalid_format_identifier
-    assert_create_with_overriden_params(:identifier, 'a-b', 'is invalid')
+    assert_create_with_value_overriden_params(:identifier, 'a-b', 'is invalid')
   end
 
   def test_create_with_already_taken_identifier
-    assert_create_with_overriden_params(:identifier, 'main', 'has already been taken')
+    assert_create_with_value_overriden_params(:identifier, 'main', 'has already been taken')
   end
 
   def test_create_without_dbms_product_id
-    by_manager
-    params = valid_create_params.tap { |p| p.delete(:dbms_product_id) }
-    assert_no_difference 'MxDatabase.count' do
-      post :create, project_id: @project, mx_vm_database: params
-    end
-    assert_response :success
-    assert_template 'new'
-    assert_equal "can't be blank", assigns(:vue_model).errors[:dbms_product_id].first
+    assert_create_with_value_deleted_params(:dbms_product_id, "can't be blank")
   end
 
   def test_create_with_empty_dbms_product_id
-    assert_create_with_overriden_params(:dbms_product_id, '', "can't be blank")
+    assert_create_with_value_overriden_params(:dbms_product_id, '', "can't be blank")
   end
 
   def test_create_with_invalid_dbms_product_id_that_not_in_mx_dbms_products
-    assert_create_with_overriden_params(:dbms_product_id, 6, 'is invalid')
+    assert_create_with_value_overriden_params(:dbms_product_id, 6, 'is invalid')
   end
 
   def test_create_with_too_long_summary
-    assert_create_with_overriden_params(:summary, 'a' * 201)
+    assert_create_with_value_overriden_params(:summary, 'a' * 201)
     assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
   end
 
@@ -245,22 +231,15 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_update_without_identifier
-    by_manager
-    params = valid_update_params.tap { |p| p.delete(:identifier) }
-    assert_no_difference 'MxDatabase.count' do
-      put :update, project_id: @project, id: 'sub', mx_vm_database: params
-    end
-    assert_response :success
-    assert_template 'edit'
-    assert_equal "can't be blank", assigns(:vue_model).errors[:identifier].first
+    assert_update_with_value_deleted_params(:identifier, "can't be blank")
   end
 
   def test_update_with_empty_identifier
-    assert_update_with_overriden_params(:identifier, '', "can't be blank")
+    assert_update_with_value_overriden_params(:identifier, '', "can't be blank")
   end
 
   def test_update_with_too_long_identifier
-    assert_update_with_overriden_params(:identifier, 'a' * 201)
+    assert_update_with_value_overriden_params(:identifier, 'a' * 201)
     assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
   end
 
@@ -276,34 +255,27 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_invalid_format_identifier
-    assert_update_with_overriden_params(:identifier, 'a-b', 'is invalid')
+    assert_update_with_value_overriden_params(:identifier, 'a-b', 'is invalid')
   end
 
   def test_update_with_already_taken_identifier
-    assert_update_with_overriden_params(:identifier, 'main', 'has already been taken')
+    assert_update_with_value_overriden_params(:identifier, 'main', 'has already been taken')
   end
 
   def test_update_without_dbms_product_id
-    by_manager
-    params = valid_update_params.tap { |p| p.delete(:dbms_product_id) }
-    assert_no_difference 'MxDatabase.count' do
-      put :update, project_id: @project, id: 'sub', mx_vm_database: params
-    end
-    assert_response :success
-    assert_template 'edit'
-    assert_equal "can't be blank", assigns(:vue_model).errors[:dbms_product_id].first
+    assert_update_with_value_deleted_params(:dbms_product_id, "can't be blank")
   end
 
   def test_update_with_empty_dbms_product_id
-    assert_update_with_overriden_params(:dbms_product_id, '', "can't be blank")
+    assert_update_with_value_overriden_params(:dbms_product_id, '', "can't be blank")
   end
 
   def test_update_with_invalid_dbms_product_id_that_not_in_mx_dbms_products
-    assert_update_with_overriden_params(:dbms_product_id, 6, 'is invalid')
+    assert_update_with_value_overriden_params(:dbms_product_id, 6, 'is invalid')
   end
 
   def test_update_with_too_long_summary
-    assert_update_with_overriden_params(:summary, 'a' * 201)
+    assert_update_with_value_overriden_params(:summary, 'a' * 201)
     assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
   end
 
@@ -319,7 +291,7 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_invalid_lock_version
-    assert_update_with_overriden_params(:lock_version, '1')
+    assert_update_with_value_overriden_params(:lock_version, '1')
     assert_conflict_flash
   end
 
@@ -364,7 +336,17 @@ class MxDatabasesControllerTest < ActionController::TestCase
     valid_create_params.merge(lock_version: '0')
   end
 
-  def assert_create_with_overriden_params(attribute, invalid_value, error=nil)
+  def assert_create_with_value_deleted_params(attribute, error=nil)
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(attribute) }
+    assert_no_difference 'MxDatabase.count' do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'new'
+  end
+
+  def assert_create_with_value_overriden_params(attribute, invalid_value, error=nil)
     by_manager
     params = valid_create_params.tap { |p| p[attribute] = invalid_value }
     assert_no_difference 'MxDatabase.count' do
@@ -375,7 +357,17 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_equal error, assigns(:vue_model).errors[attribute].first if error
   end
 
-  def assert_update_with_overriden_params(attribute, invalid_value, error=nil)
+  def assert_update_with_value_deleted_params(attribute, error=nil)
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(attribute) }
+    assert_no_difference 'MxDatabase.count' do
+      put :update, project_id: @project, id: 'sub', mx_vm_database: params
+    end
+    assert_response :success
+    assert_template 'edit'
+  end
+
+  def assert_update_with_value_overriden_params(attribute, invalid_value, error=nil)
     by_manager
     params = valid_create_params.tap { |p| p[attribute] = invalid_value }
     assert_no_difference 'MxDatabase.count' do
