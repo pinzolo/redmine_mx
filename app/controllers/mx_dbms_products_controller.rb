@@ -4,6 +4,7 @@ class MxDbmsProductsController < ApplicationController
   before_filter :require_login
   before_filter :require_admin, only: [:new, :create, :edit, :update, :destroy]
   before_filter :find_dbms_product, only: [:show, :edit, :update, :destroy]
+  accept_api_auth :index, :show
 
   def index
     @dbms_products = MxDbmsProduct.order(:name)

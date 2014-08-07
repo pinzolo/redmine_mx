@@ -3,9 +3,15 @@ class MxDatabasesController < ApplicationController
   unloadable
 
   before_filter :find_database, only: [:show, :edit, :update, :destroy]
+  accept_api_auth :index
 
   def index
     @databases = MxDatabase.where(project_id: @project.id).order(:identifier)
+    respond_to do |format|
+      format.html
+      format.json { render json: @databases.as_json(root: false, except: [:lock_version], methods: [:comment]) }
+      format.xml { render xml: @databases.to_xml(except: [:lock_version]) }
+    end
   end
 
   def show
