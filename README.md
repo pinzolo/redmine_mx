@@ -23,7 +23,7 @@ $ bundle install --without test development
 ### 3. Execute migration and deploy assets:
 
 ```sh
-$ bundle exec rake redmine:plugins NAME=redmine_mx
+$ bundle exec rake redmine:plugins NAME=redmine_mx RAILS_ENV=production
 ```
 
 ### 4. Restart your Redmine
