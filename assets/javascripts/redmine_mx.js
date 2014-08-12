@@ -24,3 +24,27 @@ function prepareMxDbmsProductVue(data) {
     }
   });
 }
+
+function prepareMxCommonColumnSetVue(data) {
+  return new Vue({
+    el: '#mx_common_column_set_form',
+    data: data,
+    methods: {
+      addHeaderColumn: function() {
+        this.$data.header_columns.push({ id: randomId(), nullable: false });
+      },
+      addFooterColumn: function() {
+        this.$data.footer_columns.push({ id: randomId(), nullable: false });
+      },
+      removeHeaderColumn: function(column) {
+        this.$data.header_columns.$remove(column.$index);
+      },
+      removeFooterColumn: function(column) {
+        this.$data.footer_columns.$remove(column.$index);
+      },
+      classFor: function(obj, prop) {
+        return obj.errors && obj.errors[prop] ? 'mx-error' : '';
+      }
+    }
+  });
+}

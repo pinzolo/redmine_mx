@@ -1,13 +1,10 @@
 <div id="mx-content">
-  <div class="contextual">
-    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
-  </div>
-  <h2 class="mx-section-caption"><%= l('mx.title_databases_show', name: @database.identifier) %></h2>
   <%= mx_database_tabs(@database, :tables) %>
   <div class="contextual">
+    <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
     <%= link_to l('mx.label_table_new'), new_project_mx_database_table_path(@project, @database),  class: 'icon icon-add' %>
   </div>
-  <h2 class="mx-section-caption"><%= l('mx.title_tables') %></h2>
+  <h2 class="mx-section-caption"><%= l('mx.title_tables', name: @database.identifier) %></h2>
 <% if @database.tables.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>
 <% else %>
@@ -38,7 +35,7 @@
 <% end %>
 </div>
 
-<% html_title(l('mx.title_databases_show', name: @database.identifier)) %>
+<% html_title(l('mx.title_tables', name: @database.identifier)) %>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
