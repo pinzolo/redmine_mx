@@ -56,10 +56,10 @@
           </select>
         </td>
         <td class="{{classFor(column, 'size')}}">
-          <input type="text" class="mx-common-column-size" name="<%= prefix %>[size]" v-model="column.size" size="5" />
+          <input type="text" class="mx-common-column-size mx-numeric" name="<%= prefix %>[size]" v-model="column.size" size="5" />
         </td>
         <td class="{{classFor(column, 'scale')}}">
-          <input type="text" class="mx-common-column-scale" name="<%= prefix %>[scale]" v-model="column.scale" size="5" />
+          <input type="text" class="mx-common-column-scale mx-numeric" name="<%= prefix %>[scale]" v-model="column.scale" size="5" />
         </td>
         <td class="mx-mark-cell"><input type="checkbox" class="mx-common-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/></td>
         <td class="{{classFor(column, 'default_value')}}">

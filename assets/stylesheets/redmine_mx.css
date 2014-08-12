@@ -65,3 +65,7 @@
 .mx-error {
   background-color: #ffe3e3;
 }
+
+.mx-numeric {
+  text-align: right;
+}
