@@ -97,3 +97,4 @@ ja:
         footer_column_size: 'フッタ列のサイズ'
         footer_column_scale: 'フッタ列のスケール'
         footer_column_default_value: 'フッタ列の初期値'
+        column_physical_name: "列の物理名"

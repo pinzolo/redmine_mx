@@ -97,3 +97,4 @@ en:
         footer_column_size: "Footer column's size"
         footer_column_scale: "Footer column's scale"
         footer_column_default_value:  "Footer column's default value"
+        column_physical_name: "Column's physical name"

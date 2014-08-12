@@ -4,7 +4,7 @@ class MxVm::CommonColumnSet
   attr_accessor :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
 
   validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxCommonColumnSet', scope: :database_id }
-  validates_with MxValuesUniquenessValidator, { collection: :columns, attribute: :physical_name, field: :common_column_physical_name }
+  validates_with MxValuesUniquenessValidator, { collection: :columns, attribute: :physical_name, field: :column_physical_name }
 
   def initialize(params={})
     self.header_columns = []
