@@ -62,7 +62,7 @@
           <input type="text" class="mx-common-column-scale" name="<%= prefix %>[scale]" v-model="column.scale" size="5" />
         </td>
         <td class="mx-mark-cell"><input type="checkbox" class="mx-common-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/></td>
-        <td class="{{classFor(column, 'nullable')}}">
+        <td class="{{classFor(column, 'default_value')}}">
           <input type="text" class="mx-common-column-default-value" name="<%= prefix %>[default_value]" v-model="column.default_value" size="30" />
         </td>
         <td><input type="text" class="mx-common-column-comment" name="<%= prefix %>[comment]" v-model="column.comment" size="50" /></td>

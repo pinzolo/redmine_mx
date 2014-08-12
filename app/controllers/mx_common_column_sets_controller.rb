@@ -19,6 +19,17 @@ class MxCommonColumnSetsController < ApplicationController
   end
 
   def create
+    @vue_model = MxVm::CommonColumnSet.new(params[:mx_common_column_set])
+    if @vue_model.valid?
+      #@dbms_product = MxDbmsProduct.find_sti_class(@vue_model.type).new
+      #@dbms_product.save_with!(@vue_model)
+      flash[:notice] = l(:notice_successful_create)
+      # TODO: show or index
+      redirect_to project_mx_database_common_column_sets_path(@project, @datanase)
+    else
+      @common_column_set = MxCommonColumnSet.new
+      render action: :new
+    end
   end
 
   def edit

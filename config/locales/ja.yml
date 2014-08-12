@@ -83,4 +83,17 @@ ja:
       mx_vm/database:
         identifier: 'データベース名'
         dbms_product_id: 'DBMS'
-
+      mx_vm/common_column_set:
+        name: '共通列セット名'
+        header_column_physical_name: 'ヘッダ列の物理名'
+        header_column_logical_name: 'ヘッダ列の論理名'
+        header_column_data_type_id: 'ヘッダ列のデータ型'
+        header_column_size: 'ヘッダ列のサイズ'
+        header_column_scale: 'ヘッダ列のスケール'
+        header_column_default_value: 'ヘッダ列の初期値'
+        footer_column_physical_name: 'フッタ列の物理名'
+        footer_column_logical_name: 'フッタ列の論理名'
+        footer_column_data_type_id: 'フッタ列のデータ型'
+        footer_column_size: 'フッタ列のサイズ'
+        footer_column_scale: 'フッタ列のスケール'
+        footer_column_default_value: 'フッタ列の初期値'

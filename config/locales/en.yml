@@ -83,3 +83,17 @@ en:
       mx_vm/database:
         identifier: 'Database name'
         dbms_product_id: 'DBMS'
+      mx_vm/common_column_set:
+        name: "Common columns' name"
+        header_column_physical_name: "Header column's physical name"
+        header_column_logical_name: "Header column's logical name"
+        header_column_data_type_id: "Header column's data type"
+        header_column_size: "Header column's size"
+        header_column_scale: "Header column's scale"
+        header_column_default_value:  "Header column's default value"
+        footer_column_physical_name: "Footer column's physical name"
+        footer_column_logical_name: "Footer column's logical name"
+        footer_column_data_type_id: "Footer column's data type"
+        footer_column_size: "Footer column's size"
+        footer_column_scale: "Footer column's scale"
+        footer_column_default_value:  "Footer column's default value"
