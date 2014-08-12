@@ -31,10 +31,10 @@ function prepareMxCommonColumnSetVue(data) {
     data: data,
     methods: {
       addHeaderColumn: function() {
-        this.$data.header_columns.push({ id: randomId(), nullable: false });
+        this.$data.header_columns.push({ id: randomId() });
       },
       addFooterColumn: function() {
-        this.$data.footer_columns.push({ id: randomId(), nullable: false });
+        this.$data.footer_columns.push({ id: randomId() });
       },
       removeHeaderColumn: function(column) {
         this.$data.header_columns.$remove(column.$index);
