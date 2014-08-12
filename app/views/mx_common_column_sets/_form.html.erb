@@ -13,7 +13,7 @@
       </tr>
       <tr>
         <th><%= mx_label_for('comment') %></th>
-        <td><%= text_area 'mx_common_column_set', 'comment', size: '70x5', 'v-model' => 'comment' %></td>
+        <td><%= text_area 'mx_common_column_set', 'comment', size: '70x8', 'v-model' => 'comment' %></td>
       </tr>
     </tbody>
   </table>
@@ -49,7 +49,7 @@
         </td>
         <td class="{{classFor(column, 'data_type_id')}}">
           <select class="mx-common-column-data-type" name="<%= prefix %>[data_type_id]" v-model="data_type_id">
-            <option/>
+            <option value="">&nbsp;</option>
             <%= options_for_select(database.dbms_product.data_types.map { |data_type| [data_type.name, data_type.id] }) %>
           </select>
         </td>
