@@ -44,6 +44,31 @@ function prepareMxCommonColumnSetVue(data) {
       },
       classFor: function(obj, prop) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
+      },
+      getDataType: function(dataTypeId) {
+        var dataType;
+        this.data_types.forEach(function(item) {
+          if (item.id.toString() === dataTypeId.toString()) {
+            dataType = item;
+          }
+        });
+        return dataType;
+      },
+      sizeEditable: function(obj) {
+        var dataType = this.getDataType(obj.$data.column.data_type_id);
+        return dataType && dataType.sizable;
+      },
+      scaleEditable: function(obj) {
+        var dataType = this.getDataType(obj.$data.column.data_type_id);
+        return dataType && dataType.scalable;
+      },
+      changeDataType: function(obj) {
+        if (!this.sizeEditable(obj)) {
+          obj.$data.column.size = null;
+        }
+        if (!this.scaleEditable(obj)) {
+          obj.$data.column.scale = null;
+        }
       }
     }
   });

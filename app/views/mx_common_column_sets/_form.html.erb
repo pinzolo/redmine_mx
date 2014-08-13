@@ -50,16 +50,16 @@
           <input type="text" class="mx-common-column-logical-name" name="<%= prefix %>[logical_name]" v-model="column.logical_name" size="30" />
         </td>
         <td class="{{classFor(column, 'data_type_id')}}">
-          <select class="mx-common-column-data-type" name="<%= prefix %>[data_type_id]" v-model="column.data_type_id">
+          <select class="mx-common-column-data-type" name="<%= prefix %>[data_type_id]" v-model="column.data_type_id" v-on="change: changeDataType(this)">
             <option value="">&nbsp;</option>
             <%= options_for_select(database.dbms_product.data_types.map { |data_type| [data_type.name, data_type.id] }) %>
           </select>
         </td>
         <td class="{{classFor(column, 'size')}}">
-          <input type="text" class="mx-common-column-size mx-numeric" name="<%= prefix %>[size]" v-model="column.size" size="5" />
+          <input type="text" class="mx-common-column-size mx-numeric" name="<%= prefix %>[size]" v-attr="disabled: !sizeEditable(this)" v-model="column.size" size="5" />
         </td>
         <td class="{{classFor(column, 'scale')}}">
-          <input type="text" class="mx-common-column-scale mx-numeric" name="<%= prefix %>[scale]" v-model="column.scale" size="5" />
+          <input type="text" class="mx-common-column-scale mx-numeric" name="<%= prefix %>[scale]" v-attr="disabled: !scaleEditable(this)" v-model="column.scale" size="5" />
         </td>
         <td class="mx-mark-cell"><input type="checkbox" class="mx-common-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/></td>
         <td class="{{classFor(column, 'default_value')}}">
