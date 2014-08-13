@@ -52,7 +52,9 @@ class MxCommonColumnSetsController < ApplicationController
   end
 
   def destroy
-
+    @common_column_set.destroy
+    flash[:notice] = l(:notice_successful_delete)
+    redirect_to action: :index
   end
 
   private
