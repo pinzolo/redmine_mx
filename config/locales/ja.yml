@@ -46,6 +46,7 @@ ja:
     title_databases_edit: 'データベースの編集'
     title_common_column_sets: '共通列一覧 [DB: %{name}]'
     title_common_column_sets_new: '新しい共通列'
+    title_common_column_sets_edit: '共通列の編集'
     title_common_column_sets_show: '共通列詳細'
     title_common_column_sets_detail: '共通列 [%{name}]'
     title_tables: 'テーブル一覧 [DB: %{name}]'

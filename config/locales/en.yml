@@ -46,6 +46,7 @@ en:
     title_databases_edit: 'Edit database'
     title_common_column_sets: 'Common columns list [DB: %{name}]'
     title_common_column_sets_new: 'New common columns'
+    title_common_column_sets_edit: 'Edit common columns'
     title_common_column_sets_show: 'Common columns details'
     title_common_column_sets_detail: 'Common columns [%{name}]'
     title_tables: 'Tables [DB: %{name}]'

@@ -1,1 +1,24 @@
-<h2>MxCommonColumnSetsController#edit</h2>
+<%= error_messages_for(@vue_model) %>
+<div id="mx-content">
+  <%= mx_database_tabs(@database, :common_column_sets) %>
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_database_common_column_set_path(@project, @database, @common_column_set),  class: 'icon icon-cancel' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_common_column_sets_edit') %></h2>
+  <%= form_for(@common_column_set, url: project_mx_database_common_column_set_path(@project, @database, @common_column_set), method: :put, html: { id: 'mx_common_column_set_form' }) do |f| %>
+    <%= hidden_field_tag 'mx_common_column_set[lock_version]', @common_column_set.lock_version %>
+    <%= render partial: 'form', locals: { f: f, database: @database } %>
+    <%= mx_submit l(:button_update) %>
+    <%= link_to l(:button_cancel), project_mx_database_common_column_set_path(@project, @database, @common_column_set) %>
+  <% end %>
+</div>
+
+<% html_title(l('mx.title_common_column_sets_edit')) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>
+
+<%= javascript_include_tag 'vue', plugin: 'redmine_mx' %>
+<%= javascript_include_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<%= javascript_tag "var vm = prepareMxCommonColumnSetVue(#{@vue_model.to_json});" %>
