@@ -38,4 +38,8 @@ module MxHelper
       concat(ul)
     end
   end
+
+  def mx_enum_with_wbr(texts)
+    texts.map { |text| h(text) }.join(', <wbr/>').html_safe
+  end
 end

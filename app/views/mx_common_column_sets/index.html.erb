@@ -13,6 +13,7 @@
       <thead>
         <tr>
           <th><%= mx_label_for('physical_name') %></th>
+          <th class="mx-columns-enum"><%= mx_label_for('columns') %></th>
           <th><%= mx_label_for('comment') %></th>
         </tr>
       </thead>
@@ -20,6 +21,7 @@
   <% @database.common_column_sets.each do |common_column_set| %>
         <tr>
           <td><%= link_to common_column_set.name, project_mx_database_common_column_set_path(@project, @database, common_column_set) %></td>
+          <td class="mx-columns-enum"><%= mx_enum_with_wbr(common_column_set.columns.map(&:physical_name)) %></td>
           <td><%= simple_format_without_paragraph(common_column_set.comment) %></td>
         </tr>
   <% end %>

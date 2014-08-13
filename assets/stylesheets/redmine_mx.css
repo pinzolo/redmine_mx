@@ -69,3 +69,7 @@
 .mx-numeric {
   text-align: right;
 }
+
+.mx-columns-enum {
+  max-width: 300px;
+}

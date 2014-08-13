@@ -33,6 +33,7 @@ en:
     label_default_value: 'Default value'
     label_header_column_new: 'New header column'
     label_footer_column_new: 'New footer column'
+    label_columns: 'Columns'
 
     title_dbms_products_index: 'DBMS List'
     title_dbms_products_show: 'DBMS Details'
