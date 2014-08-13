@@ -25,6 +25,17 @@ class MxCommonColumnSet < ActiveRecord::Base
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:name, :comment)
     self.save!
+    create_common_columns!(vue_model)
+  end
+
+  def update_with!(vue_model)
+    self.update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
+    self.header_columns.each(&:destroy)
+    self.footer_columns.each(&:destroy)
+    create_common_columns!(vue_model)
+  end
+
+  def create_common_columns!(vue_model)
     vue_model.header_columns.each do |vm_header_column|
       vm_header_params = vm_header_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
                                                       :nullable, :default_value, :position, :comment)
@@ -35,8 +46,5 @@ class MxCommonColumnSet < ActiveRecord::Base
                                                       :nullable, :default_value, :position, :comment)
       self.footer_columns.build(vm_footer_params).save!
     end
-  end
-
-  def update_with!(vue_model)
   end
 end

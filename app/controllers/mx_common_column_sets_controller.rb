@@ -3,7 +3,6 @@ class MxCommonColumnSetsController < ApplicationController
   include MxDatabaseFixation
   unloadable
 
-  before_filter :find_database
   before_filter :find_common_column_set, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -37,9 +36,23 @@ class MxCommonColumnSetsController < ApplicationController
   end
 
   def update
+    @vue_model = MxVm::CommonColumnSet.new(params[:mx_common_column_set])
+    if @vue_model.valid?
+      @common_column_set.save_with!(@vue_model)
+      flash[:notice] = l(:notice_successful_update)
+      redirect_to project_mx_database_common_column_set_path(@project, @database, @common_column_set)
+    else
+      set_data_types_to_vue_model
+      render action: :edit
+    end
+  rescue ActiveRecord::StaleObjectError
+    set_data_types_to_vue_model
+    flash.now[:error] = l(:notice_locking_conflict)
+    render action: :edit
   end
 
   def destroy
+
   end
 
   private
