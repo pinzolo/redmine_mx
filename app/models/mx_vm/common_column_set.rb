@@ -6,14 +6,14 @@ class MxVm::CommonColumnSet
   validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxCommonColumnSet', scope: :database_id }
   validates_with MxValuesUniquenessValidator, { collection: :columns, attribute: :physical_name, field: :column_physical_name }
 
-  def initialize(params={})
-    self.header_columns = []
-    self.footer_columns = []
+  def initialize(params={}, database=nil)
     if params.is_a?(Hash)
       build_from_hash(params)
     elsif params.is_a?(MxCommonColumnSet)
       build_from_mx_common_column_set(params)
     end
+    self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) } if database
+    safe_collections
   end
 
   def columns
@@ -44,5 +44,11 @@ class MxVm::CommonColumnSet
     simple_load_values_from_object!(common_column_set, :id, :name, :database_id, :comment, :lock_version)
     self.header_columns = common_column_set.header_columns.map { |column| MxVm::CommonColumn.new(column) }
     self.footer_columns = common_column_set.footer_columns.map { |column| MxVm::CommonColumn.new(column) }
+  end
+
+  def safe_collections
+    self.header_columns ||= []
+    self.footer_columns ||= []
+    self.data_types ||= []
   end
 end
