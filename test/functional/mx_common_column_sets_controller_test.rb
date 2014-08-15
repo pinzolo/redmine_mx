@@ -53,4 +53,56 @@ class MxCommonColumnSetsControllerTest < ActionController::TestCase
     get :index, project_id: @project, database_id: 'invalid'
     assert_response 404
   end
+
+  def test_show_by_manager
+    by_manager
+    get :show, project_id: @project, database_id: @database, id: 1
+    assert_response :success
+    assert_template 'show'
+    common_column_set = assigns(:common_column_set)
+    assert common_column_set
+    assert_equal 'default', common_column_set.name
+    assert_equal 5, common_column_set.columns.size
+    assert_tag tag: 'a', attributes: { href: project_mx_database_common_column_sets_path(@project, @database) }
+    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_common_column_set_path(@project, @database, common_column_set) }
+    assert_tag tag: 'a', attributes: { href: project_mx_database_common_column_set_path(@project, @database, common_column_set) }
+  end
+
+  def test_show_by_viewer
+    by_viewer
+    get :show, project_id: @project, database_id: @database, id: 1
+    assert_response :success
+    assert_template 'show'
+    common_column_set = assigns(:common_column_set)
+    assert common_column_set
+    assert_equal 'default', common_column_set.name
+    assert_equal 5, common_column_set.columns.size
+    assert_tag tag: 'a', attributes: { href: project_mx_database_common_column_sets_path(@project, @database) }
+    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_common_column_set_path(@project, @database, common_column_set) }
+    assert_no_tag tag: 'a', attributes: { href: project_mx_database_common_column_set_path(@project, @database, common_column_set) }
+  end
+
+  def test_show_by_not_member
+    by_not_member
+    get :show, project_id: @project, database_id: @database, id: 1
+    assert_response 403
+  end
+
+  def test_show_with_invalid_project
+    by_manager
+    get :show, project_id: 'invalid', database_id: @database, id: 1
+    assert_response 404
+  end
+
+  def test_show_with_invalid_database
+    by_manager
+    get :show, project_id: @project, database_id: 'invalid', id: 1
+    assert_response 404
+  end
+
+  def test_show_with_invalid_id
+    by_manager
+    get :show, project_id: @project, database_id: @database, id: -1
+    assert_response 404
+  end
 end
