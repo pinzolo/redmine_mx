@@ -3,7 +3,7 @@ module MxCommentable
 
   included do
     after_save :save_comment
-    has_one :mx_comment, as: :mx_commentable
+    has_one :mx_comment, as: :mx_commentable, dependent: :destroy
   end
 
   def comment
