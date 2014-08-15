@@ -8,7 +8,9 @@ class MxDatabase < ActiveRecord::Base
   has_many :common_column_sets, class_name: 'MxCommonColumnSet', foreign_key: :database_id, order: :name, dependent: :destroy
 
   def self.find_database(project, id)
-    where(project_id: project.id, identifier: id).first || where(project_id: project.id, id: id).first
+    database = where(project_id: project.id, identifier: id).first || where(project_id: project.id, id: id).first
+    raise ActiveRecord::RecordNotFound unless database
+    database
   end
 
   def to_param

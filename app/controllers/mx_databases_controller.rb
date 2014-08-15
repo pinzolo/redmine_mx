@@ -60,6 +60,7 @@ class MxDatabasesController < ApplicationController
 
   def find_database
     @database = MxDatabase.find_database(@project, params[:id])
-    render_404 unless @database
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
 end
