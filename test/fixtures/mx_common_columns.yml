@@ -1,0 +1,155 @@
+---
+mx_common_columns_001:
+  id: 1
+  created_at: 2014-08-16 01:09:00.212133000 +09:00
+  updated_at: 2014-08-16 01:09:00.212133000 +09:00
+  common_column_set_id: 1
+  type: MxCommonHeaderColumn
+  physical_name: id
+  logical_name: ID
+  data_type_id: 8
+  size: 
+  scale: 
+  nullable: false
+  default_value: '1'
+  position: 0
+mx_common_columns_002:
+  id: 2
+  created_at: 2014-08-16 01:09:00.224395000 +09:00
+  updated_at: 2014-08-16 01:09:00.224395000 +09:00
+  common_column_set_id: 1
+  type: MxCommonFooterColumn
+  physical_name: created_at
+  logical_name: Created time
+  data_type_id: 15
+  size: 
+  scale: 
+  nullable: false
+  default_value: current_timestamp
+  position: 0
+mx_common_columns_003:
+  id: 3
+  created_at: 2014-08-16 01:09:00.227653000 +09:00
+  updated_at: 2014-08-16 01:09:00.227653000 +09:00
+  common_column_set_id: 1
+  type: MxCommonFooterColumn
+  physical_name: created_by
+  logical_name: Created user's ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 1
+mx_common_columns_004:
+  id: 4
+  created_at: 2014-08-16 01:09:00.229847000 +09:00
+  updated_at: 2014-08-16 01:09:00.229847000 +09:00
+  common_column_set_id: 1
+  type: MxCommonFooterColumn
+  physical_name: updated_at
+  logical_name: Last updated time
+  data_type_id: 15
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 2
+mx_common_columns_005:
+  id: 5
+  created_at: 2014-08-16 01:09:00.231938000 +09:00
+  updated_at: 2014-08-16 01:09:00.231938000 +09:00
+  common_column_set_id: 1
+  type: MxCommonFooterColumn
+  physical_name: udpated_by
+  logical_name: Last updated user's ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 3
+mx_common_columns_006:
+  id: 6
+  created_at: 2014-08-16 01:13:00.627181000 +09:00
+  updated_at: 2014-08-16 01:13:00.627181000 +09:00
+  common_column_set_id: 2
+  type: MxCommonHeaderColumn
+  physical_name: id
+  logical_name: ID
+  data_type_id: 8
+  size: 
+  scale: 
+  nullable: false
+  default_value: '1'
+  position: 0
+mx_common_columns_007:
+  id: 7
+  created_at: 2014-08-16 01:13:00.630258000 +09:00
+  updated_at: 2014-08-16 01:13:00.630258000 +09:00
+  common_column_set_id: 2
+  type: MxCommonFooterColumn
+  physical_name: created_at
+  logical_name: Created time
+  data_type_id: 15
+  size: 
+  scale: 
+  nullable: false
+  default_value: current_timestamp
+  position: 0
+mx_common_columns_008:
+  id: 8
+  created_at: 2014-08-16 01:13:00.632621000 +09:00
+  updated_at: 2014-08-16 01:13:00.632621000 +09:00
+  common_column_set_id: 2
+  type: MxCommonFooterColumn
+  physical_name: updated_at
+  logical_name: Last updated time
+  data_type_id: 15
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 1
+mx_common_columns_009:
+  id: 9
+  created_at: 2014-08-16 01:16:20.725885000 +09:00
+  updated_at: 2014-08-16 01:16:20.725885000 +09:00
+  common_column_set_id: 3
+  type: MxCommonHeaderColumn
+  physical_name: id
+  logical_name: ID
+  data_type_id: 25
+  size: 
+  scale: 
+  nullable: false
+  default_value: '1'
+  position: 0
+mx_common_columns_010:
+  id: 10
+  created_at: 2014-08-16 01:16:20.729203000 +09:00
+  updated_at: 2014-08-16 01:16:20.729203000 +09:00
+  common_column_set_id: 3
+  type: MxCommonFooterColumn
+  physical_name: created_at
+  logical_name: Created time
+  data_type_id: 39
+  size: 
+  scale: 
+  nullable: false
+  default_value: CURRENT_TIMESTAMP
+  position: 0
+mx_common_columns_011:
+  id: 11
+  created_at: 2014-08-16 01:16:20.733386000 +09:00
+  updated_at: 2014-08-16 01:16:20.733386000 +09:00
+  common_column_set_id: 3
+  type: MxCommonFooterColumn
+  physical_name: updated_at
+  logical_name: Last updated time
+  data_type_id: 39
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 1
