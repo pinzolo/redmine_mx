@@ -39,7 +39,7 @@ module MxHelper
     end
   end
 
-  def mx_enum_with_wbr(texts)
+  def mx_enumerate_texts_with_wbr(texts)
     texts.map { |text| h(text) }.join(', <wbr/>').html_safe
   end
 end
