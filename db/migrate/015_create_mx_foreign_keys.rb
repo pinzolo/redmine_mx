@@ -4,6 +4,7 @@ class CreateMxForeignKeys < ActiveRecord::Migration
       t.timestamps
 
       t.integer :table_id, null: false
+      t.integer :referred_table_id, null: false
       t.string :name, null: false
     end
 
