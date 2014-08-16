@@ -137,4 +137,61 @@ class MxCommonColumnSetsControllerTest < ActionController::TestCase
     get :new, project_id: @project, database_id: 'invalid'
     assert_response 404
   end
+
+  #TODO: create
+
+  def test_edit_by_manager
+    by_manager
+    get :edit, project_id: @project, database_id: @database, id: 1
+    assert_response :success
+    assert_template 'edit'
+    common_column_set = assigns(:common_column_set)
+    assert common_column_set
+    assert_equal 'default', common_column_set.name
+    vm = assigns(:vue_model)
+    assert vm
+    assert_equal common_column_set.name, vm.name
+    assert_equal common_column_set.comment, vm.comment
+    assert_equal common_column_set.header_columns.size, vm.header_columns.size
+    [:header_columns, :footer_columns].each do |columns_attr|
+      common_column_set.send(columns_attr).each do |column|
+        column_vm = vm.send(columns_attr).detect { |col| col.physical_name == column.physical_name }
+        assert column_vm
+        [:logical_name, :data_type_id, :size, :scale, :nullable, :default_value, :comment].each do |attr|
+          assert_equal column.send(attr), column_vm.send(attr)
+        end
+        assert_equal column.logical_name, column_vm.logical_name
+      end
+    end
+  end
+
+  def test_edit_by_viewer
+    by_viewer
+    get :edit, project_id: @project, database_id: @database, id: 1
+    assert_response 403
+  end
+
+  def test_edit_by_not_member
+    by_not_member
+    get :edit, project_id: @project, database_id: @database, id: 1
+    assert_response 403
+  end
+
+  def test_edit_with_invalid_project
+    by_manager
+    get :edit, project_id: 'invalid', database_id: @database, id: 1
+    assert_response 404
+  end
+
+  def test_edit_with_invalid_database
+    by_manager
+    get :edit, project_id: @project, database_id: 'invalid', id: 1
+    assert_response 404
+  end
+
+  def test_edit_with_invalid_id
+    by_manager
+    get :edit, project_id: @project, database_id: @database, id: -1
+    assert_response 404
+  end
 end
