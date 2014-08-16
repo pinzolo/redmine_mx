@@ -33,17 +33,17 @@ class MxVm::CommonColumnSet
   def build_from_hash(params)
     simple_load_values_from_hash!(params, :id, :name, :database_id, :comment, :lock_version)
     if params[:header_columns]
-      self.header_columns = params[:header_columns].values.map { |column_params| MxVm::CommonColumn.new(column_params) }
+      self.header_columns = params[:header_columns].values.map { |column_params| MxVm::Column.new(column_params) }
     end
     if params[:footer_columns]
-      self.footer_columns = params[:footer_columns].values.map { |column_params| MxVm::CommonColumn.new(column_params) }
+      self.footer_columns = params[:footer_columns].values.map { |column_params| MxVm::Column.new(column_params) }
     end
   end
 
   def build_from_mx_common_column_set(common_column_set)
     simple_load_values_from_object!(common_column_set, :id, :name, :database_id, :comment, :lock_version)
-    self.header_columns = common_column_set.header_columns.map { |column| MxVm::CommonColumn.new(column) }
-    self.footer_columns = common_column_set.footer_columns.map { |column| MxVm::CommonColumn.new(column) }
+    self.header_columns = common_column_set.header_columns.map { |column| MxVm::Column.new(column) }
+    self.footer_columns = common_column_set.footer_columns.map { |column| MxVm::Column.new(column) }
   end
 
   def safe_collections

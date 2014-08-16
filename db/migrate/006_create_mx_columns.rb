@@ -3,7 +3,8 @@ class CreateMxColumns < ActiveRecord::Migration
     create_table :mx_columns do |t|
       t.timestamps
 
-      t.integer :table_id, null: false
+      t.string :type, null: false
+      t.integer :owner_id, null: false
       t.string :physical_name, null: false
       t.string :logical_name
       t.integer :data_type_id, null: false
@@ -14,7 +15,7 @@ class CreateMxColumns < ActiveRecord::Migration
       t.integer :position, null: false
     end
 
-    add_index :mx_columns, [:table_id, :physical_name], unique: true, name: 'mx_columns_uk1'
-    add_index :mx_columns, [:table_id, :position], unique: true, name: 'mx_columns_uk2'
+    add_index :mx_columns, [:type, :owner_id, :physical_name], unique: true, name: 'mx_columns_uk1'
+    add_index :mx_columns, [:type, :owner_id, :position], unique: true, name: 'mx_columns_uk2'
   end
 end

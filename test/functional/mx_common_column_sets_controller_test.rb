@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class MxCommonColumnSetsControllerTest < ActionController::TestCase
   fixtures :users, :projects, :members, :roles, :member_roles,
-    :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases, :mx_common_column_sets, :mx_common_columns
+    :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases, :mx_common_column_sets, :mx_columns
 
   def setup
     enable_mx!
@@ -223,12 +223,13 @@ class MxCommonColumnSetsControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  def test_destroy_should_delete_mx_common_columns
+  def test_destroy_should_delete_mx_columns
     by_manager
-    assert_difference 'MxCommonColumn.count', -5 do
+    assert MxColumn.where(type: ['MxCommonHeaderColumn', 'MxCommonFooterColumn'], owner_id: 1).present?
+    assert_difference 'MxColumn.count', -5 do
       delete :destroy, project_id: @project, database_id: @database, id: 1
     end
-    assert MxCommonColumn.where(common_column_set_id: 1).empty?
+    assert MxColumn.where(type: ['MxCommonHeaderColumn', 'MxCommonFooterColumn'], owner_id: 1).empty?
   end
 
   def test_destroy_with_invalid_project

@@ -1,3 +1,2 @@
-class MxCommonFooterColumn < MxCommonColumn
-  unloadable
+class MxCommonFooterColumn < MxColumn
 end

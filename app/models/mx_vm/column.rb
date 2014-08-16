@@ -1,7 +1,7 @@
-class MxVm::CommonColumn
+class MxVm::Column
   include MxVm::VueModel
 
-  attr_accessor :type, :physical_name, :logical_name, :data_type_id,
+  attr_accessor :physical_name, :logical_name, :data_type_id,
     :size, :scale, :nullable, :default_value, :position, :comment
 
   validates :physical_name, presence: true, length: { maximum: 200 }
@@ -14,21 +14,21 @@ class MxVm::CommonColumn
   def initialize(params={})
     if params.is_a?(Hash)
       build_from_hash(params)
-    elsif params.is_a?(MxCommonColumn)
-      build_from_mx_common_column(params)
+    elsif params.is_a?(MxColumn)
+      build_from_mx_column(params)
     end
   end
 
   private
 
   def build_from_hash(params)
-    simple_load_values_from_hash!(params, :id, :type, :physical_name, :logical_name, :data_type_id,
+    simple_load_values_from_hash!(params, :id, :physical_name, :logical_name, :data_type_id,
                                   :size, :scale, :default_value, :position, :comment)
     send('nullable=', params[:nullable].present?)
   end
 
-  def build_from_mx_common_column(mx_common_column)
-    simple_load_values_from_object!(mx_common_column, :id, :type, :physical_name, :logical_name, :data_type_id,
+  def build_from_mx_column(mx_column)
+    simple_load_values_from_object!(mx_column, :id, :physical_name, :logical_name, :data_type_id,
                                     :size, :scale, :nullable, :default_value, :position, :comment)
   end
 end
