@@ -1,16 +1,16 @@
-class MxVm::CommonColumnSet
+class MxVm::ColumnSet
   include MxVm::VueModel
 
   attr_accessor :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
 
-  validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxCommonColumnSet', scope: :database_id }
+  validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
   validates_with MxValuesUniquenessValidator, { collection: :columns, attribute: :physical_name, field: :column_physical_name }
 
   def initialize(params={}, database=nil)
     if params.is_a?(Hash)
       build_from_hash(params)
-    elsif params.is_a?(MxCommonColumnSet)
-      build_from_mx_common_column_set(params)
+    elsif params.is_a?(MxColumnSet)
+      build_from_mx_column_set(params)
     end
     self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) } if database
     safe_collections
@@ -40,10 +40,10 @@ class MxVm::CommonColumnSet
     end
   end
 
-  def build_from_mx_common_column_set(common_column_set)
-    simple_load_values_from_object!(common_column_set, :id, :name, :database_id, :comment, :lock_version)
-    self.header_columns = common_column_set.header_columns.map { |column| MxVm::Column.new(column) }
-    self.footer_columns = common_column_set.footer_columns.map { |column| MxVm::Column.new(column) }
+  def build_from_mx_column_set(column_set)
+    simple_load_values_from_object!(column_set, :id, :name, :database_id, :comment, :lock_version)
+    self.header_columns = column_set.header_columns.map { |column| MxVm::Column.new(column) }
+    self.footer_columns = column_set.footer_columns.map { |column| MxVm::Column.new(column) }
   end
 
   def safe_collections

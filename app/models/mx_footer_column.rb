@@ -1,0 +1,2 @@
+class MxFooterColumn < MxColumn
+end

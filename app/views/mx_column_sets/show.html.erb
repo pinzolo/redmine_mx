@@ -1,14 +1,14 @@
 <div id="mx-content">
-  <%= mx_database_tabs(@database, :common_column_sets) %>
+  <%= mx_database_tabs(@database, :column_sets) %>
   <div class="contextual">
-    <%= link_to l(:button_back), project_mx_database_common_column_sets_path(@project, @database),  class: 'icon icon-cancel' %>
+    <%= link_to l(:button_back), project_mx_database_column_sets_path(@project, @database),  class: 'icon icon-cancel' %>
 <% if User.current.allowed_to?(:manage_mx_tables, @project) %>
-    <%= link_to l(:button_edit), edit_project_mx_database_common_column_set_path(@project, @database, @common_column_set),  class: 'icon icon-edit', accesskey: accesskey(:edit) %>
-    <%= link_to l(:button_delete), project_mx_database_common_column_set_path(@project, @database, @common_column_set), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
+    <%= link_to l(:button_edit), edit_project_mx_database_column_set_path(@project, @database, @column_set),  class: 'icon icon-edit', accesskey: accesskey(:edit) %>
+    <%= link_to l(:button_delete), project_mx_database_column_set_path(@project, @database, @column_set), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
 <% end %>
   </div>
-  <h2 class="mx-section-caption"><%= l('mx.title_common_column_sets_show') %></h2>
-  <p id="mx-common-column-set">
+  <h2 class="mx-section-caption"><%= l('mx.title_column_sets_show') %></h2>
+  <p id="mx-column-set">
     <table class="mx-defs">
       <tbody>
         <tr>
@@ -16,18 +16,18 @@
           <td><%= @database.identifier %></td>
         </tr>
         <tr>
-          <th><%= mx_label_for('common_column_set_name') %></th>
-          <td><%= @common_column_set.name %></td>
+          <th><%= mx_label_for('column_set_name') %></th>
+          <td><%= @column_set.name %></td>
         </tr>
         <tr>
           <th><%= mx_label_for('comment') %></th>
-          <td><%= simple_format_without_paragraph(@common_column_set.comment) %></td>
+          <td><%= simple_format_without_paragraph(@column_set.comment) %></td>
         </tr>
       </tbody>
     </table>
   </p>
   <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
-  <p id="mx-common-columns">
+  <p id="mx-columns">
     <table class="mx-grid">
       <thead>
         <tr>
@@ -43,8 +43,8 @@
         </tr>
       </thead>
       <tbody>
-<% @common_column_set.columns.each do |column| %>
-        <tr id="mx-common-column-<%= column.id %>">
+<% @column_set.columns.each do |column| %>
+        <tr id="mx-column-<%= column.id %>">
           <td><%= column.type[8] %></td>
           <td><%= column.physical_name %></td>
           <td><%= column.logical_name %></td>
@@ -61,7 +61,7 @@
   </p>
 </div>
 
-<% html_title(l('mx.title_common_column_sets_detail', name: @common_column_set.name)) %>
+<% html_title(l('mx.title_column_sets_detail', name: @column_set.name)) %>
 
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>

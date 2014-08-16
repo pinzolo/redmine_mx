@@ -1,2 +1,0 @@
-class MxCommonFooterColumn < MxColumn
-end

@@ -1,0 +1,2 @@
+class MxHeaderColumn < MxColumn
+end

@@ -1,0 +1,77 @@
+<p id="mx-column-set">
+  <table class="mx-defs">
+    <tbody>
+      <tr>
+        <th><%= mx_label_for('database') %></th>
+        <td><%= database.identifier %></td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('column_set_name', required: true) %></th>
+        <td class="{{classFor(this, 'name')}}">
+          <%= text_field 'mx_column_set', 'name', size: 70, 'v-model' => 'name' %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('comment') %></th>
+        <td><%= text_area 'mx_column_set', 'comment', size: '70x8', 'v-model' => 'comment' %></td>
+      </tr>
+    </tbody>
+  </table>
+</p>
+<h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
+<p id="mx-columns">
+  <%= link_to l('mx.label_header_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addHeaderColumn' %>
+  <table class="mx-grid">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><%= mx_label_for('physical_name', required: true) %></th>
+        <th><%= mx_label_for('logical_name') %></th>
+        <th><%= mx_label_for('data_type', required: true) %></th>
+        <th><%= mx_label_for('size') %></th>
+        <th><%= mx_label_for('scale') %></th>
+        <th><%= mx_label_for('nullable') %></th>
+        <th><%= mx_label_for('default_value') %></th>
+        <th><%= mx_label_for('comment') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+<% ['header', 'footer'].each do |type| %>
+      <tr v-repeat="column: <%= type %>_columns" id="mx-column-{{column.id}}" class="mx-column mx-<%= type %>-column mx-fade" v-transition>
+  <% prefix = "mx_column_set[#{type}_columns][{{column.id}}]" %>
+        <td><%= type.upcase[0] %></td>
+        <td class="{{classFor(column, 'physical_name')}}">
+          <input type="hidden" name="<%= prefix %>[id]" v-model="column.id" />
+          <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
+          <input type="text" class="mx-column-physical-name" name="<%= prefix %>[physical_name]" v-model="column.physical_name" size="30" />
+        </td>
+        <td class="{{classFor(column, 'logical_name')}}">
+          <input type="text" class="mx-column-logical-name" name="<%= prefix %>[logical_name]" v-model="column.logical_name" size="30" />
+        </td>
+        <td class="{{classFor(column, 'data_type_id')}}">
+          <select class="mx-column-data-type" name="<%= prefix %>[data_type_id]" v-model="column.data_type_id" v-on="change: changeDataType(this)">
+            <option value="">&nbsp;</option>
+            <%= options_for_select(database.dbms_product.data_types.map { |data_type| [data_type.name, data_type.id] }) %>
+          </select>
+        </td>
+        <td class="{{classFor(column, 'size')}}">
+          <input type="text" class="mx-column-size mx-numeric" name="<%= prefix %>[size]" v-attr="disabled: !sizeEditable(this)" v-model="column.size" size="5" />
+        </td>
+        <td class="{{classFor(column, 'scale')}}">
+          <input type="text" class="mx-column-scale mx-numeric" name="<%= prefix %>[scale]" v-attr="disabled: !scaleEditable(this)" v-model="column.scale" size="5" />
+        </td>
+        <td class="mx-mark-cell"><input type="checkbox" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/></td>
+        <td class="{{classFor(column, 'default_value')}}">
+          <input type="text" class="mx-column-default-value" name="<%= prefix %>[default_value]" v-model="column.default_value" size="30" />
+        </td>
+        <td><input type="text" class="mx-column-comment" name="<%= prefix %>[comment]" v-model="column.comment" size="50" /></td>
+        <td><%= mx_image_button 'delete', 'v-on' => "click: remove#{type.capitalize}Column(this)" %></td>
+      </tr>
+<% end %>
+    </tbody>
+  </table>
+  <br />
+  <%= link_to l('mx.label_footer_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addFooterColumn' %>
+</p>
+

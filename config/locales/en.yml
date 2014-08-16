@@ -18,14 +18,14 @@ en:
     label_database_new: 'New database'
     label_database_identifier: 'Database name'
     label_table_count: 'Table count'
-    label_common_column_set_new: 'New common columns'
+    label_column_set_new: 'New column set'
     label_table_new: 'New table'
     label_physical_name: 'Physical name'
     label_logical_name: 'Logical name'
     label_updated_at: 'Last updated time'
     label_updated_user: 'Last updated user'
     label_database: 'Database'
-    label_common_column_set_name: "Common columns' name"
+    label_column_set_name: "Column set's name"
     label_data_type: 'Data type'
     label_size: 'Size'
     label_scale: 'Scale'
@@ -44,16 +44,16 @@ en:
     title_databases_index: 'Databases'
     title_databases_new: 'New database'
     title_databases_edit: 'Edit database'
-    title_common_column_sets: 'Common columns list [DB: %{name}]'
-    title_common_column_sets_new: 'New common columns'
-    title_common_column_sets_edit: 'Edit common columns'
-    title_common_column_sets_show: 'Common columns details'
-    title_common_column_sets_detail: 'Common columns [%{name}]'
+    title_column_sets: 'Column set list [DB: %{name}]'
+    title_column_sets_new: 'New column set'
+    title_column_sets_edit: 'Edit column set'
+    title_column_sets_show: 'Column set details'
+    title_column_sets_detail: 'Column set [%{name}]'
     title_tables: 'Tables [DB: %{name}]'
     title_columns: 'Columns'
 
     tab_tables: 'Tables'
-    tab_common_column_sets: 'Common columns'
+    tab_column_sets: 'Column set'
 
   mx_vm:
     errors:
@@ -87,8 +87,8 @@ en:
       mx_vm/database:
         identifier: 'Database name'
         dbms_product_id: 'DBMS'
-      mx_vm/common_column_set:
-        name: "Common columns' name"
+      mx_vm/column_set:
+        name: "Column set's name"
         header_column_physical_name: "Header column's physical name"
         header_column_logical_name: "Header column's logical name"
         header_column_data_type_id: "Header column's data type"

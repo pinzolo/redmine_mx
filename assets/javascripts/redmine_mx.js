@@ -25,9 +25,9 @@ function prepareMxDbmsProductVue(data) {
   });
 }
 
-function prepareMxCommonColumnSetVue(data) {
+function prepareMxColumnSetVue(data) {
   return new Vue({
-    el: '#mx_common_column_set_form',
+    el: '#mx_column_set_form',
     data: data,
     methods: {
       addHeaderColumn: function() {

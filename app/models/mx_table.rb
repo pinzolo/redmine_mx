@@ -4,7 +4,7 @@ class MxTable < ActiveRecord::Base
   unloadable
 
   belongs_to :project
-  belongs_to :common_column_set
+  belongs_to :column_set
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
   has_many :table_columns, class_name: 'MxTableColumn', foreign_key: :owner_id, order: :position, dependent: :destroy
@@ -13,8 +13,8 @@ class MxTable < ActiveRecord::Base
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
   def columns
-    if common_column_set
-      common_column_set.header_columns + table_columns + common_column_set.footer_columns
+    if column_set
+      column_set.header_columns + table_columns + column_set.footer_columns
     else
       table_columns
     end

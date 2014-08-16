@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           resources :versions, controller: :mx_table_versions, only: [:index]
           match 'versions/:version', to: 'mx_table_versions#show', via: :get, as: 'version'
         end
-        resources :common_column_sets, controller: :mx_common_column_sets
+        resources :column_sets, controller: :mx_column_sets
       end
     end
   end

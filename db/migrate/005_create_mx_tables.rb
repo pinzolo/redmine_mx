@@ -6,7 +6,7 @@ class CreateMxTables < ActiveRecord::Migration
 
       t.integer :project_id, null: false
       t.integer :database_id, null: false
-      t.integer :common_column_set_id
+      t.integer :column_set_id
       t.string :physical_name, null: false
       t.string :logical_name
       t.integer :current_version, null: false, default: 1

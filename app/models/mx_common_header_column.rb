@@ -1,2 +1,0 @@
-class MxCommonHeaderColumn < MxColumn
-end

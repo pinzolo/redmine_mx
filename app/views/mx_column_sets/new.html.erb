@@ -1,0 +1,23 @@
+<%= error_messages_for(@vue_model) %>
+<div id="mx-content">
+  <%= mx_database_tabs(@database, :column_sets) %>
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_database_column_sets_path(@project, @database),  class: 'icon icon-cancel' %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_column_sets_new') %></h2>
+  <%= form_for(@column_set, url: project_mx_database_column_sets_path(@project, @database), method: :post, html: { id: 'mx_column_set_form' }) do |f| %>
+    <%= render partial: 'form', locals: { f: f, database: @database } %>
+    <%= mx_submit l(:button_create) %>
+    <%= link_to l(:button_cancel), project_mx_database_column_sets_path(@project, @database) %>
+  <% end %>
+</div>
+
+<% html_title(l('mx.title_column_sets_new')) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>
+
+<%= javascript_include_tag 'vue', plugin: 'redmine_mx' %>
+<%= javascript_include_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<%= javascript_tag "var vm = prepareMxColumnSetVue(#{@vue_model.to_json});" %>

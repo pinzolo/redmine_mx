@@ -4,7 +4,7 @@ mx_columns_001:
   created_at: 2014-08-16 01:09:00.212133000 +09:00
   updated_at: 2014-08-16 01:09:00.212133000 +09:00
   owner_id: 1
-  type: MxCommonHeaderColumn
+  type: MxHeaderColumn
   physical_name: id
   logical_name: ID
   data_type_id: 8
@@ -18,7 +18,7 @@ mx_columns_002:
   created_at: 2014-08-16 01:09:00.224395000 +09:00
   updated_at: 2014-08-16 01:09:00.224395000 +09:00
   owner_id: 1
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: created_at
   logical_name: Created time
   data_type_id: 15
@@ -32,7 +32,7 @@ mx_columns_003:
   created_at: 2014-08-16 01:09:00.227653000 +09:00
   updated_at: 2014-08-16 01:09:00.227653000 +09:00
   owner_id: 1
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: created_by
   logical_name: Created user's ID
   data_type_id: 2
@@ -46,7 +46,7 @@ mx_columns_004:
   created_at: 2014-08-16 01:09:00.229847000 +09:00
   updated_at: 2014-08-16 01:09:00.229847000 +09:00
   owner_id: 1
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 15
@@ -60,7 +60,7 @@ mx_columns_005:
   created_at: 2014-08-16 01:09:00.231938000 +09:00
   updated_at: 2014-08-16 01:09:00.231938000 +09:00
   owner_id: 1
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: udpated_by
   logical_name: Last updated user's ID
   data_type_id: 2
@@ -74,7 +74,7 @@ mx_columns_006:
   created_at: 2014-08-16 01:13:00.627181000 +09:00
   updated_at: 2014-08-16 01:13:00.627181000 +09:00
   owner_id: 2
-  type: MxCommonHeaderColumn
+  type: MxHeaderColumn
   physical_name: id
   logical_name: ID
   data_type_id: 8
@@ -88,7 +88,7 @@ mx_columns_007:
   created_at: 2014-08-16 01:13:00.630258000 +09:00
   updated_at: 2014-08-16 01:13:00.630258000 +09:00
   owner_id: 2
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: created_at
   logical_name: Created time
   data_type_id: 15
@@ -102,7 +102,7 @@ mx_columns_008:
   created_at: 2014-08-16 01:13:00.632621000 +09:00
   updated_at: 2014-08-16 01:13:00.632621000 +09:00
   owner_id: 2
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 15
@@ -116,7 +116,7 @@ mx_columns_009:
   created_at: 2014-08-16 01:16:20.725885000 +09:00
   updated_at: 2014-08-16 01:16:20.725885000 +09:00
   owner_id: 3
-  type: MxCommonHeaderColumn
+  type: MxHeaderColumn
   physical_name: id
   logical_name: ID
   data_type_id: 25
@@ -130,7 +130,7 @@ mx_columns_010:
   created_at: 2014-08-16 01:16:20.729203000 +09:00
   updated_at: 2014-08-16 01:16:20.729203000 +09:00
   owner_id: 3
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: created_at
   logical_name: Created time
   data_type_id: 39
@@ -144,7 +144,7 @@ mx_columns_011:
   created_at: 2014-08-16 01:16:20.733386000 +09:00
   updated_at: 2014-08-16 01:16:20.733386000 +09:00
   owner_id: 3
-  type: MxCommonFooterColumn
+  type: MxFooterColumn
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 39

@@ -53,8 +53,8 @@ mx_comments_008:
   created_at: 2014-08-16 01:09:00.191585000 +09:00
   updated_at: 2014-08-16 01:09:00.191585000 +09:00
   mx_commentable_id: 1
-  mx_commentable_type: MxCommonColumnSet
-  comment: "Default common columns.\r\nUse this in basically."
+  mx_commentable_type: MxColumnSet
+  comment: "Default column set.\r\nUse this in basically."
 mx_comments_009:
   id: 9
   created_at: 2014-08-16 01:09:00.213283000 +09:00
@@ -95,8 +95,8 @@ mx_comments_014:
   created_at: 2014-08-16 01:13:00.624394000 +09:00
   updated_at: 2014-08-16 01:13:00.624394000 +09:00
   mx_commentable_id: 2
-  mx_commentable_type: MxCommonColumnSet
-  comment: Simple common columns for dependency tables.
+  mx_commentable_type: MxColumnSet
+  comment: Simple column set for dependency tables.
 mx_comments_015:
   id: 15
   created_at: 2014-08-16 01:13:00.628362000 +09:00
@@ -123,8 +123,8 @@ mx_comments_018:
   created_at: 2014-08-16 01:16:20.723906000 +09:00
   updated_at: 2014-08-16 01:16:20.723906000 +09:00
   mx_commentable_id: 3
-  mx_commentable_type: MxCommonColumnSet
-  comment: This is basic common columns.
+  mx_commentable_type: MxColumnSet
+  comment: This is basic column set.
 mx_comments_019:
   id: 19
   created_at: 2014-08-16 01:16:20.727046000 +09:00
