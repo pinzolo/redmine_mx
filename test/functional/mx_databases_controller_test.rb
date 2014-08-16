@@ -382,7 +382,7 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_destroy_with_invalid_project
-    by_not_member
+    by_manager
     assert_no_difference 'MxDatabase.count' do
       delete :destroy, project_id: 'invalid', id: 'main'
     end
@@ -390,7 +390,7 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_destroy_with_invalid_id
-    by_not_member
+    by_manager
     assert_no_difference 'MxDatabase.count' do
       delete :destroy, project_id: 'invalid', id: 'other'
     end
