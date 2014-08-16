@@ -105,4 +105,36 @@ class MxCommonColumnSetsControllerTest < ActionController::TestCase
     get :show, project_id: @project, database_id: @database, id: -1
     assert_response 404
   end
+
+  def test_new_by_manager
+    by_manager
+    get :new, project_id: @project, database_id: @database
+    assert_response :success
+    assert_template 'new'
+    assert assigns(:vue_model)
+  end
+
+  def test_new_by_viewer
+    by_viewer
+    get :new, project_id: @project, database_id: @database
+    assert_response 403
+  end
+
+  def test_new_by_not_member
+    by_not_member
+    get :new, project_id: @project, database_id: @database
+    assert_response 403
+  end
+
+  def test_new_with_invalid_project
+    by_manager
+    get :new, project_id: 'invalid', database_id: @database
+    assert_response 404
+  end
+
+  def test_new_with_invalid_database
+    by_manager
+    get :new, project_id: @project, database_id: 'invalid'
+    assert_response 404
+  end
 end
