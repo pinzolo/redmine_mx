@@ -98,7 +98,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
       delete :destroy, id: 1
     end
     assert_redirected_to mx_dbms_products_path
-    assert !MxDbmsProduct.where(id: 1).exists?
+    assert MxDbmsProduct.where(id: 1).empty?
   end
 
   def test_destroy_by_not_admin
@@ -111,6 +111,15 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     delete :destroy, id: 1
     assert_response 302
     assert_redirected_to '/login?back_url=http%3A%2F%2Ftest.host%2Fmx%2Fdbms_products%2F1'
+  end
+
+  def test_destroy_should_delete_data_types
+    by_admin
+    assert_difference 'MxDataType.count', -21 do
+      delete :destroy, id: 1
+    end
+    assert_redirected_to mx_dbms_products_path
+    assert MxDataType.where(dbms_product_id: 1).empty?
   end
 
   def test_new_by_admin

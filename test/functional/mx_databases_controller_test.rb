@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class MxDatabasesControllerTest < ActionController::TestCase
   fixtures :users, :projects, :members, :roles, :member_roles,
-    :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases
+    :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases, :mx_common_column_sets
 
   def setup
     enable_mx!
@@ -362,7 +362,7 @@ class MxDatabasesControllerTest < ActionController::TestCase
     end
     assert_response 302
     assert_redirected_to project_mx_databases_path(@project)
-    assert !MxDatabase.where(identifier: 'main').exists?
+    assert MxDatabase.where(identifier: 'main').empty?
   end
 
   def test_destroy_by_viewer
@@ -379,6 +379,14 @@ class MxDatabasesControllerTest < ActionController::TestCase
       delete :destroy, project_id: @project, id: 'main'
     end
     assert_response 403
+  end
+
+  def test_destroy_should_delete_mx_common_column_sets
+    by_manager
+    assert_difference 'MxCommonColumnSet.count', -2 do
+      delete :destroy, project_id: @project, id: 'main'
+    end
+    assert MxCommonColumnSet.where(database_id: 1).empty?
   end
 
   def test_destroy_with_invalid_project

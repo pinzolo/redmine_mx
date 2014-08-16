@@ -194,4 +194,64 @@ class MxCommonColumnSetsControllerTest < ActionController::TestCase
     get :edit, project_id: @project, database_id: @database, id: -1
     assert_response 404
   end
+
+  #TODO: update
+
+  def test_destroy_by_manager
+    by_manager
+    assert_difference 'MxCommonColumnSet.count', -1 do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert_response 302
+    assert_redirected_to project_mx_database_common_column_sets_path(@project, @database)
+    assert MxCommonColumnSet.where(id: 1).empty?
+  end
+
+  def test_destroy_by_viewer
+    by_viewer
+    assert_no_difference 'MxCommonColumnSet.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert_response 403
+  end
+
+  def test_destroy_by_not_member
+    by_not_member
+    assert_no_difference 'MxCommonColumnSet.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert_response 403
+  end
+
+  def test_destroy_should_delete_mx_common_columns
+    by_manager
+    assert_difference 'MxCommonColumn.count', -5 do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert MxCommonColumn.where(common_column_set_id: 1).empty?
+  end
+
+  def test_destroy_with_invalid_project
+    by_manager
+    assert_no_difference 'MxCommonColumnSet.count' do
+      delete :destroy, project_id: 'invalid', database_id: @database, id: 1
+    end
+    assert_response 404
+  end
+
+  def test_destroy_with_invalid_database
+    by_manager
+    assert_no_difference 'MxCommonColumnSet.count' do
+      delete :destroy, project_id: @project, database_id: 'invalid', id: 1
+    end
+    assert_response 404
+  end
+
+  def test_destroy_with_invalid_id
+    by_manager
+    assert_no_difference 'MxCommonColumnSet.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: -1
+    end
+    assert_response 404
+  end
 end
