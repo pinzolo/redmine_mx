@@ -8,15 +8,13 @@ function prepareMxDbmsProductVue(data) {
     data: data,
     methods: {
       addDataType: function() {
-        this.$data.data_types.splice(0, 0, { id: randomId() });
+        this.$data.data_types.push({ id: randomId() });
       },
       removeDataType: function(dataType) {
         this.$data.data_types.$remove(dataType.$index);
       },
-      duplicateDataType: function(dataType) {
-        var base = dataType.$data.data_type;
-        var newId = randomId();
-        this.$data.data_types.splice(dataType.$index + 1, 0, { id: newId, name: '', sizable: base.sizable, scalable: base.scalable });
+      insertDataType: function(dataType) {
+        this.$data.data_types.splice(dataType.$index, 0, { id: randomId() });
       },
       classFor: function(obj, prop) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';

@@ -25,7 +25,7 @@
   <table class="mx-grid">
     <thead>
       <tr>
-        <th><%= mx_image_button 'add', 'v-on' => "click: addDataType" %></th>
+        <th></th>
         <th><%= mx_label_for('data_type_name', required: true) %></th>
         <th><%= mx_label_for('sizable') %></th>
         <th><%= mx_label_for('scalable') %></th>
@@ -35,7 +35,7 @@
     <tbody>
       <tr v-repeat="data_type: data_types" id="mx-data-type-{{data_type.id}}" class="mx-data-type mx-fade" v-transition>
         <% prefix = 'mx_dbms_product[data_types][{{data_type.id}}]' %>
-        <td><%= mx_image_button 'duplicate', 'v-on' => "click: duplicateDataType(this)" %></td>
+        <td><%= mx_image_button 'add', 'v-on' => "click: insertDataType(this)" %></td>
         <td class="{{classFor(data_type, 'name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="data_type.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
@@ -47,5 +47,7 @@
       </tr>
     </tbody>
   </table>
+  <br />
+  <%= link_to l('mx.label_data_type_new'), '#mx-data-types',  class: 'icon icon-add', 'v-on' => 'click: addDataType' %>
 </p>
 

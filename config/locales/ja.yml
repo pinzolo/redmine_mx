@@ -11,6 +11,7 @@ ja:
     label_dbms_product_new: '新しいDBMS'
     label_dbms_product_name: 'DBMS名'
     label_dbms_product_type: '基本種別'
+    label_data_type_new: '新しいデータ型'
     label_data_type_name: 'データ型名'
     label_sizable: 'サイズ指定可能'
     label_scalable: 'スケール指定可能'

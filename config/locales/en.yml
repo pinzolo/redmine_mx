@@ -11,6 +11,7 @@ en:
     label_dbms_product_new: 'New DBMS'
     label_dbms_product_name: 'DBMS name'
     label_dbms_product_type: 'Base type'
+    label_data_type_new: 'New data type'
     label_data_type_name: 'Name'
     label_sizable: 'Sizable'
     label_scalable: 'Scalable'
