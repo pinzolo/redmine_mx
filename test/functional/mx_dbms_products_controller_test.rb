@@ -599,7 +599,6 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
           name: 'bar',
           sizable: 'true',
           scalable: 'true',
-          use_by_default: 'true',
           position: '1'
         },
         'v-c' => {
@@ -622,7 +621,6 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
         '86' => {
           id: '86',
           name: 'TEXT',
-          use_by_default: 'true',
           position: '0'
         },
         '87' => {
@@ -630,7 +628,6 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
           name: 'NUMBER',
           sizable: 'true',
           scalable: 'true',
-          use_by_default: 'true',
           position: '1'
         },
         'v-c' => {
@@ -654,7 +651,6 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
         assert data_type
         assert_equal !!data_type_param[:sizable], data_type.sizable
         assert_equal !!data_type_param[:scalable], data_type.scalable
-        assert_equal !!data_type_param[:use_by_default], data_type.use_by_default
       end
     else
       assert_equal 0, dbms_product.data_types.size

@@ -29,7 +29,6 @@
         <th><%= mx_label_for('data_type_name', required: true) %></th>
         <th><%= mx_label_for('sizable') %></th>
         <th><%= mx_label_for('scalable') %></th>
-        <th><%= mx_label_for('use_by_default') %></th>
         <th></th>
       </tr>
     </thead>
@@ -44,7 +43,6 @@
         </td>
         <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-sizable" name="<%= prefix %>[sizable]" value="true" v-model="data_type.sizable"/></td>
         <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-scalable" name="<%= prefix %>[scalable]" value="true" v-model="data_type.scalable"/></td>
-        <td class="mx-mark-cell"><input type="checkbox" class="mx-data-type-use_by_default" name="<%= prefix %>[use_by_default]" value="true" v-model="data_type.use_by_default"/></td>
         <td><%= mx_image_button 'delete', 'v-on' => "click: removeDataType(this)" %></td>
       </tr>
     </tbody>

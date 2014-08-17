@@ -14,7 +14,6 @@ en:
     label_data_type_name: 'Name'
     label_sizable: 'Sizable'
     label_scalable: 'Scalable'
-    label_use_by_default: 'Use by default'
     label_database_new: 'New database'
     label_database_identifier: 'Database name'
     label_table_count: 'Table count'

@@ -14,7 +14,6 @@ ja:
     label_data_type_name: 'データ型名'
     label_sizable: 'サイズ指定可能'
     label_scalable: 'スケール指定可能'
-    label_use_by_default: ',デフォルト使用'
     label_database_new: '新しいデータベース'
     label_database_identifier: 'データベース名'
     label_table_count: 'テーブル数'

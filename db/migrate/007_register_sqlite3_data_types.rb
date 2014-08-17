@@ -3,11 +3,11 @@ class RegisterSqlite3DataTypes < ActiveRecord::Migration
 
   def up
     data_types = [
-      { name: 'TEXT'    , sizable: false, scalable: false, use_by_default: true },
-      { name: 'NUMERIC' , sizable: false, scalable: false, use_by_default: true },
-      { name: 'INTEGER' , sizable: false, scalable: false, use_by_default: true },
-      { name: 'REAL'    , sizable: false, scalable: false, use_by_default: true },
-      { name: 'NONE'    , sizable: false, scalable: false, use_by_default: true }
+      { name: 'TEXT'    , sizable: false, scalable: false },
+      { name: 'NUMERIC' , sizable: false, scalable: false },
+      { name: 'INTEGER' , sizable: false, scalable: false },
+      { name: 'REAL'    , sizable: false, scalable: false },
+      { name: 'NONE'    , sizable: false, scalable: false }
     ]
     ActiveRecord::Base.transaction do
       db = MxDbms::Other.create!(name: NAME, comment: "Builtin DBMS as Other type")

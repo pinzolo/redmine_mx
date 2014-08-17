@@ -36,7 +36,7 @@ class MxDbmsProduct < ActiveRecord::Base
     self.attributes = vue_model.params_with(:name, :comment)
     self.save!
     vue_model.data_types.each do |vm_data_type|
-      self.data_types.build(vm_data_type.params_with(:name, :sizable, :scalable, :use_by_default)).save!
+      self.data_types.build(vm_data_type.params_with(:name, :sizable, :scalable)).save!
     end
   end
 
@@ -46,7 +46,7 @@ class MxDbmsProduct < ActiveRecord::Base
     base_data_types = Hash[self.data_types.map { |data_type| [data_type.name, data_type] }]
     vue_model.data_types.each do |vm_data_type|
       base_data_type = base_data_types.delete(vm_data_type.name)
-      data_type_params = vm_data_type.params_with(:name, :sizable, :scalable, :use_by_default)
+      data_type_params = vm_data_type.params_with(:name, :sizable, :scalable)
       if base_data_type
         base_data_type.update_attributes!(data_type_params)
       else

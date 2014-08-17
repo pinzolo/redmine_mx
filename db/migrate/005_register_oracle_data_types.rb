@@ -3,18 +3,18 @@ class RegisterOracleDataTypes < ActiveRecord::Migration
 
   def up
     data_types = [
-      { name: 'CHAR'         , sizable: true , scalable: false, use_by_default: true  },
-      { name: 'VARCHAR2'     , sizable: true , scalable: false, use_by_default: true  },
-      { name: 'NCHAR'        , sizable: true , scalable: false, use_by_default: true  },
-      { name: 'NVARCHAR2'    , sizable: true , scalable: false, use_by_default: true  },
-      { name: 'CLOB'         , sizable: false, scalable: false, use_by_default: true  },
-      { name: 'BLOB'         , sizable: false, scalable: false, use_by_default: true  },
-      { name: 'NUMBER'       , sizable: true , scalable: true , use_by_default: true  },
-      { name: 'BINARY_FLOAT' , sizable: false, scalable: false, use_by_default: false },
-      { name: 'BINARY_DOUBLE', sizable: false, scalable: false, use_by_default: false },
-      { name: 'DATE'         , sizable: false, scalable: false, use_by_default: true  },
-      { name: 'TIMESTAMP'    , sizable: false, scalable: false, use_by_default: true  },
-      { name: 'RAW'          , sizable: true , scalable: false, use_by_default: false }
+      { name: 'CHAR'         , sizable: true , scalable: false },
+      { name: 'VARCHAR2'     , sizable: true , scalable: false },
+      { name: 'NCHAR'        , sizable: true , scalable: false },
+      { name: 'NVARCHAR2'    , sizable: true , scalable: false },
+      { name: 'CLOB'         , sizable: false, scalable: false },
+      { name: 'BLOB'         , sizable: false, scalable: false },
+      { name: 'NUMBER'       , sizable: true , scalable: true  },
+      { name: 'BINARY_FLOAT' , sizable: false, scalable: false },
+      { name: 'BINARY_DOUBLE', sizable: false, scalable: false },
+      { name: 'DATE'         , sizable: false, scalable: false },
+      { name: 'TIMESTAMP'    , sizable: false, scalable: false },
+      { name: 'RAW'          , sizable: true , scalable: false }
     ]
     ActiveRecord::Base.transaction do
       db = MxDbms::Oracle.create!(name: NAME, comment: "Builtin DBMS as #{NAME} type")

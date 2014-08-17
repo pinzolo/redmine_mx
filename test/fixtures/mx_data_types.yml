@@ -7,7 +7,6 @@ mx_data_types_001:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_002:
   id: 2
   created_at: 2014-08-16 01:00:14.062019000 +09:00
@@ -16,7 +15,6 @@ mx_data_types_002:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_003:
   id: 3
   created_at: 2014-08-16 01:00:14.063113000 +09:00
@@ -25,7 +23,6 @@ mx_data_types_003:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_004:
   id: 4
   created_at: 2014-08-16 01:00:14.064500000 +09:00
@@ -34,7 +31,6 @@ mx_data_types_004:
   dbms_product_id: 1
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_005:
   id: 5
   created_at: 2014-08-16 01:00:14.065108000 +09:00
@@ -43,7 +39,6 @@ mx_data_types_005:
   dbms_product_id: 1
   sizable: true
   scalable: true
-  use_by_default: true
 mx_data_types_006:
   id: 6
   created_at: 2014-08-16 01:00:14.066162000 +09:00
@@ -52,7 +47,6 @@ mx_data_types_006:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_007:
   id: 7
   created_at: 2014-08-16 01:00:14.066761000 +09:00
@@ -61,7 +55,6 @@ mx_data_types_007:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_008:
   id: 8
   created_at: 2014-08-16 01:00:14.067798000 +09:00
@@ -70,7 +63,6 @@ mx_data_types_008:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_009:
   id: 9
   created_at: 2014-08-16 01:00:14.068724000 +09:00
@@ -79,7 +71,6 @@ mx_data_types_009:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_010:
   id: 10
   created_at: 2014-08-16 01:00:14.069704000 +09:00
@@ -88,7 +79,6 @@ mx_data_types_010:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_011:
   id: 11
   created_at: 2014-08-16 01:00:14.070643000 +09:00
@@ -97,7 +87,6 @@ mx_data_types_011:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_012:
   id: 12
   created_at: 2014-08-16 01:00:14.071575000 +09:00
@@ -106,7 +95,6 @@ mx_data_types_012:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_013:
   id: 13
   created_at: 2014-08-16 01:00:14.072401000 +09:00
@@ -115,7 +103,6 @@ mx_data_types_013:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_014:
   id: 14
   created_at: 2014-08-16 01:00:14.073434000 +09:00
@@ -124,7 +111,6 @@ mx_data_types_014:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_015:
   id: 15
   created_at: 2014-08-16 01:00:14.074863000 +09:00
@@ -133,7 +119,6 @@ mx_data_types_015:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_016:
   id: 16
   created_at: 2014-08-16 01:00:14.076067000 +09:00
@@ -142,7 +127,6 @@ mx_data_types_016:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_017:
   id: 17
   created_at: 2014-08-16 01:00:14.077139000 +09:00
@@ -151,7 +135,6 @@ mx_data_types_017:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_018:
   id: 18
   created_at: 2014-08-16 01:00:14.078254000 +09:00
@@ -160,7 +143,6 @@ mx_data_types_018:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_019:
   id: 19
   created_at: 2014-08-16 01:00:14.078847000 +09:00
@@ -169,7 +151,6 @@ mx_data_types_019:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_020:
   id: 20
   created_at: 2014-08-16 01:00:14.079413000 +09:00
@@ -178,7 +159,6 @@ mx_data_types_020:
   dbms_product_id: 1
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_021:
   id: 21
   created_at: 2014-08-16 01:00:14.080006000 +09:00
@@ -187,7 +167,6 @@ mx_data_types_021:
   dbms_product_id: 1
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_022:
   id: 22
   created_at: 2014-08-16 01:00:14.100466000 +09:00
@@ -196,7 +175,6 @@ mx_data_types_022:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_023:
   id: 23
   created_at: 2014-08-16 01:00:14.101145000 +09:00
@@ -205,7 +183,6 @@ mx_data_types_023:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_024:
   id: 24
   created_at: 2014-08-16 01:00:14.101787000 +09:00
@@ -214,7 +191,6 @@ mx_data_types_024:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_025:
   id: 25
   created_at: 2014-08-16 01:00:14.102392000 +09:00
@@ -223,7 +199,6 @@ mx_data_types_025:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_026:
   id: 26
   created_at: 2014-08-16 01:00:14.102998000 +09:00
@@ -232,7 +207,6 @@ mx_data_types_026:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_027:
   id: 27
   created_at: 2014-08-16 01:00:14.103605000 +09:00
@@ -241,7 +215,6 @@ mx_data_types_027:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_028:
   id: 28
   created_at: 2014-08-16 01:00:14.104268000 +09:00
@@ -250,7 +223,6 @@ mx_data_types_028:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: true
 mx_data_types_029:
   id: 29
   created_at: 2014-08-16 01:00:14.104879000 +09:00
@@ -259,7 +231,6 @@ mx_data_types_029:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_030:
   id: 30
   created_at: 2014-08-16 01:00:14.105482000 +09:00
@@ -268,7 +239,6 @@ mx_data_types_030:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_031:
   id: 31
   created_at: 2014-08-16 01:00:14.106102000 +09:00
@@ -277,7 +247,6 @@ mx_data_types_031:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: true
 mx_data_types_032:
   id: 32
   created_at: 2014-08-16 01:00:14.106716000 +09:00
@@ -286,7 +255,6 @@ mx_data_types_032:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_033:
   id: 33
   created_at: 2014-08-16 01:00:14.107338000 +09:00
@@ -295,7 +263,6 @@ mx_data_types_033:
   dbms_product_id: 2
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_034:
   id: 34
   created_at: 2014-08-16 01:00:14.107938000 +09:00
@@ -304,7 +271,6 @@ mx_data_types_034:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_035:
   id: 35
   created_at: 2014-08-16 01:00:14.108539000 +09:00
@@ -313,7 +279,6 @@ mx_data_types_035:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_036:
   id: 36
   created_at: 2014-08-16 01:00:14.109153000 +09:00
@@ -322,7 +287,6 @@ mx_data_types_036:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_037:
   id: 37
   created_at: 2014-08-16 01:00:14.109722000 +09:00
@@ -331,7 +295,6 @@ mx_data_types_037:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_038:
   id: 38
   created_at: 2014-08-16 01:00:14.110715000 +09:00
@@ -340,7 +303,6 @@ mx_data_types_038:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_039:
   id: 39
   created_at: 2014-08-16 01:00:14.112207000 +09:00
@@ -349,7 +311,6 @@ mx_data_types_039:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_040:
   id: 40
   created_at: 2014-08-16 01:00:14.113395000 +09:00
@@ -358,7 +319,6 @@ mx_data_types_040:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_041:
   id: 41
   created_at: 2014-08-16 01:00:14.114555000 +09:00
@@ -367,7 +327,6 @@ mx_data_types_041:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_042:
   id: 42
   created_at: 2014-08-16 01:00:14.115677000 +09:00
@@ -376,7 +335,6 @@ mx_data_types_042:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_043:
   id: 43
   created_at: 2014-08-16 01:00:14.117201000 +09:00
@@ -385,7 +343,6 @@ mx_data_types_043:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_044:
   id: 44
   created_at: 2014-08-16 01:00:14.118341000 +09:00
@@ -394,7 +351,6 @@ mx_data_types_044:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_045:
   id: 45
   created_at: 2014-08-16 01:00:14.119351000 +09:00
@@ -403,7 +359,6 @@ mx_data_types_045:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_046:
   id: 46
   created_at: 2014-08-16 01:00:14.120473000 +09:00
@@ -412,7 +367,6 @@ mx_data_types_046:
   dbms_product_id: 2
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_047:
   id: 47
   created_at: 2014-08-16 01:00:14.121471000 +09:00
@@ -421,7 +375,6 @@ mx_data_types_047:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_048:
   id: 48
   created_at: 2014-08-16 01:00:14.122500000 +09:00
@@ -430,7 +383,6 @@ mx_data_types_048:
   dbms_product_id: 2
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_049:
   id: 49
   created_at: 2014-08-16 01:00:14.138862000 +09:00
@@ -439,7 +391,6 @@ mx_data_types_049:
   dbms_product_id: 3
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_050:
   id: 50
   created_at: 2014-08-16 01:00:14.139999000 +09:00
@@ -448,7 +399,6 @@ mx_data_types_050:
   dbms_product_id: 3
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_051:
   id: 51
   created_at: 2014-08-16 01:00:14.141044000 +09:00
@@ -457,7 +407,6 @@ mx_data_types_051:
   dbms_product_id: 3
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_052:
   id: 52
   created_at: 2014-08-16 01:00:14.141951000 +09:00
@@ -466,7 +415,6 @@ mx_data_types_052:
   dbms_product_id: 3
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_053:
   id: 53
   created_at: 2014-08-16 01:00:14.142879000 +09:00
@@ -475,7 +423,6 @@ mx_data_types_053:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_054:
   id: 54
   created_at: 2014-08-16 01:00:14.143793000 +09:00
@@ -484,7 +431,6 @@ mx_data_types_054:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_055:
   id: 55
   created_at: 2014-08-16 01:00:14.144680000 +09:00
@@ -493,7 +439,6 @@ mx_data_types_055:
   dbms_product_id: 3
   sizable: true
   scalable: true
-  use_by_default: true
 mx_data_types_056:
   id: 56
   created_at: 2014-08-16 01:00:14.145556000 +09:00
@@ -502,7 +447,6 @@ mx_data_types_056:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_057:
   id: 57
   created_at: 2014-08-16 01:00:14.146179000 +09:00
@@ -511,7 +455,6 @@ mx_data_types_057:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_058:
   id: 58
   created_at: 2014-08-16 01:00:14.146803000 +09:00
@@ -520,7 +463,6 @@ mx_data_types_058:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_059:
   id: 59
   created_at: 2014-08-16 01:00:14.147436000 +09:00
@@ -529,7 +471,6 @@ mx_data_types_059:
   dbms_product_id: 3
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_060:
   id: 60
   created_at: 2014-08-16 01:00:14.148159000 +09:00
@@ -538,7 +479,6 @@ mx_data_types_060:
   dbms_product_id: 3
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_061:
   id: 61
   created_at: 2014-08-16 01:00:14.163895000 +09:00
@@ -547,7 +487,6 @@ mx_data_types_061:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_062:
   id: 62
   created_at: 2014-08-16 01:00:14.164590000 +09:00
@@ -556,7 +495,6 @@ mx_data_types_062:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_063:
   id: 63
   created_at: 2014-08-16 01:00:14.165227000 +09:00
@@ -565,7 +503,6 @@ mx_data_types_063:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_064:
   id: 64
   created_at: 2014-08-16 01:00:14.165855000 +09:00
@@ -574,7 +511,6 @@ mx_data_types_064:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_065:
   id: 65
   created_at: 2014-08-16 01:00:14.166441000 +09:00
@@ -583,7 +519,6 @@ mx_data_types_065:
   dbms_product_id: 4
   sizable: true
   scalable: true
-  use_by_default: false
 mx_data_types_066:
   id: 66
   created_at: 2014-08-16 01:00:14.167120000 +09:00
@@ -592,7 +527,6 @@ mx_data_types_066:
   dbms_product_id: 4
   sizable: true
   scalable: true
-  use_by_default: true
 mx_data_types_067:
   id: 67
   created_at: 2014-08-16 01:00:14.167725000 +09:00
@@ -601,7 +535,6 @@ mx_data_types_067:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_068:
   id: 68
   created_at: 2014-08-16 01:00:14.168345000 +09:00
@@ -610,7 +543,6 @@ mx_data_types_068:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_069:
   id: 69
   created_at: 2014-08-16 01:00:14.168973000 +09:00
@@ -619,7 +551,6 @@ mx_data_types_069:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_070:
   id: 70
   created_at: 2014-08-16 01:00:14.169735000 +09:00
@@ -628,7 +559,6 @@ mx_data_types_070:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_071:
   id: 71
   created_at: 2014-08-16 01:00:14.170373000 +09:00
@@ -637,7 +567,6 @@ mx_data_types_071:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_072:
   id: 72
   created_at: 2014-08-16 01:00:14.170971000 +09:00
@@ -646,7 +575,6 @@ mx_data_types_072:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_073:
   id: 73
   created_at: 2014-08-16 01:00:14.171621000 +09:00
@@ -655,7 +583,6 @@ mx_data_types_073:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_074:
   id: 74
   created_at: 2014-08-16 01:00:14.172231000 +09:00
@@ -664,7 +591,6 @@ mx_data_types_074:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_075:
   id: 75
   created_at: 2014-08-16 01:00:14.173042000 +09:00
@@ -673,7 +599,6 @@ mx_data_types_075:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_076:
   id: 76
   created_at: 2014-08-16 01:00:14.173644000 +09:00
@@ -682,7 +607,6 @@ mx_data_types_076:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_077:
   id: 77
   created_at: 2014-08-16 01:00:14.174253000 +09:00
@@ -691,7 +615,6 @@ mx_data_types_077:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_078:
   id: 78
   created_at: 2014-08-16 01:00:14.174830000 +09:00
@@ -700,7 +623,6 @@ mx_data_types_078:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_079:
   id: 79
   created_at: 2014-08-16 01:00:14.175428000 +09:00
@@ -709,7 +631,6 @@ mx_data_types_079:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_080:
   id: 80
   created_at: 2014-08-16 01:00:14.176032000 +09:00
@@ -718,7 +639,6 @@ mx_data_types_080:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_081:
   id: 81
   created_at: 2014-08-16 01:00:14.176633000 +09:00
@@ -727,7 +647,6 @@ mx_data_types_081:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: false
 mx_data_types_082:
   id: 82
   created_at: 2014-08-16 01:00:14.177201000 +09:00
@@ -736,7 +655,6 @@ mx_data_types_082:
   dbms_product_id: 4
   sizable: true
   scalable: false
-  use_by_default: true
 mx_data_types_083:
   id: 83
   created_at: 2014-08-16 01:00:14.178019000 +09:00
@@ -745,7 +663,6 @@ mx_data_types_083:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: false
 mx_data_types_084:
   id: 84
   created_at: 2014-08-16 01:00:14.179032000 +09:00
@@ -754,7 +671,6 @@ mx_data_types_084:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_085:
   id: 85
   created_at: 2014-08-16 01:00:14.180087000 +09:00
@@ -763,7 +679,6 @@ mx_data_types_085:
   dbms_product_id: 4
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_086:
   id: 86
   created_at: 2014-08-16 01:00:14.200623000 +09:00
@@ -772,7 +687,6 @@ mx_data_types_086:
   dbms_product_id: 5
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_087:
   id: 87
   created_at: 2014-08-16 01:00:14.201612000 +09:00
@@ -781,7 +695,6 @@ mx_data_types_087:
   dbms_product_id: 5
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_088:
   id: 88
   created_at: 2014-08-16 01:00:14.202261000 +09:00
@@ -790,7 +703,6 @@ mx_data_types_088:
   dbms_product_id: 5
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_089:
   id: 89
   created_at: 2014-08-16 01:00:14.202890000 +09:00
@@ -799,7 +711,6 @@ mx_data_types_089:
   dbms_product_id: 5
   sizable: false
   scalable: false
-  use_by_default: true
 mx_data_types_090:
   id: 90
   created_at: 2014-08-16 01:00:14.203609000 +09:00
@@ -808,4 +719,3 @@ mx_data_types_090:
   dbms_product_id: 5
   sizable: false
   scalable: false
-  use_by_default: true
