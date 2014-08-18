@@ -12,8 +12,8 @@
   background-color: #eeeeee;
 }
 
-.mx-grid tbody tr:nth-child(even) {
-  background-color: #f0f8ff;
+.mx-grid tbody tr:nth-child(odd) {
+  background-color: #f6f7f8;
 }
 
 .mx-grid tbody tr:hover {
