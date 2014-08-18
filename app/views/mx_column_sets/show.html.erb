@@ -32,9 +32,9 @@
       <thead>
         <tr>
           <th></th>
-          <th><%= mx_label_for('physical_name', required: true) %></th>
+          <th><%= mx_label_for('physical_name') %></th>
           <th><%= mx_label_for('logical_name') %></th>
-          <th><%= mx_label_for('data_type', required: true) %></th>
+          <th><%= mx_label_for('data_type') %></th>
           <th><%= mx_label_for('size') %></th>
           <th><%= mx_label_for('scale') %></th>
           <th><%= mx_label_for('nullable') %></th>
@@ -45,7 +45,7 @@
       <tbody>
 <% @column_set.columns.each do |column| %>
         <tr id="mx-column-<%= column.id %>">
-          <td><%= column.type[2] %></td>
+          <td class="mx-mark-cell"><%= column.type[2] %></td>
           <td><%= column.physical_name %></td>
           <td><%= column.logical_name %></td>
           <td><%= column.data_type.name %></td>
