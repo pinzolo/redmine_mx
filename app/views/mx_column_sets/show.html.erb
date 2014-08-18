@@ -45,7 +45,7 @@
       <tbody>
 <% @column_set.columns.each do |column| %>
         <tr id="mx-column-<%= column.id %>">
-          <td><%= column.type[8] %></td>
+          <td><%= column.type[2] %></td>
           <td><%= column.physical_name %></td>
           <td><%= column.logical_name %></td>
           <td><%= column.data_type.name %></td>
