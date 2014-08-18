@@ -595,7 +595,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
           position: '0'
         },
         'v-b' => {
-          id: 'v-a',
+          id: 'v-b',
           name: 'bar',
           sizable: 'true',
           scalable: 'true',

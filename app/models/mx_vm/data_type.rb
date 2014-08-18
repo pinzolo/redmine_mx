@@ -2,8 +2,13 @@ class MxVm::DataType
   include MxVm::VueModel
 
   attr_accessor :name, :sizable, :scalable, :position
+  attr_accessor :using_names
 
-  validates :name, presence: true, length: { maximum: 200 }
+  validates :name, presence: true,
+                   length: { maximum: 200 },
+                   exclusion: { in: ->(record){ record.using_names },
+                                message: :duplicated,
+                                if: 'name.present?' }
 
   def initialize(params={})
     if params.is_a?(Hash)
