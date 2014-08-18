@@ -3,10 +3,17 @@ class MxVm::Column
 
   attr_accessor :physical_name, :logical_name, :data_type_id,
     :size, :scale, :nullable, :default_value, :position, :comment
+  attr_accessor :data_type_ids, :using_physical_names
 
-  validates :physical_name, presence: true, length: { maximum: 200 }
+  validates :physical_name, presence: true,
+                            length: { maximum: 200 },
+                            exclusion: { in: ->(record){ record.using_physical_names },
+                                         message: :duplicated,
+                                         if: 'physical_name.present?' }
   validates :logical_name, length: { maximum: 200 }
-  validates :data_type_id, presence: true
+  validates :data_type_id, presence: true,
+                           inclusion: { in: ->(record){ record.data_type_ids },
+                                        if: 'data_type_id.present?' }
   validates :size, numericality: { only_integer: true, greater_than: 0, if: 'size.present?' }
   validates :scale, numericality: { only_integer: true, greater_than: 0, if: 'scale.present?' }
   validates :default_value, length: { maximum: 200 }

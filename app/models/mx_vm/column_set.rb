@@ -4,7 +4,6 @@ class MxVm::ColumnSet
   attr_accessor :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
 
   validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
-  validates_with MxValuesUniquenessValidator, { collection: :columns, attribute: :physical_name, field: :column_physical_name }
 
   def initialize(params={}, database=nil)
     if params.is_a?(Hash)
@@ -22,8 +21,10 @@ class MxVm::ColumnSet
 
   def valid_with_columns?
     valid_without_columns?
+    assign_values_to_columns_for_validation
     merge_children_errors!(header_columns, :header_column)
     merge_children_errors!(footer_columns, :footer_column)
+    clear_assigned_values_to_columns
     errors.empty?
   end
   alias_method_chain :valid?, :columns
@@ -50,5 +51,20 @@ class MxVm::ColumnSet
     self.header_columns ||= []
     self.footer_columns ||= []
     self.data_types ||= []
+  end
+
+  def assign_values_to_columns_for_validation
+    data_type_ids = self.data_types.map { |data_type| data_type.id.to_s }
+    self.columns.each do |column|
+      column.data_type_ids = data_type_ids
+      column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
+    end
+  end
+
+  def clear_assigned_values_to_columns
+    self.columns.each do |column|
+      column.data_type_ids = nil
+      column.using_physical_names = nil
+    end
   end
 end
