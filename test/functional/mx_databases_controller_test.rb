@@ -140,7 +140,7 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_invalid_project
-    by_viewer
+    by_manager
     assert_no_difference 'MxDatabase.count' do
       post :create, project_id: 'invalid', mx_vm_database: valid_create_params
     end
@@ -191,6 +191,28 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_create_with_value_overriden_params(:dbms_product_id, 6, 'is invalid')
   end
 
+  def test_create_without_summary
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(:summary) }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
+
+  def test_create_with_empty_summary
+    by_manager
+    params = valid_create_params.tap { |p| p[:summary] = '' }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
+
   def test_create_with_too_long_summary
     assert_create_with_value_overriden_params(:summary, 'a' * 201)
     assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
@@ -199,6 +221,28 @@ class MxDatabasesControllerTest < ActionController::TestCase
   def test_create_with_just_long_summary
     by_manager
     params = valid_create_params.tap { |p| p[:summary] = 'a' * 200 }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
+
+  def test_create_without_comment
+    by_manager
+    params = valid_create_params.tap { |p| p.delete(:comment) }
+    assert_difference 'MxDatabase.count', 1 do
+      post :create, project_id: @project, mx_vm_database: params
+    end
+    assert_response 302
+    assert_redirected_to project_mx_databases_path(@project)
+    assert_saved_database(3, params)
+  end
+
+  def test_create_with_empty_comment
+    by_manager
+    params = valid_create_params.tap { |p| p[:comment] = '' }
     assert_difference 'MxDatabase.count', 1 do
       post :create, project_id: @project, mx_vm_database: params
     end
