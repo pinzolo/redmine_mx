@@ -36,12 +36,8 @@ class MxVm::ColumnSet
 
   def build_from_hash(params)
     simple_load_values_from_hash!(params, :id, :name, :database_id, :comment, :lock_version)
-    if params[:header_columns]
-      self.header_columns = params[:header_columns].values.map { |column_params| MxVm::Column.new(column_params) }
-    end
-    if params[:footer_columns]
-      self.footer_columns = params[:footer_columns].values.map { |column_params| MxVm::Column.new(column_params) }
-    end
+    self.header_columns = params[:header_columns].values.map { |column_params| MxVm::Column.new(column_params) } if params[:header_columns]
+    self.footer_columns = params[:footer_columns].values.map { |column_params| MxVm::Column.new(column_params) } if params[:footer_columns]
   end
 
   def build_from_mx_column_set(column_set)
