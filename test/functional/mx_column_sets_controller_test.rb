@@ -9,13 +9,12 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     setup_mx_permissions!
     @project = Project.find('ecookbook')
     @database = MxDatabase.find_database(@project, 'main')
-    User.current = nil
+    by_manager
   end
 
   # index {{{
 
   def test_index_by_manager
-    by_manager
     get :index, project_id: @project, database_id: @database
     assert_response :success
     assert_template 'index'
@@ -45,13 +44,11 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_index_with_invalid_project
-    by_manager
     get :index, project_id: 'invalid', database_id: @database
     assert_response 404
   end
 
   def test_index_with_invalid_database
-    by_manager
     get :index, project_id: @project, database_id: 'invalid'
     assert_response 404
   end
@@ -61,7 +58,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # show {{{
 
   def test_show_by_manager
-    by_manager
     get :show, project_id: @project, database_id: @database, id: 1
     assert_response :success
     assert_template 'show'
@@ -95,19 +91,16 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_show_with_invalid_project
-    by_manager
     get :show, project_id: 'invalid', database_id: @database, id: 1
     assert_response 404
   end
 
   def test_show_with_invalid_database
-    by_manager
     get :show, project_id: @project, database_id: 'invalid', id: 1
     assert_response 404
   end
 
   def test_show_with_invalid_id
-    by_manager
     get :show, project_id: @project, database_id: @database, id: -1
     assert_response 404
   end
@@ -117,7 +110,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # new {{{
 
   def test_new_by_manager
-    by_manager
     get :new, project_id: @project, database_id: @database
     assert_response :success
     assert_template 'new'
@@ -137,13 +129,11 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_new_with_invalid_project
-    by_manager
     get :new, project_id: 'invalid', database_id: @database
     assert_response 404
   end
 
   def test_new_with_invalid_database
-    by_manager
     get :new, project_id: @project, database_id: 'invalid'
     assert_response 404
   end
@@ -153,7 +143,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # create {{{
 
   def test_create_by_manager_with_valid_params
-    by_manager
     assert_difference 'MxColumnSet.count', 1 do
       post :create, project_id: @project, database_id: @database, mx_column_set: valid_create_params
     end
@@ -163,7 +152,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_should_save_columns_by_manager_with_valid_params
-    by_manager
     assert_difference 'MxColumn.count', 6 do
       post :create, project_id: @project, database_id: @database, mx_column_set: valid_create_params
     end
@@ -189,7 +177,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_invalid_project
-    by_manager
     assert_no_difference 'MxColumnSet.count' do
       post :create, project_id: 'invalid', database_id: @database, mx_column_set: valid_create_params
     end
@@ -197,7 +184,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_invalid_database
-    by_manager
     assert_no_difference 'MxColumnSet.count' do
       post :create, project_id: @project, database_id: 'invalid', mx_column_set: valid_create_params
     end
@@ -205,56 +191,48 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_name
-    by_manager
     params = valid_create_params.tap { |p| p.delete(:name) }
     assert_create_failure(params)
     assert_have_error(:name, "can't be blank")
   end
 
   def test_create_with_empty_name
-    by_manager
     params = valid_create_params.tap { |p| p[:name] = '' }
     assert_create_failure(params)
     assert_have_error(:name, "can't be blank")
   end
 
   def test_create_with_too_long_name
-    by_manager
     params = valid_create_params.tap { |p| p[:name] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:name, /is too long/)
   end
 
   def test_create_with_just_long_name
-    by_manager
     params = valid_create_params.tap { |p| p[:name] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_already_taken_name
-    by_manager
     params = valid_create_params.tap { |p| p[:name] = 'default' }
     assert_create_failure(params)
     assert_have_error(:name, 'has already been taken')
   end
 
   def test_create_without_comment
-    by_manager
     params = valid_create_params.tap { |p| p.delete(:comment) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_comment
-    by_manager
     params = valid_create_params.tap { |p| p[:comment] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_header_columns
-    by_manager
     params = valid_create_params.tap { |p| p.delete(:header_columns) }
     assert_create_success(params, 3)
     assert_saved_column_set(4, params)
@@ -262,7 +240,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_footer_columns
-    by_manager
     params = valid_create_params.tap { |p| p.delete(:footer_columns) }
     assert_create_success(params, 3)
     assert_saved_column_set(4, params)
@@ -270,7 +247,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_header_columns_and_footer_columns
-    by_manager
     params = valid_create_params.tap do |p|
       p.delete(:header_columns)
       p.delete(:footer_columns)
@@ -288,98 +264,84 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_header_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:physical_name) }
     assert_create_failure(params)
     assert_have_error(:header_column_physical_name, "can't be blank")
   end
 
   def test_create_with_too_long_header_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:header_column_physical_name, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_duplicated_header_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'h_bar' }
     assert_create_failure(params)
     assert_have_error(:header_column_physical_name, 'is duplicated')
   end
 
   def test_create_without_header_column_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:logical_name) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_too_long_header_column_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:header_column_logical_name, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_header_column_data_type_id
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:data_type_id) }
     assert_create_failure(params)
     assert_have_error(:header_column_data_type_id, "can't be blank")
   end
 
   def test_create_with_header_column_data_type_id_that_not_belong_to_column_set_belonging_dbms_product
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:data_type_id] = '57' }
     assert_create_failure(params)
     assert_have_error(:header_column_data_type_id, 'is not included in the list')
   end
 
   def test_create_without_header_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'].delete(:size) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_header_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:size] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_not_numeric_header_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:size] = 'a' }
     assert_create_failure(params)
     assert_have_error(:header_column_size, 'is not a number')
   end
 
   def test_create_with_negative_numeric_header_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:size] = '-1' }
     assert_create_failure(params)
     assert_have_error(:header_column_size, 'must be greater than 0')
   end
 
   def test_create_with_header_column_size_when_data_type_is_not_sizable
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hb'][:size] = '10' }
     assert_create_success(params)
     assert_saved_column_set(4, params, :header_column_size)
@@ -388,35 +350,30 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_header_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'].delete(:scale) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_header_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:scale] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_not_numeric_header_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:scale] = 'a' }
     assert_create_failure(params)
     assert_have_error(:header_column_scale, 'is not a number')
   end
 
   def test_create_with_negative_numeric_header_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hc'][:scale] = '-1' }
     assert_create_failure(params)
     assert_have_error(:header_column_scale, 'must be greater than 0')
   end
 
   def test_create_with_header_column_scale_when_data_type_is_not_scalable
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-hb'][:scale] = '10' }
     assert_create_success(params)
     assert_saved_column_set(4, params, :header_column_scale)
@@ -425,154 +382,132 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_header_column_nullable
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:nullable) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_header_column_nullable
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:nullable] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_header_column_nullable_not_true
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:nullable] = 'foo' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_header_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:default_value) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_header_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_too_long_header_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:header_column_default_value, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_header_column_comment
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'].delete(:comment) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_footer_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:physical_name) }
     assert_create_failure(params)
     assert_have_error(:footer_column_physical_name, "can't be blank")
   end
 
   def test_create_with_too_long_footer_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:footer_column_physical_name, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_duplicated_footer_column_physical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'f_bar' }
     assert_create_failure(params)
     assert_have_error(:footer_column_physical_name, 'is duplicated')
   end
 
   def test_create_without_footer_column_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:logical_name) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_too_long_footer_column_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:footer_column_logical_name, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_logical_name
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_footer_column_data_type_id
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:data_type_id) }
     assert_create_failure(params)
     assert_have_error(:footer_column_data_type_id, "can't be blank")
   end
 
   def test_create_with_footer_column_data_type_id_that_not_belong_to_column_set_belonging_dbms_product
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:data_type_id] = '57' }
     assert_create_failure(params)
     assert_have_error(:footer_column_data_type_id, 'is not included in the list')
   end
 
   def test_create_without_footer_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'].delete(:size) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_footer_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:size] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_not_numeric_footer_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:size] = 'a' }
     assert_create_failure(params)
     assert_have_error(:footer_column_size, 'is not a number')
   end
 
   def test_create_with_negative_numeric_footer_column_size
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:size] = '-1' }
     assert_create_failure(params)
     assert_have_error(:footer_column_size, 'must be greater than 0')
   end
 
   def test_create_with_footer_column_size_when_data_type_is_not_sizable
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fb'][:size] = '10' }
     assert_create_success(params)
     assert_saved_column_set(4, params, :footer_column_size)
@@ -581,35 +516,30 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_footer_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'].delete(:scale) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_footer_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_not_numeric_footer_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = 'a' }
     assert_create_failure(params)
     assert_have_error(:footer_column_scale, 'is not a number')
   end
 
   def test_create_with_negative_numeric_footer_column_scale
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = '-1' }
     assert_create_failure(params)
     assert_have_error(:footer_column_scale, 'must be greater than 0')
   end
 
   def test_create_with_footer_column_scale_when_data_type_is_not_scalable
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fb'][:scale] = '10' }
     assert_create_success(params)
     assert_saved_column_set(4, params, :footer_column_scale)
@@ -618,63 +548,54 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_without_footer_column_nullable
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:nullable) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_footer_column_nullable
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:nullable] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_footer_column_nullable_not_true
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:nullable] = 'foo' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_footer_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:default_value) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_empty_footer_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = '' }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_too_long_footer_column_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 201 }
     assert_create_failure(params)
     assert_have_error(:footer_column_default_value, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_default_value
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 200 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_without_footer_column_comment
-    by_manager
     params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'].delete(:comment) }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
 
   def test_create_with_duplicated_type_names_on_header_and_footer
-    by_manager
     params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'f_foo' }
     assert_create_failure(params)
     assert_have_error(:header_column_physical_name, 'is duplicated')
@@ -686,7 +607,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # edit {{{
 
   def test_edit_by_manager
-    by_manager
     get :edit, project_id: @project, database_id: @database, id: 1
     assert_response :success
     assert_template 'edit'
@@ -723,19 +643,16 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_edit_with_invalid_project
-    by_manager
     get :edit, project_id: 'invalid', database_id: @database, id: 1
     assert_response 404
   end
 
   def test_edit_with_invalid_database
-    by_manager
     get :edit, project_id: @project, database_id: 'invalid', id: 1
     assert_response 404
   end
 
   def test_edit_with_invalid_id
-    by_manager
     get :edit, project_id: @project, database_id: @database, id: -1
     assert_response 404
   end
@@ -748,7 +665,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # destroy {{{
 
   def test_destroy_by_manager
-    by_manager
     assert_difference 'MxColumnSet.count', -1 do
       delete :destroy, project_id: @project, database_id: @database, id: 1
     end
@@ -774,7 +690,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_destroy_should_delete_mx_columns
-    by_manager
     assert MxColumn.where(type: ['MxHeaderColumn', 'MxFooterColumn'], owner_id: 1).present?
     assert_difference 'MxColumn.count', -5 do
       delete :destroy, project_id: @project, database_id: @database, id: 1
@@ -783,7 +698,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_destroy_with_invalid_project
-    by_manager
     assert_no_difference 'MxColumnSet.count' do
       delete :destroy, project_id: 'invalid', database_id: @database, id: 1
     end
@@ -791,7 +705,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_destroy_with_invalid_database
-    by_manager
     assert_no_difference 'MxColumnSet.count' do
       delete :destroy, project_id: @project, database_id: 'invalid', id: 1
     end
@@ -799,7 +712,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_destroy_with_invalid_id
-    by_manager
     assert_no_difference 'MxColumnSet.count' do
       delete :destroy, project_id: @project, database_id: @database, id: -1
     end
