@@ -143,20 +143,7 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   # create {{{
 
   def test_create_by_manager_with_valid_params
-    assert_difference 'MxColumnSet.count', 1 do
-      post :create, project_id: @project, database_id: @database, mx_column_set: valid_create_params
-    end
-    assert_response 302
-    assert_redirected_to project_mx_database_column_set_path(@project, @database, 4)
-    assert_saved_column_set(4, valid_create_params)
-  end
-
-  def test_create_should_save_columns_by_manager_with_valid_params
-    assert_difference 'MxColumn.count', 6 do
-      post :create, project_id: @project, database_id: @database, mx_column_set: valid_create_params
-    end
-    assert_response 302
-    assert_redirected_to project_mx_database_column_set_path(@project, @database, 4)
+    assert_create_success(valid_create_params)
     assert_saved_column_set(4, valid_create_params)
   end
 
@@ -218,6 +205,12 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     params = valid_create_params.tap { |p| p[:name] = 'default' }
     assert_create_failure(params)
     assert_have_error(:name, 'has already been taken')
+  end
+
+  def test_create_with_already_taken_name_in_other_database
+    params = valid_create_params.tap { |p| p[:name] = 'basic' }
+    assert_create_success(params)
+    assert_saved_column_set(4, params)
   end
 
   def test_create_without_comment
@@ -659,8 +652,468 @@ class MxColumnSetsControllerTest < ActionController::TestCase
 
   # }}}
 
-  #TODO: update
+  # update {{{
 
+  def test_update_by_manager_with_valid_params
+    assert_update_success(valid_update_params, 1)
+    assert_saved_column_set(1, valid_update_params)
+  end
+
+  def test_update_by_viewer
+    by_viewer
+    assert_no_difference 'MxColumnSet.count' do
+      put :update, project_id: @project, database_id: @database, id: 1, mx_column_set: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_by_not_member
+    by_not_member
+    assert_no_difference 'MxColumnSet.count' do
+      put :update, project_id: @project, database_id: @database, id: 1, mx_column_set: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_with_invalid_project
+    assert_no_difference 'MxColumnSet.count' do
+      put :update, project_id: 'invalid', database_id: @database, id: 1, mx_column_set: valid_update_params
+    end
+    assert_response 404
+  end
+
+  def test_update_with_invalid_database
+    assert_no_difference 'MxColumnSet.count' do
+      put :update, project_id: @project, database_id: 'invalid', id: 1, mx_column_set: valid_update_params
+    end
+    assert_response 404
+  end
+
+  def test_update_without_name
+    params = valid_update_params.tap { |p| p.delete(:name) }
+    assert_update_failure(params)
+    assert_have_error(:name, "can't be blank")
+  end
+
+  def test_update_with_empty_name
+    params = valid_update_params.tap { |p| p[:name] = '' }
+    assert_update_failure(params)
+    assert_have_error(:name, "can't be blank")
+  end
+
+  def test_update_with_too_long_name
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:name, /is too long/)
+  end
+
+  def test_update_with_just_long_name
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_same_name
+    params = valid_update_params.tap { |p| p[:name] = 'default' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_already_taken_name
+    params = valid_update_params.tap { |p| p[:name] = 'simple' }
+    assert_update_failure(params)
+    assert_have_error(:name, 'has already been taken')
+  end
+
+  def test_update_with_already_taken_name_in_other_database
+    params = valid_update_params.tap { |p| p[:name] = 'basic' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_comment
+    params = valid_update_params.tap { |p| p.delete(:comment) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_comment
+    params = valid_update_params.tap { |p| p[:comment] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_header_columns
+    params = valid_update_params.tap { |p| p.delete(:header_columns) }
+    assert_update_success(params, -2)
+    assert_saved_column_set(1, params)
+    assert MxHeaderColumn.where(owner_id: 1).empty?
+  end
+
+  def test_update_without_footer_columns
+    params = valid_update_params.tap { |p| p.delete(:footer_columns) }
+    assert_update_success(params, -2)
+    assert_saved_column_set(1, params)
+    assert MxFooterColumn.where(owner_id: 1).empty?
+  end
+
+  def test_update_without_header_columns_and_footer_columns
+    params = valid_update_params.tap do |p|
+      p.delete(:header_columns)
+      p.delete(:footer_columns)
+    end
+    assert_update_success(params, -5)
+    assert_saved_column_set(1, params)
+    assert MxHeaderColumn.where(owner_id: 1).empty?
+    assert MxFooterColumn.where(owner_id: 1).empty?
+  end
+
+  def test_update_without_header_column_physical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:physical_name) }
+    assert_update_failure(params)
+    assert_have_error(:header_column_physical_name, "can't be blank")
+  end
+
+  def test_update_with_too_long_header_column_physical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:header_column_physical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_header_coumn_physical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_duplicated_header_column_physical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'h_bar' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_physical_name, 'is duplicated')
+  end
+
+  def test_update_without_header_column_logical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:logical_name) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_too_long_header_column_logical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:header_column_logical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_header_coumn_logical_name
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_header_column_data_type_id
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:data_type_id) }
+    assert_update_failure(params)
+    assert_have_error(:header_column_data_type_id, "can't be blank")
+  end
+
+  def test_update_with_header_column_data_type_id_that_not_belong_to_column_set_belonging_dbms_product
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:data_type_id] = '57' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_data_type_id, 'is not included in the list')
+  end
+
+  def test_update_without_header_column_size
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'].delete(:size) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_header_column_size
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:size] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_not_numeric_header_column_size
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:size] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_size, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_header_column_size
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:size] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_size, 'must be greater than 0')
+  end
+
+  def test_update_with_header_column_size_when_data_type_is_not_sizable
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hb'][:size] = '10' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params, :header_column_size)
+    column_set = MxColumnSet.find(1)
+    assert_nil column_set.header_columns.where(physical_name: 'h_bar').first.size
+  end
+
+  def test_update_without_header_column_scale
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'].delete(:scale) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_header_column_scale
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:scale] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_not_numeric_header_column_scale
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:scale] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_scale, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_header_column_scale
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hc'][:scale] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_scale, 'must be greater than 0')
+  end
+
+  def test_update_with_header_column_scale_when_data_type_is_not_scalable
+    params = valid_update_params.tap { |p| p[:header_columns]['v-hb'][:scale] = '10' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params, :header_column_scale)
+    column_set = MxColumnSet.find(1)
+    assert_nil column_set.header_columns.where(physical_name: 'h_bar').first.scale
+  end
+
+  def test_update_without_header_column_nullable
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:nullable) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_header_column_nullable
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:nullable] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_header_column_nullable_not_true
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:nullable] = 'foo' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_header_column_default_value
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:default_value) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_header_column_default_value
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_too_long_header_column_default_value
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:header_column_default_value, /is too long/)
+  end
+
+  def test_update_with_just_long_header_coumn_default_value
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_header_column_comment
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'].delete(:comment) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_footer_column_physical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:physical_name) }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_physical_name, "can't be blank")
+  end
+
+  def test_update_with_too_long_footer_column_physical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_physical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_footer_coumn_physical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_duplicated_footer_column_physical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'f_bar' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_physical_name, 'is duplicated')
+  end
+
+  def test_update_without_footer_column_logical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:logical_name) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_too_long_footer_column_logical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_logical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_footer_coumn_logical_name
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_footer_column_data_type_id
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:data_type_id) }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_data_type_id, "can't be blank")
+  end
+
+  def test_update_with_footer_column_data_type_id_that_not_belong_to_column_set_belonging_dbms_product
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:data_type_id] = '57' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_data_type_id, 'is not included in the list')
+  end
+
+  def test_update_without_footer_column_size
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'].delete(:size) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_footer_column_size
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:size] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_not_numeric_footer_column_size
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:size] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_size, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_footer_column_size
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:size] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_size, 'must be greater than 0')
+  end
+
+  def test_update_with_footer_column_size_when_data_type_is_not_sizable
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fb'][:size] = '10' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params, :footer_column_size)
+    column_set = MxColumnSet.find(1)
+    assert_nil column_set.footer_columns.where(physical_name: 'f_bar').first.size
+  end
+
+  def test_update_without_footer_column_scale
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'].delete(:scale) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_footer_column_scale
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_not_numeric_footer_column_scale
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_scale, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_footer_column_scale
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fc'][:scale] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_scale, 'must be greater than 0')
+  end
+
+  def test_update_with_footer_column_scale_when_data_type_is_not_scalable
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fb'][:scale] = '10' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params, :footer_column_scale)
+    column_set = MxColumnSet.find(1)
+    assert_nil column_set.footer_columns.where(physical_name: 'f_bar').first.scale
+  end
+
+  def test_update_without_footer_column_nullable
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:nullable) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_footer_column_nullable
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:nullable] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_footer_column_nullable_not_true
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:nullable] = 'foo' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_footer_column_default_value
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:default_value) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_empty_footer_column_default_value
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = '' }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_too_long_footer_column_default_value
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:footer_column_default_value, /is too long/)
+  end
+
+  def test_update_with_just_long_footer_coumn_default_value
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 200 }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_without_footer_column_comment
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'].delete(:comment) }
+    assert_update_success(params, 1)
+    assert_saved_column_set(1, params)
+  end
+
+  def test_update_with_duplicated_type_names_on_header_and_footer
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'f_foo' }
+    assert_update_failure(params)
+    assert_have_error(:header_column_physical_name, 'is duplicated')
+    assert_have_error(:footer_column_physical_name, 'is duplicated')
+  end
+
+  def test_update_with_invalid_lock_version
+    params = valid_update_params.tap { |p| p[:lock_version] = '1' }
+    assert_update_failure(params)
+    assert_conflict_flash
+  end
+
+  # }}}
 
   # destroy {{{
 
@@ -795,6 +1248,80 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     }
   end
 
+  def valid_update_params
+    {
+      name: 'test',
+      comment: "foo\nbar\nbaz",
+      lock_version: '0',
+      header_columns: {
+        'v-ha' => {
+          id: 'v-ha',
+          physical_name: 'h_foo',
+          logical_name: 'H-FOO',
+          data_type_id: '12',
+          size: '150',
+          nullable: 'true',
+          comment: 'foo header column',
+          position: '0'
+        },
+        'v-hb' => {
+          id: 'v-hb',
+          physical_name: 'h_bar',
+          logical_name: 'H-BAR',
+          data_type_id: '21',
+          default_value: 'false',
+          comment: 'bar header column',
+          position: '1'
+        },
+        'v-hc' => {
+          id: 'v-hc',
+          physical_name: 'h_baz',
+          logical_name: 'H-BAZ',
+          data_type_id: '5',
+          size: '10',
+          size: '2',
+          nulable: 'true',
+          default_value: '0.0',
+          comment: 'baz header column',
+          position: '2'
+        }
+      },
+      footer_columns: {
+        'v-fa' => {
+          id: 'v-fa',
+          physical_name: 'f_foo',
+          logical_name: 'F-FOO',
+          data_type_id: '12',
+          size: '150',
+          nullable: 'true',
+          comment: 'foo footer column',
+          position: '0'
+        },
+        'v-fb' => {
+          id: 'v-fb',
+          physical_name: 'f_bar',
+          logical_name: 'F-BAR',
+          data_type_id: '21',
+          default_value: 'false',
+          comment: 'bar footer column',
+          position: '1'
+        },
+        'v-fc' => {
+          id: 'v-fc',
+          physical_name: 'f_baz',
+          logical_name: 'F-BAZ',
+          data_type_id: '5',
+          size: '10',
+          size: '2',
+          nulable: 'true',
+          default_value: '0.0',
+          comment: 'baz footer column',
+          position: '2'
+        }
+      }
+    }
+  end
+
   def assert_saved_column_set(id, params, ignore=nil)
     column_set = MxColumnSet.find(id)
     assert_equal params[:name], column_set.name
@@ -849,6 +1376,26 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     end
     assert_response :success
     assert_template 'new'
+  end
+
+  def assert_update_success(params, column_count)
+    assert_no_difference 'MxColumnSet.count' do
+      assert_difference 'MxColumn.count', column_count do
+        put :update, project_id: @project, database_id: @database, id: 1, mx_column_set: params
+      end
+    end
+    assert_response 302
+    assert_redirected_to project_mx_database_column_set_path(@project, @database, 1)
+  end
+
+  def assert_update_failure(params)
+    assert_no_difference 'MxColumnSet.count' do
+      assert_no_difference 'MxColumn.count' do
+        put :update, project_id: @project, database_id: @database, id: 1, mx_column_set: params
+      end
+    end
+    assert_response :success
+    assert_template 'edit'
   end
 
   def assert_have_error(attribute, error)

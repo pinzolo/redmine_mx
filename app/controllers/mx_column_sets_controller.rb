@@ -33,7 +33,7 @@ class MxColumnSetsController < ApplicationController
   end
 
   def update
-    @vue_model = MxVm::ColumnSet.new(params[:mx_column_set], @database)
+    @vue_model = MxVm::ColumnSet.new(params[:mx_column_set].merge(id: @column_set.id), @database)
     if @vue_model.valid?
       @column_set.save_with!(@vue_model)
       flash[:notice] = l(:notice_successful_update)

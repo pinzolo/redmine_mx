@@ -30,8 +30,8 @@ class MxColumnSet < ActiveRecord::Base
 
   def update_with!(vue_model)
     self.update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
-    self.header_columns.each(&:destroy)
-    self.footer_columns.each(&:destroy)
+    self.header_columns.delete_all
+    self.footer_columns.delete_all
     create_columns!(vue_model)
   end
 
