@@ -11,7 +11,10 @@ class MxVm::ColumnSet
     elsif params.is_a?(MxColumnSet)
       build_from_mx_column_set(params)
     end
-    self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) } if database
+    if database
+      self.database_id = database.id
+      self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) }
+    end
     safe_collections
   end
 
