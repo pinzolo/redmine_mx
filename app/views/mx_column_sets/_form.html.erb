@@ -51,8 +51,7 @@
         </td>
         <td class="{{classFor(column, 'data_type_id')}}">
           <select class="mx-column-data-type" name="<%= prefix %>[data_type_id]" v-model="column.data_type_id" v-on="change: changeDataType(this)">
-            <option value="">&nbsp;</option>
-            <%= options_for_select(database.dbms_product.data_types.map { |data_type| [data_type.name, data_type.id] }) %>
+            <%= mx_options_from_collection(database.dbms_product.data_types, :id, :name) %>
           </select>
         </td>
         <td class="{{classFor(column, 'size')}}">

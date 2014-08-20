@@ -42,4 +42,8 @@ module MxHelper
   def mx_enumerate_texts_with_wbr(texts)
     texts.map { |text| h(text) }.join(', <wbr/>').html_safe
   end
+
+  def mx_options_from_collection(collection, value_method, text_method, selected=nil)
+    content_tag(:option, '', :value => '').safe_concat(options_from_collection_for_select(collection, value_method, text_method, selected)).html_safe
+  end
 end
