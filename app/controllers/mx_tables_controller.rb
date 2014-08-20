@@ -12,6 +12,8 @@ class MxTablesController < ApplicationController
   end
 
   def new
+    @table = MxTable.new
+    @vue_model = MxVm::Table.new(@table, @database)
   end
 
   def create

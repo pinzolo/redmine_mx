@@ -34,6 +34,8 @@ ja:
     label_header_column_new: '新しいヘッダ列'
     label_footer_column_new: '新しいフッタ列'
     label_columns: '列'
+    label_column_new: '新しい列'
+    label_column_set: '列セット'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
@@ -50,6 +52,7 @@ ja:
     title_column_sets_show: '列セット詳細'
     title_column_sets_detail: '列セット [%{name}]'
     title_tables: 'テーブル一覧 [DB: %{name}]'
+    title_tables_new: '新しいテーブル'
     title_columns: '列一覧'
 
     tab_tables: 'テーブル'

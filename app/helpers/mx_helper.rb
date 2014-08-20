@@ -1,5 +1,5 @@
 module MxHelper
-  def mx_bool_icon(flag, option={})
+  def mx_bool_icon(flag, option = {})
     if flag
       image_tag('true.png') unless option[:blank_true]
     else
@@ -7,17 +7,17 @@ module MxHelper
     end
   end
 
-  def mx_label_for(name, options={})
+  def mx_label_for(name, options = {})
     label_text = l("mx.label_#{name}") + (options.delete(:required) ? content_tag('span', ' *', :class => 'required') : '')
     content_tag('label', label_text.html_safe)
   end
 
-  def mx_image_button(name, options={})
+  def mx_image_button(name, options = {})
     image_file = "#{name}.png"
     image_tag(image_file, options.reverse_merge(title: l("button_#{name}")).merge(class: 'mx-image-button'))
   end
 
-  def mx_submit(label, options={})
+  def mx_submit(label, options = {})
     submit_tag(label, options.merge(disable_with: label))
   end
 
@@ -43,7 +43,7 @@ module MxHelper
     texts.map { |text| h(text) }.join(', <wbr/>').html_safe
   end
 
-  def mx_options_from_collection(collection, value_method, text_method, selected=nil)
+  def mx_options_from_collection(collection, value_method = :id, text_method = :name, selected = nil)
     content_tag(:option, '', :value => '').safe_concat(options_from_collection_for_select(collection, value_method, text_method, selected)).html_safe
   end
 end

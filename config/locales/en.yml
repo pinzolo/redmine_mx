@@ -25,7 +25,7 @@ en:
     label_updated_at: 'Last updated time'
     label_updated_user: 'Last updated user'
     label_database: 'Database'
-    label_column_set_name: "Column set's name"
+    label_column_set_name: "Column set name"
     label_data_type: 'Data type'
     label_size: 'Size'
     label_scale: 'Scale'
@@ -34,6 +34,8 @@ en:
     label_header_column_new: 'New header column'
     label_footer_column_new: 'New footer column'
     label_columns: 'Columns'
+    label_column_new: 'New column'
+    label_column_set: 'Column set'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
@@ -50,6 +52,7 @@ en:
     title_column_sets_show: 'Column set details'
     title_column_sets_detail: 'Column set [%{name}]'
     title_tables: 'Tables [DB: %{name}]'
+    title_tables_new: 'New table'
     title_columns: 'Columns'
 
     tab_tables: 'Tables'
@@ -88,7 +91,7 @@ en:
         identifier: 'Database name'
         dbms_product_id: 'DBMS'
       mx_vm/column_set:
-        name: "Column set's name"
+        name: "Column set name"
         header_column_physical_name: "Header column's physical name"
         header_column_logical_name: "Header column's logical name"
         header_column_data_type_id: "Header column's data type"

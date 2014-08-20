@@ -1,26 +1,8 @@
-<p id="mx-column-set">
-  <table class="mx-defs">
-    <tbody>
-      <tr>
-        <th><%= mx_label_for('database') %></th>
-        <td><%= database.identifier %></td>
-      </tr>
-      <tr>
-        <th><%= mx_label_for('column_set_name', required: true) %></th>
-        <td class="{{classFor(this, 'name')}}">
-          <%= text_field 'mx_column_set', 'name', size: 70, 'v-model' => 'name' %>
-        </td>
-      </tr>
-      <tr>
-        <th><%= mx_label_for('comment') %></th>
-        <td><%= text_area 'mx_column_set', 'comment', size: '70x8', 'v-model' => 'comment' %></td>
-      </tr>
-    </tbody>
-  </table>
-</p>
 <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
+<div>
+  <%= mx_label_for('column_set') %>: <select name="mx_table[column_set_id]" v-model="column_set_id"><%= mx_options_from_collection(database.column_sets) %></select>
+</div>
 <p id="mx-columns">
-  <%= link_to l('mx.label_header_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addHeaderColumn' %>
   <table class="mx-grid">
     <thead>
       <tr>
@@ -37,10 +19,12 @@
       </tr>
     </thead>
     <tbody>
-<% ['header', 'footer'].each do |type| %>
-      <tr v-repeat="column: <%= type %>_columns" id="mx-column-{{column.id}}" class="mx-column mx-<%= type %>-column mx-fade" v-transition>
-  <% prefix = "mx_column_set[#{type}_columns][{{column.id}}]" %>
-        <td><%= type.upcase[0] %></td>
+      <tr v-repeat="column: headerColumns" class="mx-column mx-common-column">
+        <%= render partial: 'mx_tables/forms/common_column_row', locals: { mark: 'H' } %>
+      </tr>
+      <tr v-repeat="column: table_columns" id="mx-column-{{column.id}}" class="mx-column mx-table-column mx-fade" v-transition>
+        <% prefix = "mx_table[table_columns][{{column.id}}]" %>
+        <td></td>
         <td class="{{classFor(column, 'physical_name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="column.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
@@ -65,12 +49,14 @@
           <input type="text" class="mx-column-default-value" name="<%= prefix %>[default_value]" v-model="column.default_value" size="30" />
         </td>
         <td><input type="text" class="mx-column-comment" name="<%= prefix %>[comment]" v-model="column.comment" size="50" /></td>
-        <td><%= mx_image_button 'delete', 'v-on' => "click: remove#{type.capitalize}Column(this)" %></td>
+        <td><%= mx_image_button 'delete', 'v-on' => "click: removeColumn(this)" %></td>
       </tr>
-<% end %>
+      <tr v-repeat="column: footerColumns" class="mx-column mx-common-column">
+        <%= render partial: 'mx_tables/forms/common_column_row', locals: { mark: 'F' } %>
+      </tr>
     </tbody>
   </table>
   <br />
-  <%= link_to l('mx.label_footer_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addFooterColumn' %>
+  <%= link_to l('mx.label_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addColumn' %>
 </p>
 

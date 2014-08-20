@@ -1,0 +1,27 @@
+<p id="mx-table">
+  <table class="mx-defs">
+    <tbody>
+      <tr>
+        <th><%= mx_label_for('database') %></th>
+        <td><%= database.identifier %></td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('physical_name', required: true) %></th>
+        <td class="{{classFor(this, 'name')}}">
+          <%= text_field 'mx_table', 'physical_name', size: 70, 'v-model' => 'name' %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('logical_name') %></th>
+        <td class="{{classFor(this, 'name')}}">
+          <%= text_field 'mx_table', 'logical_name', size: 70, 'v-model' => 'name' %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('comment') %></th>
+        <td><%= text_area 'mx_table', 'comment', size: '70x8', 'v-model' => 'comment' %></td>
+      </tr>
+    </tbody>
+  </table>
+</p>
+<%= render partial: 'mx_tables/forms/columns', locals: { f: f, database: database } %>
