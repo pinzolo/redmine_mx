@@ -1,16 +1,19 @@
-function randomId() {
-  return 'v-' + Math.random().toString(36).slice(-8);
-}
+var mx = {
+  randomId: function() {
+    return 'v-' + Math.random().toString(36).slice(-8);
+  },
+  findById: function(collection, id) {
+    if (!id) { return null; }
 
-function findById(collection, id) {
-  var obj;
-  collection.forEach(function(item) {
-    if (id && item.id.toString() === id.toString()) {
-      obj = item;
-    }
-  });
+    var obj;
+    collection.forEach(function(item) {
+      if (item.id.toString() === id.toString()) {
+        obj = item;
+      }
+    });
   return obj;
-}
+  }
+};
 
 function prepareMxDbmsProductVue(data) {
   return new Vue({
@@ -18,13 +21,13 @@ function prepareMxDbmsProductVue(data) {
     data: data,
     methods: {
       addDataType: function() {
-        this.data_types.push({ id: randomId() });
+        this.data_types.push({ id: mx.randomId() });
       },
       removeDataType: function(dataType) {
         this.data_types.$remove(dataType.$index);
       },
       insertDataType: function(dataType) {
-        this.data_types.splice(dataType.$index, 0, { id: randomId() });
+        this.data_types.splice(dataType.$index, 0, { id: mx.randomId() });
       },
       classFor: function(obj, prop) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
@@ -39,10 +42,10 @@ function prepareMxColumnSetVue(data) {
     data: data,
     methods: {
       addHeaderColumn: function() {
-        this.header_columns.push({ id: randomId() });
+        this.header_columns.push({ id: mx.randomId() });
       },
       addFooterColumn: function() {
-        this.footer_columns.push({ id: randomId() });
+        this.footer_columns.push({ id: mx.randomId() });
       },
       removeHeaderColumn: function(column) {
         this.header_columns.$remove(column.$index);
@@ -54,7 +57,7 @@ function prepareMxColumnSetVue(data) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
       },
       getDataType: function(dataTypeId) {
-        return findById(this.data_types, dataTypeId);
+        return mx.findById(this.data_types, dataTypeId);
       },
       sizeEditable: function(obj) {
         var dataType = this.getDataType(obj.$data.column.data_type_id);
@@ -83,20 +86,20 @@ function prepareMxTableVue(data) {
     computed: {
       headerColumns: {
         $get: function() {
-          var columnSet = findById(this.column_sets, this.column_set_id);
+          var columnSet = mx.findById(this.column_sets, this.column_set_id);
           return columnSet ? columnSet.header_columns : [];
         }
       },
       footerColumns: {
         $get: function() {
-          var columnSet = findById(this.column_sets, this.column_set_id);
+          var columnSet = mx.findById(this.column_sets, this.column_set_id);
           return columnSet ? columnSet.footer_columns : [];
         }
       }
     },
     methods: {
       addColumn: function() {
-        this.table_columns.push({ id: randomId() });
+        this.table_columns.push({ id: mx.randomId() });
       },
       removeColumn: function(column) {
         this.table_columns.$remove(column.$index);
@@ -105,7 +108,7 @@ function prepareMxTableVue(data) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
       },
       getDataType: function(dataTypeId) {
-        return findById(this.$data.data_types, dataTypeId);
+        return mx.findById(this.$data.data_types, dataTypeId);
       },
       sizeEditable: function(obj) {
         var dataType = this.getDataType(obj.$data.column.data_type_id);
