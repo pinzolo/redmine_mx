@@ -84,17 +84,13 @@ function prepareMxTableVue(data) {
     el: '#mx_table_form',
     data: data,
     computed: {
-      headerColumns: {
-        $get: function() {
-          var columnSet = mx.findById(this.column_sets, this.column_set_id);
-          return columnSet ? columnSet.header_columns : [];
-        }
+      headerColumns: function() {
+        var columnSet = mx.findById(this.column_sets, this.column_set_id);
+        return columnSet ? columnSet.header_columns : [];
       },
-      footerColumns: {
-        $get: function() {
-          var columnSet = mx.findById(this.column_sets, this.column_set_id);
-          return columnSet ? columnSet.footer_columns : [];
-        }
+      footerColumns: function() {
+        var columnSet = mx.findById(this.column_sets, this.column_set_id);
+        return columnSet ? columnSet.footer_columns : [];
       }
     },
     methods: {
