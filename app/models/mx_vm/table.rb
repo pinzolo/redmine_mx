@@ -34,7 +34,7 @@ class MxVm::Table
   end
 
   def valid_with_children?
-    valid_without_columns?
+    valid_without_children?
     assign_values_to_columns_for_validation
     merge_children_errors!(table_columns, :column)
     clear_assigned_values_to_columns

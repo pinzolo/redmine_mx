@@ -8,13 +8,13 @@
       <tr>
         <th><%= mx_label_for('physical_name', required: true) %></th>
         <td class="{{classFor(this, 'name')}}">
-          <%= text_field 'mx_table', 'physical_name', size: 70, 'v-model' => 'name' %>
+          <%= text_field 'mx_table', 'physical_name', size: 70, 'v-model' => 'physical_name' %>
         </td>
       </tr>
       <tr>
         <th><%= mx_label_for('logical_name') %></th>
         <td class="{{classFor(this, 'name')}}">
-          <%= text_field 'mx_table', 'logical_name', size: 70, 'v-model' => 'name' %>
+          <%= text_field 'mx_table', 'logical_name', size: 70, 'v-model' => 'logical_name' %>
         </td>
       </tr>
       <tr>

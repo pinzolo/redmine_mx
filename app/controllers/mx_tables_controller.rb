@@ -6,6 +6,7 @@ class MxTablesController < ApplicationController
   before_filter :find_table, only: [:show, :edit, :update, :destroy]
 
   def index
+    @tables = MxTable.where(database_id: @database).order(:physical_name).includes(:table_columns, :mx_comment)
   end
 
   def show
@@ -17,6 +18,16 @@ class MxTablesController < ApplicationController
   end
 
   def create
+    @table = @database.tables.build
+    @vue_model = MxVm::Table.new(params[:mx_table], @database)
+    if @vue_model.valid?
+      @table.project_id = @project.id
+      @table.save_with!(@vue_model)
+      flash[:notice] = l(:notice_successful_create)
+      redirect_to project_mx_database_table_path(@project, @database, @table)
+    else
+      render action: :new
+    end
   end
 
   def edit
