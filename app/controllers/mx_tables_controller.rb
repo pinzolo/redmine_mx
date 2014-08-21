@@ -22,6 +22,8 @@ class MxTablesController < ApplicationController
     @vue_model = MxVm::Table.new(params[:mx_table], @database)
     if @vue_model.valid?
       @table.project_id = @project.id
+      @table.created_user_id = User.current.id
+      @table.updated_user_id = User.current.id
       @table.save_with!(@vue_model)
       flash[:notice] = l(:notice_successful_create)
       redirect_to project_mx_database_table_path(@project, @database, @table)
