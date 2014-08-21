@@ -57,13 +57,14 @@ class MxVm::Table
   def safe_collections
     self.table_columns ||= []
     self.data_types ||= []
+    self.column_sets ||= []
   end
 
   def assign_values_to_columns_for_validation
     data_type_ids = self.data_types.map { |data_type| data_type.id.to_s }
     self.table_columns.each do |column|
       column.data_type_ids = data_type_ids
-      column.using_physical_names = self.table_columns.reject { |col| col.id == column.id }.map(&:physical_name)
+      column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
     end
   end
 
