@@ -16,6 +16,12 @@ class MxTable < ActiveRecord::Base
   has_many :foreign_keys, class_name: 'MxForeignKey', foreign_key: :table_id, dependent: :destroy
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
+  def self.find_table(database, id)
+    table = where(database_id: database.id, physical_name: id).first || where(database_id: database.id, id: id).first
+    raise ActiveRecord::RecordNotFound unless table
+    table
+  end
+
   def columns
     if column_set
       column_set.header_columns + table_columns + column_set.footer_columns

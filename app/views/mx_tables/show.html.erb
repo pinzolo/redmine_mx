@@ -1,1 +1,72 @@
-<h2>MxTablesController#show</h2>
+<div id="mx-content">
+  <%= mx_database_tabs(@database, :tables) %>
+  <div class="contextual">
+    <%= link_to l(:button_back), project_mx_database_tables_path(@project, @database),  class: 'icon icon-cancel' %>
+<% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+    <%= link_to l(:button_edit), edit_project_mx_database_table_path(@project, @database, @table),  class: 'icon icon-edit', accesskey: accesskey(:edit) %>
+    <%= link_to l(:button_delete), project_mx_database_table_path(@project, @database, @table), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
+<% end %>
+  </div>
+  <h2 class="mx-section-caption"><%= l('mx.title_tables_show') %></h2>
+  <p id="mx-table">
+    <table class="mx-defs">
+      <tbody>
+        <tr>
+          <th><%= mx_label_for('database') %></th>
+          <td><%= @database.identifier %></td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('physical_name') %></th>
+          <td><%= @table.physical_name %></td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('logical_name') %></th>
+          <td><%= @table.logical_name %></td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('comment') %></th>
+          <td><%= simple_format_without_paragraph(@table.comment) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
+  <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
+  <p id="mx-columns">
+    <table class="mx-grid">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= mx_label_for('physical_name') %></th>
+          <th><%= mx_label_for('logical_name') %></th>
+          <th><%= mx_label_for('data_type') %></th>
+          <th><%= mx_label_for('size') %></th>
+          <th><%= mx_label_for('scale') %></th>
+          <th><%= mx_label_for('nullable') %></th>
+          <th><%= mx_label_for('default_value') %></th>
+          <th><%= mx_label_for('comment') %></th>
+        </tr>
+      </thead>
+      <tbody>
+<% @table.columns.each do |column| %>
+        <tr id="mx-column-<%= column.id %>">
+          <td class="mx-mark-cell"><%= column.type[2] %></td>
+          <td><%= column.physical_name %></td>
+          <td><%= column.logical_name %></td>
+          <td><%= column.data_type.name %></td>
+          <td class="mx-numeric"><%= column.size %></td>
+          <td class="mx-numeric"><%= column.scale %></td>
+          <td class="mx-mark-cell"><%= mx_bool_icon(column.nullable, blank_true: true) %></td>
+          <td><%= column.default_value %></td>
+          <td><%= column.comment %></td>
+        </tr>
+<% end %>
+      </tbody>
+    </table>
+  </p>
+</div>
+
+<% html_title(l('mx.title_tables_detail', name: @table.physical_name)) %>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'redmine_mx', plugin: 'redmine_mx' %>
+<% end %>

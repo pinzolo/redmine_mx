@@ -44,7 +44,7 @@ class MxTablesController < ApplicationController
   private
 
   def find_table
-    @table = MxTable.find(params[:id])
+    @table = MxTable.find_table(@database, params[:id])
   rescue ActiveRecord::RecordNotFound
     render_404
   end

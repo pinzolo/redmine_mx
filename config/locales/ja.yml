@@ -53,6 +53,8 @@ ja:
     title_column_sets_detail: '列セット [%{name}]'
     title_tables: 'テーブル一覧 [DB: %{name}]'
     title_tables_new: '新しいテーブル'
+    title_tables_show: 'テーブル詳細'
+    title_tables_detail: 'テーブル [%{name}]'
     title_columns: '列一覧'
 
     tab_tables: 'テーブル'

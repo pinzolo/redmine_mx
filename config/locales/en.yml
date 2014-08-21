@@ -53,6 +53,8 @@ en:
     title_column_sets_detail: 'Column set [%{name}]'
     title_tables: 'Tables [DB: %{name}]'
     title_tables_new: 'New table'
+    title_tables_show: 'Table details'
+    title_tables_detail: 'Table [%{name}]'
     title_columns: 'Columns'
 
     tab_tables: 'Tables'
