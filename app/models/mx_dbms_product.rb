@@ -4,17 +4,7 @@ class MxDbmsProduct < ActiveRecord::Base
 
   has_many :data_types, class_name: 'MxDataType', foreign_key: :dbms_product_id, order: :name, dependent: :destroy
 
-  PRODUCT_TYPES = { 'postgresql' => 'PostgreSQL', 'mysql' => 'MySQL', 'oracle' => 'Oracle', 'sql_server' => 'SQL Server', 'other' => 'Other'}.freeze
-
-  class << self
-    def find_sti_class(type_name)
-      "MxDbms::#{type_name.camelize}".constantize
-    end
-
-    def sti_name
-      name.underscore.split('/').last
-    end
-  end
+  PRODUCT_TYPES = { 'MxDbms::Postgresql' => 'PostgreSQL', 'MxDbms::Mysql' => 'MySQL', 'MxDbms::Oracle' => 'Oracle', 'MxDbms::SqlServer' => 'SQL Server', 'MxDbms::Other' => 'Other'}.freeze
 
   def type_name
     PRODUCT_TYPES[type]

@@ -586,7 +586,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
   def valid_create_params
     {
       name: 'test',
-      type: 'postgresql',
+      type: 'MxDbms::Postgresql',
       comment: "foo\nbar\nbaz",
       data_types: {
         'v-a' => {
@@ -614,7 +614,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
   def valid_update_params
     {
       name: 'test',
-      type: 'postgresql',
+      type: 'MxDbms::Postgresql',
       comment: "foo\nbar\nbaz",
       lock_version: '0',
       data_types: {

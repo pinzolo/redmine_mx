@@ -7,7 +7,7 @@
 <% end %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_column_sets', name: @database.identifier) %></h2>
-<% if @database.column_sets.empty? %>
+<% if @column_sets.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>
 <% else %>
   <p id="mx-column_sets">
@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-  <% @database.column_sets.each do |column_set| %>
+  <% @column_sets.each do |column_set| %>
         <tr>
           <td><%= link_to column_set.name, project_mx_database_column_set_path(@project, @database, column_set) %></td>
           <td class="mx-columns-enum"><%= mx_enumerate_texts_with_wbr(column_set.columns.map(&:physical_name)) %></td>

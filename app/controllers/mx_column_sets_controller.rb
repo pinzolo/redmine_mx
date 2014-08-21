@@ -6,6 +6,7 @@ class MxColumnSetsController < ApplicationController
   before_filter :find_column_set, only: [:show, :edit, :update, :destroy]
 
   def index
+    @column_sets = MxColumnSet.where(database_id: @database).order(:name).includes(:header_columns, :footer_columns, :mx_comment)
   end
 
   def show

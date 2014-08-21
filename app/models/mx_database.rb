@@ -4,8 +4,16 @@ class MxDatabase < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :dbms_product, class_name: 'MxDbmsProduct'
-  has_many :tables, class_name: 'MxTable', foreign_key: :database_id, order: :physical_name, dependent: :destroy
-  has_many :column_sets, class_name: 'MxColumnSet', foreign_key: :database_id, order: :name, dependent: :destroy
+  has_many :tables, class_name: 'MxTable',
+                    foreign_key: :database_id,
+                    order: :physical_name,
+                    include: :mx_comment,
+                    dependent: :destroy
+  has_many :column_sets, class_name: 'MxColumnSet',
+                         foreign_key: :database_id,
+                         order: :name,
+                         include: :mx_comment,
+                         dependent: :destroy
 
   def self.find_database(project, id)
     database = where(project_id: project.id, identifier: id).first || where(project_id: project.id, id: id).first

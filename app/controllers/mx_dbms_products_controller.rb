@@ -7,7 +7,7 @@ class MxDbmsProductsController < ApplicationController
   accept_api_auth :index, :show
 
   def index
-    @dbms_products = MxDbmsProduct.order(:name)
+    @dbms_products = MxDbmsProduct.includes(:mx_comment).order(:name)
     render_dbms_products(@dbms_products)
   end
 
@@ -24,7 +24,7 @@ class MxDbmsProductsController < ApplicationController
   def create
     @vue_model = MxVm::DbmsProduct.new(params[:mx_dbms_product])
     if @vue_model.valid?
-      @dbms_product = MxDbmsProduct.find_sti_class(@vue_model.type).new
+      @dbms_product = @vue_model.type.constantize.new
       @dbms_product.save_with!(@vue_model)
       flash[:notice] = l(:notice_successful_create)
       redirect_to mx_dbms_product_path(@dbms_product)

@@ -6,7 +6,7 @@ class MxDatabasesController < ApplicationController
   accept_api_auth :index
 
   def index
-    @databases = MxDatabase.where(project_id: @project.id).order(:identifier)
+    @databases = MxDatabase.where(project_id: @project.id).includes(:dbms_product, :mx_comment).order(:identifier)
     respond_to do |format|
       format.html
       format.json { render json: @databases.as_json(root: false, except: [:lock_version], methods: [:comment]) }
