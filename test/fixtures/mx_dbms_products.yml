@@ -1,36 +1,36 @@
 ---
 mx_dbms_products_001:
   id: 1
-  created_at: 2014-08-16 01:00:14.039940000 +09:00
-  updated_at: 2014-08-16 01:00:14.039940000 +09:00
+  created_at: 2014-08-22 16:07:30.442743000 +09:00
+  updated_at: 2014-08-22 16:07:30.442743000 +09:00
   lock_version: 0
   name: PostgreSQL
   type: MxDbms::Postgresql
 mx_dbms_products_002:
   id: 2
-  created_at: 2014-08-16 01:00:14.098269000 +09:00
-  updated_at: 2014-08-16 01:00:14.098269000 +09:00
+  created_at: 2014-08-22 16:07:30.482005000 +09:00
+  updated_at: 2014-08-22 16:07:30.482005000 +09:00
   lock_version: 0
   name: MySQL
   type: MxDbms::Mysql
 mx_dbms_products_003:
   id: 3
-  created_at: 2014-08-16 01:00:14.136102000 +09:00
-  updated_at: 2014-08-16 01:00:14.136102000 +09:00
+  created_at: 2014-08-22 16:07:30.527739000 +09:00
+  updated_at: 2014-08-22 16:07:30.527739000 +09:00
   lock_version: 0
   name: Oracle
   type: MxDbms::Oracle
 mx_dbms_products_004:
   id: 4
-  created_at: 2014-08-16 01:00:14.160858000 +09:00
-  updated_at: 2014-08-16 01:00:14.160858000 +09:00
+  created_at: 2014-08-22 16:07:30.552921000 +09:00
+  updated_at: 2014-08-22 16:07:30.552921000 +09:00
   lock_version: 0
   name: SQL Server
   type: MxDbms::SqlServer
 mx_dbms_products_005:
   id: 5
-  created_at: 2014-08-16 01:00:14.197966000 +09:00
-  updated_at: 2014-08-16 01:00:14.197966000 +09:00
+  created_at: 2014-08-22 16:07:30.587025000 +09:00
+  updated_at: 2014-08-22 16:07:30.587025000 +09:00
   lock_version: 0
   name: SQLite3
   type: MxDbms::Other

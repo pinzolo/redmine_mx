@@ -1,155 +1,379 @@
 ---
 mx_columns_001:
-  id: 1
-  created_at: 2014-08-16 01:09:00.212133000 +09:00
-  updated_at: 2014-08-16 01:09:00.212133000 +09:00
-  owner_id: 1
+  id: 6
+  created_at: 2014-08-16 01:13:00.627181000 +09:00
+  updated_at: 2014-08-16 01:13:00.627181000 +09:00
   type: MxHeaderColumn
+  owner_id: 2
   physical_name: id
   logical_name: ID
   data_type_id: 8
-  size:
-  scale:
+  size: 
+  scale: 
   nullable: false
   default_value: '1'
   position: 0
 mx_columns_002:
-  id: 2
-  created_at: 2014-08-16 01:09:00.224395000 +09:00
-  updated_at: 2014-08-16 01:09:00.224395000 +09:00
-  owner_id: 1
+  id: 7
+  created_at: 2014-08-16 01:13:00.630258000 +09:00
+  updated_at: 2014-08-16 01:13:00.630258000 +09:00
   type: MxFooterColumn
+  owner_id: 2
   physical_name: created_at
   logical_name: Created time
   data_type_id: 15
-  size:
-  scale:
+  size: 
+  scale: 
   nullable: false
   default_value: current_timestamp
   position: 0
 mx_columns_003:
-  id: 3
-  created_at: 2014-08-16 01:09:00.227653000 +09:00
-  updated_at: 2014-08-16 01:09:00.227653000 +09:00
-  owner_id: 1
-  type: MxFooterColumn
-  physical_name: created_by
-  logical_name: Created user's ID
-  data_type_id: 2
-  size:
-  scale:
-  nullable: false
-  default_value: ''
-  position: 1
-mx_columns_004:
-  id: 4
-  created_at: 2014-08-16 01:09:00.229847000 +09:00
-  updated_at: 2014-08-16 01:09:00.229847000 +09:00
-  owner_id: 1
-  type: MxFooterColumn
-  physical_name: updated_at
-  logical_name: Last updated time
-  data_type_id: 15
-  size:
-  scale:
-  nullable: true
-  default_value: ''
-  position: 2
-mx_columns_005:
-  id: 5
-  created_at: 2014-08-16 01:09:00.231938000 +09:00
-  updated_at: 2014-08-16 01:09:00.231938000 +09:00
-  owner_id: 1
-  type: MxFooterColumn
-  physical_name: udpated_by
-  logical_name: Last updated user's ID
-  data_type_id: 2
-  size:
-  scale:
-  nullable: true
-  default_value: ''
-  position: 3
-mx_columns_006:
-  id: 6
-  created_at: 2014-08-16 01:13:00.627181000 +09:00
-  updated_at: 2014-08-16 01:13:00.627181000 +09:00
-  owner_id: 2
-  type: MxHeaderColumn
-  physical_name: id
-  logical_name: ID
-  data_type_id: 8
-  size:
-  scale:
-  nullable: false
-  default_value: '1'
-  position: 0
-mx_columns_007:
-  id: 7
-  created_at: 2014-08-16 01:13:00.630258000 +09:00
-  updated_at: 2014-08-16 01:13:00.630258000 +09:00
-  owner_id: 2
-  type: MxFooterColumn
-  physical_name: created_at
-  logical_name: Created time
-  data_type_id: 15
-  size:
-  scale:
-  nullable: false
-  default_value: current_timestamp
-  position: 0
-mx_columns_008:
   id: 8
   created_at: 2014-08-16 01:13:00.632621000 +09:00
   updated_at: 2014-08-16 01:13:00.632621000 +09:00
-  owner_id: 2
   type: MxFooterColumn
+  owner_id: 2
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 15
-  size:
-  scale:
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 1
+mx_columns_004:
+  id: 9
+  created_at: 2014-08-16 01:16:20.725885000 +09:00
+  updated_at: 2014-08-16 01:16:20.725885000 +09:00
+  type: MxHeaderColumn
+  owner_id: 3
+  physical_name: id
+  logical_name: ID
+  data_type_id: 25
+  size: 
+  scale: 
+  nullable: false
+  default_value: '1'
+  position: 0
+mx_columns_005:
+  id: 10
+  created_at: 2014-08-16 01:16:20.729203000 +09:00
+  updated_at: 2014-08-16 01:16:20.729203000 +09:00
+  type: MxFooterColumn
+  owner_id: 3
+  physical_name: created_at
+  logical_name: Created time
+  data_type_id: 39
+  size: 
+  scale: 
+  nullable: false
+  default_value: CURRENT_TIMESTAMP
+  position: 0
+mx_columns_006:
+  id: 11
+  created_at: 2014-08-16 01:16:20.733386000 +09:00
+  updated_at: 2014-08-16 01:16:20.733386000 +09:00
+  type: MxFooterColumn
+  owner_id: 3
+  physical_name: updated_at
+  logical_name: Last updated time
+  data_type_id: 39
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 1
+mx_columns_007:
+  id: 12
+  created_at: 2014-08-22 16:56:56.950883000 +09:00
+  updated_at: 2014-08-22 16:56:56.950883000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: name
+  logical_name: Customer name
+  data_type_id: 12
+  size: 64
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 0
+mx_columns_008:
+  id: 13
+  created_at: 2014-08-22 16:56:56.954122000 +09:00
+  updated_at: 2014-08-22 16:56:56.954122000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: zip_code
+  logical_name: ZIP code of address
+  data_type_id: 12
+  size: 8
+  scale: 
   nullable: true
   default_value: ''
   position: 1
 mx_columns_009:
-  id: 9
-  created_at: 2014-08-16 01:16:20.725885000 +09:00
-  updated_at: 2014-08-16 01:16:20.725885000 +09:00
+  id: 14
+  created_at: 2014-08-22 16:56:56.956994000 +09:00
+  updated_at: 2014-08-22 16:56:56.956994000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: prefecture_id
+  logical_name: Prefecture ID of address
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 2
+mx_columns_010:
+  id: 15
+  created_at: 2014-08-22 16:56:56.959723000 +09:00
+  updated_at: 2014-08-22 16:56:56.959723000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: address
+  logical_name: Customer's address
+  data_type_id: 12
+  size: 255
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 3
+mx_columns_011:
+  id: 16
+  created_at: 2014-08-22 16:56:56.963206000 +09:00
+  updated_at: 2014-08-22 16:56:56.963206000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: birthday
+  logical_name: Birthday
+  data_type_id: 17
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 4
+mx_columns_012:
+  id: 17
+  created_at: 2014-08-22 16:56:56.965831000 +09:00
+  updated_at: 2014-08-22 16:56:56.965831000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: registered_on
+  logical_name: Date of registration
+  data_type_id: 17
+  size: 
+  scale: 
+  nullable: false
+  default_value: current_date
+  position: 5
+mx_columns_013:
+  id: 18
+  created_at: 2014-08-22 16:56:56.968626000 +09:00
+  updated_at: 2014-08-22 16:56:56.968626000 +09:00
+  type: MxTableColumn
+  owner_id: 1
+  physical_name: unregistered_on
+  logical_name: Date of unregistration
+  data_type_id: 17
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 6
+mx_columns_014:
+  id: 19
+  created_at: 2014-08-22 17:06:39.483844000 +09:00
+  updated_at: 2014-08-22 17:06:39.483844000 +09:00
+  type: MxTableColumn
+  owner_id: 2
+  physical_name: name
+  logical_name: Item name
+  data_type_id: 12
+  size: 64
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 0
+mx_columns_015:
+  id: 20
+  created_at: 2014-08-22 17:06:39.487318000 +09:00
+  updated_at: 2014-08-22 17:06:39.487318000 +09:00
+  type: MxTableColumn
+  owner_id: 2
+  physical_name: price
+  logical_name: Price
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 1
+mx_columns_016:
+  id: 21
+  created_at: 2014-08-22 17:10:06.682368000 +09:00
+  updated_at: 2014-08-22 17:10:06.682368000 +09:00
+  type: MxTableColumn
   owner_id: 3
+  physical_name: customer_id
+  logical_name: Customer ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 0
+mx_columns_017:
+  id: 22
+  created_at: 2014-08-22 17:10:06.685693000 +09:00
+  updated_at: 2014-08-22 17:10:06.685693000 +09:00
+  type: MxTableColumn
+  owner_id: 3
+  physical_name: ordered_on
+  logical_name: Ordered date
+  data_type_id: 17
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 1
+mx_columns_018:
+  id: 23
+  created_at: 2014-08-22 17:14:01.288871000 +09:00
+  updated_at: 2014-08-22 17:14:01.288871000 +09:00
+  type: MxTableColumn
+  owner_id: 4
+  physical_name: order_id
+  logical_name: Belonging order ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 0
+mx_columns_019:
+  id: 24
+  created_at: 2014-08-22 17:14:01.292192000 +09:00
+  updated_at: 2014-08-22 17:14:01.292192000 +09:00
+  type: MxTableColumn
+  owner_id: 4
+  physical_name: item_id
+  logical_name: ID of bought item
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 1
+mx_columns_020:
+  id: 25
+  created_at: 2014-08-22 17:14:01.295551000 +09:00
+  updated_at: 2014-08-22 17:14:01.295551000 +09:00
+  type: MxTableColumn
+  owner_id: 4
+  physical_name: amount
+  logical_name: Amount per bought item
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
+  default_value: '1'
+  position: 2
+mx_columns_021:
+  id: 26
+  created_at: 2014-08-22 17:16:19.956597000 +09:00
+  updated_at: 2014-08-22 17:16:19.956597000 +09:00
+  type: MxTableColumn
+  owner_id: 5
+  physical_name: code
+  logical_name: Code
+  data_type_id: 12
+  size: 2
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 0
+mx_columns_022:
+  id: 27
+  created_at: 2014-08-22 17:16:19.959451000 +09:00
+  updated_at: 2014-08-22 17:16:19.959451000 +09:00
+  type: MxTableColumn
+  owner_id: 5
+  physical_name: name
+  logical_name: Prefecture name
+  data_type_id: 12
+  size: 4
+  scale: 
+  nullable: false
+  default_value: ''
+  position: 1
+mx_columns_023:
+  id: 28
+  created_at: 2014-08-22 17:21:37.755825000 +09:00
+  updated_at: 2014-08-22 17:21:37.755825000 +09:00
   type: MxHeaderColumn
+  owner_id: 1
   physical_name: id
   logical_name: ID
-  data_type_id: 25
-  size:
-  scale:
+  data_type_id: 8
+  size: 
+  scale: 
   nullable: false
   default_value: '1'
   position: 0
-mx_columns_010:
-  id: 10
-  created_at: 2014-08-16 01:16:20.729203000 +09:00
-  updated_at: 2014-08-16 01:16:20.729203000 +09:00
-  owner_id: 3
+mx_columns_024:
+  id: 29
+  created_at: 2014-08-22 17:21:37.761512000 +09:00
+  updated_at: 2014-08-22 17:21:37.761512000 +09:00
   type: MxFooterColumn
+  owner_id: 1
   physical_name: created_at
   logical_name: Created time
-  data_type_id: 39
-  size:
-  scale:
+  data_type_id: 15
+  size: 
+  scale: 
   nullable: false
-  default_value: CURRENT_TIMESTAMP
+  default_value: current_timestamp
   position: 0
-mx_columns_011:
-  id: 11
-  created_at: 2014-08-16 01:16:20.733386000 +09:00
-  updated_at: 2014-08-16 01:16:20.733386000 +09:00
-  owner_id: 3
+mx_columns_025:
+  id: 30
+  created_at: 2014-08-22 17:21:37.764835000 +09:00
+  updated_at: 2014-08-22 17:21:37.764835000 +09:00
   type: MxFooterColumn
-  physical_name: updated_at
-  logical_name: Last updated time
-  data_type_id: 39
-  size:
-  scale:
-  nullable: true
+  owner_id: 1
+  physical_name: created_by
+  logical_name: Created user's ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: false
   default_value: ''
   position: 1
+mx_columns_026:
+  id: 31
+  created_at: 2014-08-22 17:21:37.768814000 +09:00
+  updated_at: 2014-08-22 17:21:37.768814000 +09:00
+  type: MxFooterColumn
+  owner_id: 1
+  physical_name: updated_at
+  logical_name: Last updated time
+  data_type_id: 15
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 2
+mx_columns_027:
+  id: 32
+  created_at: 2014-08-22 17:21:37.771662000 +09:00
+  updated_at: 2014-08-22 17:21:37.771662000 +09:00
+  type: MxFooterColumn
+  owner_id: 1
+  physical_name: udpated_by
+  logical_name: Last updated user's ID
+  data_type_id: 2
+  size: 
+  scale: 
+  nullable: true
+  default_value: ''
+  position: 3

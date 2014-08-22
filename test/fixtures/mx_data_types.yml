@@ -1,720 +1,720 @@
 ---
 mx_data_types_001:
   id: 1
-  created_at: 2014-08-16 01:00:14.060258000 +09:00
-  updated_at: 2014-08-16 01:00:14.060258000 +09:00
+  created_at: 2014-08-22 16:07:30.457765000 +09:00
+  updated_at: 2014-08-22 16:07:30.457765000 +09:00
   name: smallint
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_002:
   id: 2
-  created_at: 2014-08-16 01:00:14.062019000 +09:00
-  updated_at: 2014-08-16 01:00:14.062019000 +09:00
+  created_at: 2014-08-22 16:07:30.459163000 +09:00
+  updated_at: 2014-08-22 16:07:30.459163000 +09:00
   name: integer
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_003:
   id: 3
-  created_at: 2014-08-16 01:00:14.063113000 +09:00
-  updated_at: 2014-08-16 01:00:14.063113000 +09:00
+  created_at: 2014-08-22 16:07:30.459762000 +09:00
+  updated_at: 2014-08-22 16:07:30.459762000 +09:00
   name: bigint
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_004:
   id: 4
-  created_at: 2014-08-16 01:00:14.064500000 +09:00
-  updated_at: 2014-08-16 01:00:14.064500000 +09:00
+  created_at: 2014-08-22 16:07:30.460330000 +09:00
+  updated_at: 2014-08-22 16:07:30.460330000 +09:00
   name: decimal
   dbms_product_id: 1
   sizable: true
   scalable: true
 mx_data_types_005:
   id: 5
-  created_at: 2014-08-16 01:00:14.065108000 +09:00
-  updated_at: 2014-08-16 01:00:14.065108000 +09:00
+  created_at: 2014-08-22 16:07:30.461131000 +09:00
+  updated_at: 2014-08-22 16:07:30.461131000 +09:00
   name: numeric
   dbms_product_id: 1
   sizable: true
   scalable: true
 mx_data_types_006:
   id: 6
-  created_at: 2014-08-16 01:00:14.066162000 +09:00
-  updated_at: 2014-08-16 01:00:14.066162000 +09:00
+  created_at: 2014-08-22 16:07:30.461736000 +09:00
+  updated_at: 2014-08-22 16:07:30.461736000 +09:00
   name: real
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_007:
   id: 7
-  created_at: 2014-08-16 01:00:14.066761000 +09:00
-  updated_at: 2014-08-16 01:00:14.066761000 +09:00
+  created_at: 2014-08-22 16:07:30.462312000 +09:00
+  updated_at: 2014-08-22 16:07:30.462312000 +09:00
   name: double precision
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_008:
   id: 8
-  created_at: 2014-08-16 01:00:14.067798000 +09:00
-  updated_at: 2014-08-16 01:00:14.067798000 +09:00
+  created_at: 2014-08-22 16:07:30.462850000 +09:00
+  updated_at: 2014-08-22 16:07:30.462850000 +09:00
   name: serial
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_009:
   id: 9
-  created_at: 2014-08-16 01:00:14.068724000 +09:00
-  updated_at: 2014-08-16 01:00:14.068724000 +09:00
+  created_at: 2014-08-22 16:07:30.463397000 +09:00
+  updated_at: 2014-08-22 16:07:30.463397000 +09:00
   name: bigserial
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_010:
   id: 10
-  created_at: 2014-08-16 01:00:14.069704000 +09:00
-  updated_at: 2014-08-16 01:00:14.069704000 +09:00
+  created_at: 2014-08-22 16:07:30.463932000 +09:00
+  updated_at: 2014-08-22 16:07:30.463932000 +09:00
   name: money
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_011:
   id: 11
-  created_at: 2014-08-16 01:00:14.070643000 +09:00
-  updated_at: 2014-08-16 01:00:14.070643000 +09:00
+  created_at: 2014-08-22 16:07:30.464512000 +09:00
+  updated_at: 2014-08-22 16:07:30.464512000 +09:00
   name: char
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_012:
   id: 12
-  created_at: 2014-08-16 01:00:14.071575000 +09:00
-  updated_at: 2014-08-16 01:00:14.071575000 +09:00
+  created_at: 2014-08-22 16:07:30.465056000 +09:00
+  updated_at: 2014-08-22 16:07:30.465056000 +09:00
   name: varchar
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_013:
   id: 13
-  created_at: 2014-08-16 01:00:14.072401000 +09:00
-  updated_at: 2014-08-16 01:00:14.072401000 +09:00
+  created_at: 2014-08-22 16:07:30.465636000 +09:00
+  updated_at: 2014-08-22 16:07:30.465636000 +09:00
   name: text
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_014:
   id: 14
-  created_at: 2014-08-16 01:00:14.073434000 +09:00
-  updated_at: 2014-08-16 01:00:14.073434000 +09:00
+  created_at: 2014-08-22 16:07:30.466185000 +09:00
+  updated_at: 2014-08-22 16:07:30.466185000 +09:00
   name: bytea
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_015:
   id: 15
-  created_at: 2014-08-16 01:00:14.074863000 +09:00
-  updated_at: 2014-08-16 01:00:14.074863000 +09:00
+  created_at: 2014-08-22 16:07:30.466755000 +09:00
+  updated_at: 2014-08-22 16:07:30.466755000 +09:00
   name: timestamp
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_016:
   id: 16
-  created_at: 2014-08-16 01:00:14.076067000 +09:00
-  updated_at: 2014-08-16 01:00:14.076067000 +09:00
+  created_at: 2014-08-22 16:07:30.467309000 +09:00
+  updated_at: 2014-08-22 16:07:30.467309000 +09:00
   name: timestamp with time zone
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_017:
   id: 17
-  created_at: 2014-08-16 01:00:14.077139000 +09:00
-  updated_at: 2014-08-16 01:00:14.077139000 +09:00
+  created_at: 2014-08-22 16:07:30.467857000 +09:00
+  updated_at: 2014-08-22 16:07:30.467857000 +09:00
   name: date
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_018:
   id: 18
-  created_at: 2014-08-16 01:00:14.078254000 +09:00
-  updated_at: 2014-08-16 01:00:14.078254000 +09:00
+  created_at: 2014-08-22 16:07:30.468391000 +09:00
+  updated_at: 2014-08-22 16:07:30.468391000 +09:00
   name: time
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_019:
   id: 19
-  created_at: 2014-08-16 01:00:14.078847000 +09:00
-  updated_at: 2014-08-16 01:00:14.078847000 +09:00
+  created_at: 2014-08-22 16:07:30.468923000 +09:00
+  updated_at: 2014-08-22 16:07:30.468923000 +09:00
   name: time with time zone
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_020:
   id: 20
-  created_at: 2014-08-16 01:00:14.079413000 +09:00
-  updated_at: 2014-08-16 01:00:14.079413000 +09:00
+  created_at: 2014-08-22 16:07:30.469465000 +09:00
+  updated_at: 2014-08-22 16:07:30.469465000 +09:00
   name: interval
   dbms_product_id: 1
   sizable: true
   scalable: false
 mx_data_types_021:
   id: 21
-  created_at: 2014-08-16 01:00:14.080006000 +09:00
-  updated_at: 2014-08-16 01:00:14.080006000 +09:00
+  created_at: 2014-08-22 16:07:30.469998000 +09:00
+  updated_at: 2014-08-22 16:07:30.469998000 +09:00
   name: boolean
   dbms_product_id: 1
   sizable: false
   scalable: false
 mx_data_types_022:
   id: 22
-  created_at: 2014-08-16 01:00:14.100466000 +09:00
-  updated_at: 2014-08-16 01:00:14.100466000 +09:00
+  created_at: 2014-08-22 16:07:30.484398000 +09:00
+  updated_at: 2014-08-22 16:07:30.484398000 +09:00
   name: TINYINT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_023:
   id: 23
-  created_at: 2014-08-16 01:00:14.101145000 +09:00
-  updated_at: 2014-08-16 01:00:14.101145000 +09:00
+  created_at: 2014-08-22 16:07:30.485043000 +09:00
+  updated_at: 2014-08-22 16:07:30.485043000 +09:00
   name: SMALLINT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_024:
   id: 24
-  created_at: 2014-08-16 01:00:14.101787000 +09:00
-  updated_at: 2014-08-16 01:00:14.101787000 +09:00
+  created_at: 2014-08-22 16:07:30.485628000 +09:00
+  updated_at: 2014-08-22 16:07:30.485628000 +09:00
   name: MEDIUMINT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_025:
   id: 25
-  created_at: 2014-08-16 01:00:14.102392000 +09:00
-  updated_at: 2014-08-16 01:00:14.102392000 +09:00
+  created_at: 2014-08-22 16:07:30.486222000 +09:00
+  updated_at: 2014-08-22 16:07:30.486222000 +09:00
   name: INT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_026:
   id: 26
-  created_at: 2014-08-16 01:00:14.102998000 +09:00
-  updated_at: 2014-08-16 01:00:14.102998000 +09:00
+  created_at: 2014-08-22 16:07:30.486762000 +09:00
+  updated_at: 2014-08-22 16:07:30.486762000 +09:00
   name: BIGINT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_027:
   id: 27
-  created_at: 2014-08-16 01:00:14.103605000 +09:00
-  updated_at: 2014-08-16 01:00:14.103605000 +09:00
+  created_at: 2014-08-22 16:07:30.487325000 +09:00
+  updated_at: 2014-08-22 16:07:30.487325000 +09:00
   name: FLOAT
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_028:
   id: 28
-  created_at: 2014-08-16 01:00:14.104268000 +09:00
-  updated_at: 2014-08-16 01:00:14.104268000 +09:00
+  created_at: 2014-08-22 16:07:30.487872000 +09:00
+  updated_at: 2014-08-22 16:07:30.487872000 +09:00
   name: DOUBLE
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_029:
   id: 29
-  created_at: 2014-08-16 01:00:14.104879000 +09:00
-  updated_at: 2014-08-16 01:00:14.104879000 +09:00
+  created_at: 2014-08-22 16:07:30.488433000 +09:00
+  updated_at: 2014-08-22 16:07:30.488433000 +09:00
   name: REAL
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_030:
   id: 30
-  created_at: 2014-08-16 01:00:14.105482000 +09:00
-  updated_at: 2014-08-16 01:00:14.105482000 +09:00
+  created_at: 2014-08-22 16:07:30.489036000 +09:00
+  updated_at: 2014-08-22 16:07:30.489036000 +09:00
   name: DOUBLE PRECISION
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_031:
   id: 31
-  created_at: 2014-08-16 01:00:14.106102000 +09:00
-  updated_at: 2014-08-16 01:00:14.106102000 +09:00
+  created_at: 2014-08-22 16:07:30.489577000 +09:00
+  updated_at: 2014-08-22 16:07:30.489577000 +09:00
   name: DECIMAL
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_032:
   id: 32
-  created_at: 2014-08-16 01:00:14.106716000 +09:00
-  updated_at: 2014-08-16 01:00:14.106716000 +09:00
+  created_at: 2014-08-22 16:07:30.490164000 +09:00
+  updated_at: 2014-08-22 16:07:30.490164000 +09:00
   name: NUMERIC
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_033:
   id: 33
-  created_at: 2014-08-16 01:00:14.107338000 +09:00
-  updated_at: 2014-08-16 01:00:14.107338000 +09:00
+  created_at: 2014-08-22 16:07:30.490717000 +09:00
+  updated_at: 2014-08-22 16:07:30.490717000 +09:00
   name: FIXED
   dbms_product_id: 2
   sizable: true
   scalable: true
 mx_data_types_034:
   id: 34
-  created_at: 2014-08-16 01:00:14.107938000 +09:00
-  updated_at: 2014-08-16 01:00:14.107938000 +09:00
+  created_at: 2014-08-22 16:07:30.491276000 +09:00
+  updated_at: 2014-08-22 16:07:30.491276000 +09:00
   name: BOOLEAN
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_035:
   id: 35
-  created_at: 2014-08-16 01:00:14.108539000 +09:00
-  updated_at: 2014-08-16 01:00:14.108539000 +09:00
+  created_at: 2014-08-22 16:07:30.491834000 +09:00
+  updated_at: 2014-08-22 16:07:30.491834000 +09:00
   name: BIT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_036:
   id: 36
-  created_at: 2014-08-16 01:00:14.109153000 +09:00
-  updated_at: 2014-08-16 01:00:14.109153000 +09:00
+  created_at: 2014-08-22 16:07:30.492394000 +09:00
+  updated_at: 2014-08-22 16:07:30.492394000 +09:00
   name: DATE
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_037:
   id: 37
-  created_at: 2014-08-16 01:00:14.109722000 +09:00
-  updated_at: 2014-08-16 01:00:14.109722000 +09:00
+  created_at: 2014-08-22 16:07:30.492985000 +09:00
+  updated_at: 2014-08-22 16:07:30.492985000 +09:00
   name: DATETIME
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_038:
   id: 38
-  created_at: 2014-08-16 01:00:14.110715000 +09:00
-  updated_at: 2014-08-16 01:00:14.110715000 +09:00
+  created_at: 2014-08-22 16:07:30.493524000 +09:00
+  updated_at: 2014-08-22 16:07:30.493524000 +09:00
   name: TIME
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_039:
   id: 39
-  created_at: 2014-08-16 01:00:14.112207000 +09:00
-  updated_at: 2014-08-16 01:00:14.112207000 +09:00
+  created_at: 2014-08-22 16:07:30.494240000 +09:00
+  updated_at: 2014-08-22 16:07:30.494240000 +09:00
   name: TIMESTAMP
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_040:
   id: 40
-  created_at: 2014-08-16 01:00:14.113395000 +09:00
-  updated_at: 2014-08-16 01:00:14.113395000 +09:00
+  created_at: 2014-08-22 16:07:30.494810000 +09:00
+  updated_at: 2014-08-22 16:07:30.494810000 +09:00
   name: YEAR
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_041:
   id: 41
-  created_at: 2014-08-16 01:00:14.114555000 +09:00
-  updated_at: 2014-08-16 01:00:14.114555000 +09:00
+  created_at: 2014-08-22 16:07:30.495345000 +09:00
+  updated_at: 2014-08-22 16:07:30.495345000 +09:00
   name: CHAR
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_042:
   id: 42
-  created_at: 2014-08-16 01:00:14.115677000 +09:00
-  updated_at: 2014-08-16 01:00:14.115677000 +09:00
+  created_at: 2014-08-22 16:07:30.495919000 +09:00
+  updated_at: 2014-08-22 16:07:30.495919000 +09:00
   name: VARCHAR
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_043:
   id: 43
-  created_at: 2014-08-16 01:00:14.117201000 +09:00
-  updated_at: 2014-08-16 01:00:14.117201000 +09:00
+  created_at: 2014-08-22 16:07:30.496453000 +09:00
+  updated_at: 2014-08-22 16:07:30.496453000 +09:00
   name: TEXT
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_044:
   id: 44
-  created_at: 2014-08-16 01:00:14.118341000 +09:00
-  updated_at: 2014-08-16 01:00:14.118341000 +09:00
+  created_at: 2014-08-22 16:07:30.496997000 +09:00
+  updated_at: 2014-08-22 16:07:30.496997000 +09:00
   name: MEDIUMTEXT
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_045:
   id: 45
-  created_at: 2014-08-16 01:00:14.119351000 +09:00
-  updated_at: 2014-08-16 01:00:14.119351000 +09:00
+  created_at: 2014-08-22 16:07:30.497551000 +09:00
+  updated_at: 2014-08-22 16:07:30.497551000 +09:00
   name: LONGTEXT
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_046:
   id: 46
-  created_at: 2014-08-16 01:00:14.120473000 +09:00
-  updated_at: 2014-08-16 01:00:14.120473000 +09:00
+  created_at: 2014-08-22 16:07:30.498083000 +09:00
+  updated_at: 2014-08-22 16:07:30.498083000 +09:00
   name: BLOB
   dbms_product_id: 2
   sizable: true
   scalable: false
 mx_data_types_047:
   id: 47
-  created_at: 2014-08-16 01:00:14.121471000 +09:00
-  updated_at: 2014-08-16 01:00:14.121471000 +09:00
+  created_at: 2014-08-22 16:07:30.498633000 +09:00
+  updated_at: 2014-08-22 16:07:30.498633000 +09:00
   name: MEDIUMBLOB
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_048:
   id: 48
-  created_at: 2014-08-16 01:00:14.122500000 +09:00
-  updated_at: 2014-08-16 01:00:14.122500000 +09:00
+  created_at: 2014-08-22 16:07:30.499169000 +09:00
+  updated_at: 2014-08-22 16:07:30.499169000 +09:00
   name: LONGBLOB
   dbms_product_id: 2
   sizable: false
   scalable: false
 mx_data_types_049:
   id: 49
-  created_at: 2014-08-16 01:00:14.138862000 +09:00
-  updated_at: 2014-08-16 01:00:14.138862000 +09:00
+  created_at: 2014-08-22 16:07:30.530291000 +09:00
+  updated_at: 2014-08-22 16:07:30.530291000 +09:00
   name: CHAR
   dbms_product_id: 3
   sizable: true
   scalable: false
 mx_data_types_050:
   id: 50
-  created_at: 2014-08-16 01:00:14.139999000 +09:00
-  updated_at: 2014-08-16 01:00:14.139999000 +09:00
+  created_at: 2014-08-22 16:07:30.530977000 +09:00
+  updated_at: 2014-08-22 16:07:30.530977000 +09:00
   name: VARCHAR2
   dbms_product_id: 3
   sizable: true
   scalable: false
 mx_data_types_051:
   id: 51
-  created_at: 2014-08-16 01:00:14.141044000 +09:00
-  updated_at: 2014-08-16 01:00:14.141044000 +09:00
+  created_at: 2014-08-22 16:07:30.531746000 +09:00
+  updated_at: 2014-08-22 16:07:30.531746000 +09:00
   name: NCHAR
   dbms_product_id: 3
   sizable: true
   scalable: false
 mx_data_types_052:
   id: 52
-  created_at: 2014-08-16 01:00:14.141951000 +09:00
-  updated_at: 2014-08-16 01:00:14.141951000 +09:00
+  created_at: 2014-08-22 16:07:30.532605000 +09:00
+  updated_at: 2014-08-22 16:07:30.532605000 +09:00
   name: NVARCHAR2
   dbms_product_id: 3
   sizable: true
   scalable: false
 mx_data_types_053:
   id: 53
-  created_at: 2014-08-16 01:00:14.142879000 +09:00
-  updated_at: 2014-08-16 01:00:14.142879000 +09:00
+  created_at: 2014-08-22 16:07:30.533482000 +09:00
+  updated_at: 2014-08-22 16:07:30.533482000 +09:00
   name: CLOB
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_054:
   id: 54
-  created_at: 2014-08-16 01:00:14.143793000 +09:00
-  updated_at: 2014-08-16 01:00:14.143793000 +09:00
+  created_at: 2014-08-22 16:07:30.534141000 +09:00
+  updated_at: 2014-08-22 16:07:30.534141000 +09:00
   name: BLOB
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_055:
   id: 55
-  created_at: 2014-08-16 01:00:14.144680000 +09:00
-  updated_at: 2014-08-16 01:00:14.144680000 +09:00
+  created_at: 2014-08-22 16:07:30.534776000 +09:00
+  updated_at: 2014-08-22 16:07:30.534776000 +09:00
   name: NUMBER
   dbms_product_id: 3
   sizable: true
   scalable: true
 mx_data_types_056:
   id: 56
-  created_at: 2014-08-16 01:00:14.145556000 +09:00
-  updated_at: 2014-08-16 01:00:14.145556000 +09:00
+  created_at: 2014-08-22 16:07:30.535394000 +09:00
+  updated_at: 2014-08-22 16:07:30.535394000 +09:00
   name: BINARY_FLOAT
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_057:
   id: 57
-  created_at: 2014-08-16 01:00:14.146179000 +09:00
-  updated_at: 2014-08-16 01:00:14.146179000 +09:00
+  created_at: 2014-08-22 16:07:30.536349000 +09:00
+  updated_at: 2014-08-22 16:07:30.536349000 +09:00
   name: BINARY_DOUBLE
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_058:
   id: 58
-  created_at: 2014-08-16 01:00:14.146803000 +09:00
-  updated_at: 2014-08-16 01:00:14.146803000 +09:00
+  created_at: 2014-08-22 16:07:30.537453000 +09:00
+  updated_at: 2014-08-22 16:07:30.537453000 +09:00
   name: DATE
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_059:
   id: 59
-  created_at: 2014-08-16 01:00:14.147436000 +09:00
-  updated_at: 2014-08-16 01:00:14.147436000 +09:00
+  created_at: 2014-08-22 16:07:30.538056000 +09:00
+  updated_at: 2014-08-22 16:07:30.538056000 +09:00
   name: TIMESTAMP
   dbms_product_id: 3
   sizable: false
   scalable: false
 mx_data_types_060:
   id: 60
-  created_at: 2014-08-16 01:00:14.148159000 +09:00
-  updated_at: 2014-08-16 01:00:14.148159000 +09:00
+  created_at: 2014-08-22 16:07:30.538660000 +09:00
+  updated_at: 2014-08-22 16:07:30.538660000 +09:00
   name: RAW
   dbms_product_id: 3
   sizable: true
   scalable: false
 mx_data_types_061:
   id: 61
-  created_at: 2014-08-16 01:00:14.163895000 +09:00
-  updated_at: 2014-08-16 01:00:14.163895000 +09:00
+  created_at: 2014-08-22 16:07:30.555299000 +09:00
+  updated_at: 2014-08-22 16:07:30.555299000 +09:00
   name: bigint
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_062:
   id: 62
-  created_at: 2014-08-16 01:00:14.164590000 +09:00
-  updated_at: 2014-08-16 01:00:14.164590000 +09:00
+  created_at: 2014-08-22 16:07:30.555950000 +09:00
+  updated_at: 2014-08-22 16:07:30.555950000 +09:00
   name: int
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_063:
   id: 63
-  created_at: 2014-08-16 01:00:14.165227000 +09:00
-  updated_at: 2014-08-16 01:00:14.165227000 +09:00
+  created_at: 2014-08-22 16:07:30.556593000 +09:00
+  updated_at: 2014-08-22 16:07:30.556593000 +09:00
   name: smallint
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_064:
   id: 64
-  created_at: 2014-08-16 01:00:14.165855000 +09:00
-  updated_at: 2014-08-16 01:00:14.165855000 +09:00
+  created_at: 2014-08-22 16:07:30.557167000 +09:00
+  updated_at: 2014-08-22 16:07:30.557167000 +09:00
   name: tinyint
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_065:
   id: 65
-  created_at: 2014-08-16 01:00:14.166441000 +09:00
-  updated_at: 2014-08-16 01:00:14.166441000 +09:00
+  created_at: 2014-08-22 16:07:30.557777000 +09:00
+  updated_at: 2014-08-22 16:07:30.557777000 +09:00
   name: numeric
   dbms_product_id: 4
   sizable: true
   scalable: true
 mx_data_types_066:
   id: 66
-  created_at: 2014-08-16 01:00:14.167120000 +09:00
-  updated_at: 2014-08-16 01:00:14.167120000 +09:00
+  created_at: 2014-08-22 16:07:30.558411000 +09:00
+  updated_at: 2014-08-22 16:07:30.558411000 +09:00
   name: decimal
   dbms_product_id: 4
   sizable: true
   scalable: true
 mx_data_types_067:
   id: 67
-  created_at: 2014-08-16 01:00:14.167725000 +09:00
-  updated_at: 2014-08-16 01:00:14.167725000 +09:00
+  created_at: 2014-08-22 16:07:30.558960000 +09:00
+  updated_at: 2014-08-22 16:07:30.558960000 +09:00
   name: smallmoney
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_068:
   id: 68
-  created_at: 2014-08-16 01:00:14.168345000 +09:00
-  updated_at: 2014-08-16 01:00:14.168345000 +09:00
+  created_at: 2014-08-22 16:07:30.559532000 +09:00
+  updated_at: 2014-08-22 16:07:30.559532000 +09:00
   name: money
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_069:
   id: 69
-  created_at: 2014-08-16 01:00:14.168973000 +09:00
-  updated_at: 2014-08-16 01:00:14.168973000 +09:00
+  created_at: 2014-08-22 16:07:30.560118000 +09:00
+  updated_at: 2014-08-22 16:07:30.560118000 +09:00
   name: float
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_070:
   id: 70
-  created_at: 2014-08-16 01:00:14.169735000 +09:00
-  updated_at: 2014-08-16 01:00:14.169735000 +09:00
+  created_at: 2014-08-22 16:07:30.560680000 +09:00
+  updated_at: 2014-08-22 16:07:30.560680000 +09:00
   name: real
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_071:
   id: 71
-  created_at: 2014-08-16 01:00:14.170373000 +09:00
-  updated_at: 2014-08-16 01:00:14.170373000 +09:00
+  created_at: 2014-08-22 16:07:30.561254000 +09:00
+  updated_at: 2014-08-22 16:07:30.561254000 +09:00
   name: bit
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_072:
   id: 72
-  created_at: 2014-08-16 01:00:14.170971000 +09:00
-  updated_at: 2014-08-16 01:00:14.170971000 +09:00
+  created_at: 2014-08-22 16:07:30.561846000 +09:00
+  updated_at: 2014-08-22 16:07:30.561846000 +09:00
   name: date
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_073:
   id: 73
-  created_at: 2014-08-16 01:00:14.171621000 +09:00
-  updated_at: 2014-08-16 01:00:14.171621000 +09:00
+  created_at: 2014-08-22 16:07:30.562473000 +09:00
+  updated_at: 2014-08-22 16:07:30.562473000 +09:00
   name: time
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_074:
   id: 74
-  created_at: 2014-08-16 01:00:14.172231000 +09:00
-  updated_at: 2014-08-16 01:00:14.172231000 +09:00
+  created_at: 2014-08-22 16:07:30.563096000 +09:00
+  updated_at: 2014-08-22 16:07:30.563096000 +09:00
   name: datetime
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_075:
   id: 75
-  created_at: 2014-08-16 01:00:14.173042000 +09:00
-  updated_at: 2014-08-16 01:00:14.173042000 +09:00
+  created_at: 2014-08-22 16:07:30.563701000 +09:00
+  updated_at: 2014-08-22 16:07:30.563701000 +09:00
   name: datetime2
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_076:
   id: 76
-  created_at: 2014-08-16 01:00:14.173644000 +09:00
-  updated_at: 2014-08-16 01:00:14.173644000 +09:00
+  created_at: 2014-08-22 16:07:30.564340000 +09:00
+  updated_at: 2014-08-22 16:07:30.564340000 +09:00
   name: smalldatetime
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_077:
   id: 77
-  created_at: 2014-08-16 01:00:14.174253000 +09:00
-  updated_at: 2014-08-16 01:00:14.174253000 +09:00
+  created_at: 2014-08-22 16:07:30.565269000 +09:00
+  updated_at: 2014-08-22 16:07:30.565269000 +09:00
   name: datetimeoffset
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_078:
   id: 78
-  created_at: 2014-08-16 01:00:14.174830000 +09:00
-  updated_at: 2014-08-16 01:00:14.174830000 +09:00
+  created_at: 2014-08-22 16:07:30.566348000 +09:00
+  updated_at: 2014-08-22 16:07:30.566348000 +09:00
   name: char
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_079:
   id: 79
-  created_at: 2014-08-16 01:00:14.175428000 +09:00
-  updated_at: 2014-08-16 01:00:14.175428000 +09:00
+  created_at: 2014-08-22 16:07:30.567243000 +09:00
+  updated_at: 2014-08-22 16:07:30.567243000 +09:00
   name: varchar
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_080:
   id: 80
-  created_at: 2014-08-16 01:00:14.176032000 +09:00
-  updated_at: 2014-08-16 01:00:14.176032000 +09:00
+  created_at: 2014-08-22 16:07:30.567941000 +09:00
+  updated_at: 2014-08-22 16:07:30.567941000 +09:00
   name: text
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_081:
   id: 81
-  created_at: 2014-08-16 01:00:14.176633000 +09:00
-  updated_at: 2014-08-16 01:00:14.176633000 +09:00
+  created_at: 2014-08-22 16:07:30.568686000 +09:00
+  updated_at: 2014-08-22 16:07:30.568686000 +09:00
   name: binary
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_082:
   id: 82
-  created_at: 2014-08-16 01:00:14.177201000 +09:00
-  updated_at: 2014-08-16 01:00:14.177201000 +09:00
+  created_at: 2014-08-22 16:07:30.569347000 +09:00
+  updated_at: 2014-08-22 16:07:30.569347000 +09:00
   name: varbinary
   dbms_product_id: 4
   sizable: true
   scalable: false
 mx_data_types_083:
   id: 83
-  created_at: 2014-08-16 01:00:14.178019000 +09:00
-  updated_at: 2014-08-16 01:00:14.178019000 +09:00
+  created_at: 2014-08-22 16:07:30.569980000 +09:00
+  updated_at: 2014-08-22 16:07:30.569980000 +09:00
   name: image
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_084:
   id: 84
-  created_at: 2014-08-16 01:00:14.179032000 +09:00
-  updated_at: 2014-08-16 01:00:14.179032000 +09:00
+  created_at: 2014-08-22 16:07:30.570561000 +09:00
+  updated_at: 2014-08-22 16:07:30.570561000 +09:00
   name: timestamp
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_085:
   id: 85
-  created_at: 2014-08-16 01:00:14.180087000 +09:00
-  updated_at: 2014-08-16 01:00:14.180087000 +09:00
+  created_at: 2014-08-22 16:07:30.571138000 +09:00
+  updated_at: 2014-08-22 16:07:30.571138000 +09:00
   name: uniqueidentifier
   dbms_product_id: 4
   sizable: false
   scalable: false
 mx_data_types_086:
   id: 86
-  created_at: 2014-08-16 01:00:14.200623000 +09:00
-  updated_at: 2014-08-16 01:00:14.200623000 +09:00
+  created_at: 2014-08-22 16:07:30.589321000 +09:00
+  updated_at: 2014-08-22 16:07:30.589321000 +09:00
   name: TEXT
   dbms_product_id: 5
   sizable: false
   scalable: false
 mx_data_types_087:
   id: 87
-  created_at: 2014-08-16 01:00:14.201612000 +09:00
-  updated_at: 2014-08-16 01:00:14.201612000 +09:00
+  created_at: 2014-08-22 16:07:30.590273000 +09:00
+  updated_at: 2014-08-22 16:07:30.590273000 +09:00
   name: NUMERIC
   dbms_product_id: 5
   sizable: false
   scalable: false
 mx_data_types_088:
   id: 88
-  created_at: 2014-08-16 01:00:14.202261000 +09:00
-  updated_at: 2014-08-16 01:00:14.202261000 +09:00
+  created_at: 2014-08-22 16:07:30.590844000 +09:00
+  updated_at: 2014-08-22 16:07:30.590844000 +09:00
   name: INTEGER
   dbms_product_id: 5
   sizable: false
   scalable: false
 mx_data_types_089:
   id: 89
-  created_at: 2014-08-16 01:00:14.202890000 +09:00
-  updated_at: 2014-08-16 01:00:14.202890000 +09:00
+  created_at: 2014-08-22 16:07:30.591388000 +09:00
+  updated_at: 2014-08-22 16:07:30.591388000 +09:00
   name: REAL
   dbms_product_id: 5
   sizable: false
   scalable: false
 mx_data_types_090:
   id: 90
-  created_at: 2014-08-16 01:00:14.203609000 +09:00
-  updated_at: 2014-08-16 01:00:14.203609000 +09:00
+  created_at: 2014-08-22 16:07:30.592038000 +09:00
+  updated_at: 2014-08-22 16:07:30.592038000 +09:00
   name: NONE
   dbms_product_id: 5
   sizable: false
