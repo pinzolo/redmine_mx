@@ -103,4 +103,57 @@ class MxTablesControllerTest < ActionController::TestCase
   # }}}
 
   #TODO: update
+
+  # destroy {{{
+
+  def test_destroy_by_manager
+    assert_difference 'MxTable.count', -1 do
+      assert_difference 'MxColumn.count', -7 do
+        delete :destroy, project_id: @project, database_id: @database, id: 1
+      end
+    end
+    assert_response 302
+    assert_redirected_to project_mx_database_tables_path(@project, @database)
+    assert MxTable.where(id: 1).empty?
+    assert MxColumn.where(type: 'MxTableColumn', owner_id: 1).empty?
+  end
+
+  def test_destroy_by_viewer
+    by_viewer
+    assert_no_difference 'MxTable.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert_response 403
+  end
+
+  def test_destroy_by_not_member
+    by_not_member
+    assert_no_difference 'MxTable.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: 1
+    end
+    assert_response 403
+  end
+
+  def test_destroy_with_invalid_project
+    assert_no_difference 'MxTable.count' do
+      delete :destroy, project_id: 'invalid', database_id: @database, id: 1
+    end
+    assert_response 404
+  end
+
+  def test_destroy_with_invalid_database
+    assert_no_difference 'MxTable.count' do
+      delete :destroy, project_id: @project, database_id: 'invalid', id: 1
+    end
+    assert_response 404
+  end
+
+  def test_destroy_with_invalid_id
+    assert_no_difference 'MxTable.count' do
+      delete :destroy, project_id: @project, database_id: @database, id: -1
+    end
+    assert_response 404
+  end
+
+  # }}}
 end
