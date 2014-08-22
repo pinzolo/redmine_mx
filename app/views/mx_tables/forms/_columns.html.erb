@@ -24,7 +24,7 @@
       </tr>
       <tr v-repeat="column: table_columns" id="mx-column-{{column.id}}" class="mx-column mx-table-column mx-fade" v-transition>
         <% prefix = "mx_table[table_columns][{{column.id}}]" %>
-        <td></td>
+        <td><%= mx_image_button 'add', 'v-on' => "click: insertColumn(this)" %></td>
         <td class="{{classFor(column, 'physical_name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="column.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />

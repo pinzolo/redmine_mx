@@ -49,7 +49,7 @@
       <tbody>
 <% @table.columns.each do |column| %>
         <tr id="mx-column-<%= column.id %>">
-          <td class="mx-mark-cell"><%= column.type[2] %></td>
+          <td class="mx-mark-cell"><%= column.type[2] unless column.is_a?(MxTableColumn) %></td>
           <td><%= column.physical_name %></td>
           <td><%= column.logical_name %></td>
           <td><%= column.data_type.name %></td>

@@ -97,6 +97,9 @@ function prepareMxTableVue(data) {
       addColumn: function() {
         this.table_columns.push({ id: mx.randomId() });
       },
+      insertColumn: function(column) {
+        this.table_columns.splice(column.$index, 0, { id: mx.randomId() });
+      },
       removeColumn: function(column) {
         this.table_columns.$remove(column.$index);
       },
