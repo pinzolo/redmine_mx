@@ -48,6 +48,8 @@ class MxTable < ActiveRecord::Base
 
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment)
+    self.created_user_id = User.current.id
+    self.updated_user_id = User.current.id
     self.save!
     vue_model.table_columns.each do |vm_column|
       vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
@@ -57,7 +59,26 @@ class MxTable < ActiveRecord::Base
   end
 
   def update_with!(vue_model)
+    self.updated_user_id = User.current.id
     self.update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
-    #TODO: table_columns
+    column_ids = vue_model.table_columns.map(&:id)
+    base_columns = {}.tap do |columns|
+      self.table_columns.each do |column|
+        if column_ids.include?(column.id.to_s)
+          columns[column.id.to_s] = column
+        else
+          column.destroy
+        end
+      end
+    end
+    vue_model.table_columns.each do |vm_column|
+      vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
+                                               :nullable, :default_value, :position, :comment)
+      if base_column = base_columns.delete(vm_column.id.to_s)
+        base_column.update_attributes!(vm_column_params)
+      else
+        self.table_columns.build(vm_column_params).save!
+      end
+    end
   end
 end
