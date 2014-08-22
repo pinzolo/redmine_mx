@@ -8,6 +8,7 @@
   <%= form_for(@table, url: project_mx_database_tables_path(@project, @database), method: :post, html: { id: 'mx_table_form' }) do |f| %>
     <%= render partial: 'form', locals: { f: f, database: @database } %>
     <%= mx_submit l(:button_create) %>
+    <%= mx_submit l(:button_create_and_continue), name: 'continue' %>
     <%= link_to l(:button_cancel), project_mx_database_tables_path(@project, @database) %>
   <% end %>
 </div>

@@ -26,7 +26,7 @@ class MxTablesController < ApplicationController
       @table.updated_user_id = User.current.id
       @table.save_with!(@vue_model)
       flash[:notice] = l(:notice_successful_create)
-      redirect_to project_mx_database_table_path(@project, @database, @table)
+      redirect_to(params[:continue] ? new_project_mx_database_table_path(@project, @database) : project_mx_database_table_path(@project, @database, @table))
     else
       render action: :new
     end
