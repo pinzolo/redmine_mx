@@ -12,6 +12,53 @@ class MxTablesControllerTest < ActionController::TestCase
     by_manager
   end
 
+  # index {{{
+
+  def test_index_by_manager
+    get :index, project_id: @project, database_id: @database
+    assert_response :success
+    assert_template 'index'
+    database = assigns(:database)
+    assert_equal 5, database.tables.size
+    database.tables.each do |table|
+      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table), 'data-method' => 'delete' }
+    end
+    assert_tag tag: 'a', attributes: { href: new_project_mx_database_table_path(@project, @database) }
+  end
+
+  def test_index_by_viewer
+    by_viewer
+    get :index, project_id: @project, database_id: @database
+    assert_response :success
+    assert_template 'index'
+    database = assigns(:database)
+    assert_equal 5, database.tables.size
+    database.tables.each do |table|
+      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+      assert_no_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table), 'data-method' => 'delete' }
+    end
+    assert_no_tag tag: 'a', attributes: { href: new_project_mx_database_table_path(@project, @database) }
+  end
+
+  def test_index_by_not_member
+    by_not_member
+    get :index, project_id: @project, database_id: @database
+    assert_response 403
+  end
+
+  def test_index_with_invalid_project
+    get :index, project_id: 'invalid', database_id: @database
+    assert_response 404
+  end
+
+  def test_index_with_invalid_database
+    get :index, project_id: @project, database_id: 'invalid'
+    assert_response 404
+  end
+
+  # }}}
+
   # new {{{
 
   def test_new_by_manager
