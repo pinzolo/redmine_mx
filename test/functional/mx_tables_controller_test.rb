@@ -59,6 +59,79 @@ class MxTablesControllerTest < ActionController::TestCase
 
   # }}}
 
+  # show {{{
+
+  def test_show_by_manager
+    get :show, project_id: @project, database_id: @database, id: 'customers'
+    assert_response :success
+    assert_template 'show'
+    table = assigns(:table)
+    assert table
+    assert_equal 'customers', table.physical_name
+    assert_equal 12, table.columns.size
+    assert_equal 7, table.table_columns.size
+    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
+    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
+    assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+  end
+
+  def test_show_by_viewer
+    by_viewer
+    get :show, project_id: @project, database_id: @database, id: 'customers'
+    assert_response :success
+    assert_template 'show'
+    table = assigns(:table)
+    assert table
+    assert_equal 'customers', table.physical_name
+    assert_equal 12, table.columns.size
+    assert_equal 7, table.table_columns.size
+    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
+    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
+    assert_no_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+  end
+
+  def test_show_by_not_member
+    by_not_member
+    get :show, project_id: @project, database_id: @database, id: 'customers'
+    assert_response 403
+  end
+
+  def test_show_with_id
+    get :show, project_id: @project, database_id: @database, id: 1
+    assert_response :success
+    assert_template 'show'
+    table = assigns(:table)
+    assert table
+    assert_equal 'customers', table.physical_name
+    assert_equal 12, table.columns.size
+    assert_equal 7, table.table_columns.size
+    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
+    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
+    assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+  end
+
+  def test_show_with_invalid_project
+    get :show, project_id: 'invalid', database_id: @database, id: 'customers'
+    assert_response 404
+  end
+
+  def test_show_with_invalid_database
+    get :show, project_id: @project, database_id: 'invalid', id: 'customers'
+    assert_response 404
+  end
+
+  def test_show_with_invalid_physical_name
+    get :show, project_id: @project, database_id: @database, id: 'invalid'
+    assert_response 404
+  end
+
+  def test_show_with_invalid_id
+    get :show, project_id: @project, database_id: @database, id: -1
+    assert_response 404
+  end
+
+  # }}}
+
   # new {{{
 
   def test_new_by_manager
