@@ -17,6 +17,9 @@
           <th><%= mx_label_for('comment') %></th>
           <th><%= mx_label_for('updated_at') %></th>
           <th><%= mx_label_for('updated_user') %></th>
+    <% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+          <th>&nbsp;</th>
+    <% end %>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +30,12 @@
           <td><%= simple_format_without_paragraph(table.comment) %></td>
           <td><%= format_time(table.updated_at) %></td>
           <td><%= table.updated_user.try(:name) %></td>
+    <% if User.current.allowed_to?(:manage_mx_tables, @project) %>
+          <td>
+            <%= link_to l(:button_edit), edit_project_mx_database_table_path(@project, @database, table),  class: 'icon icon-edit', accesskey: accesskey(:edit) %>
+            <%= link_to l(:button_delete), project_mx_database_table_path(@project, @database, table), data: { confirm: l(:text_are_you_sure) }, method: :delete, class: 'icon icon-del' %>
+          </td>
+    <% end %>
         </tr>
   <% end %>
       </tbody>
