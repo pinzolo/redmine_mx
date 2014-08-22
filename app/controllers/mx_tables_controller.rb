@@ -33,6 +33,7 @@ class MxTablesController < ApplicationController
   end
 
   def edit
+    @vue_model = MxVm::Table.new(@table, @database)
   end
 
   def update

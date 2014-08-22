@@ -55,6 +55,7 @@ en:
     title_tables_new: 'New table'
     title_tables_show: 'Table details'
     title_tables_detail: 'Table [%{name}]'
+    title_tables_edit: 'Edit table'
     title_columns: 'Columns'
 
     tab_tables: 'Tables'

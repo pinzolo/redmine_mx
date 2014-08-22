@@ -55,6 +55,7 @@ ja:
     title_tables_new: '新しいテーブル'
     title_tables_show: 'テーブル詳細'
     title_tables_detail: 'テーブル [%{name}]'
+    title_tables_edit: 'テーブルの編集'
     title_columns: '列一覧'
 
     tab_tables: 'テーブル'
