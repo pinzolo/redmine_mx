@@ -2,7 +2,9 @@
   <%= mx_database_tabs(@database, :tables) %>
   <div class="contextual">
     <%= link_to l(:button_back), project_mx_databases_path(@project),  class: 'icon icon-cancel' %>
+<% if User.current.allowed_to?(:manage_mx_tables, @project) %>
     <%= link_to l('mx.label_table_new'), new_project_mx_database_table_path(@project, @database),  class: 'icon icon-add' %>
+<% end %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_tables', name: @database.identifier) %></h2>
 <% if @database.tables.empty? %>
