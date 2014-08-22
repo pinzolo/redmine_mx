@@ -18,7 +18,7 @@ module MxCommentable
   private
 
   def save_comment
-    if mx_comment.try(:comment)
+    if mx_comment.try(:comment).presence
       mx_comment.save
     else
       mx_comment.try(:destroy)

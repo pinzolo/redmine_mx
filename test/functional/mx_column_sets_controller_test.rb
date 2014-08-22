@@ -1325,7 +1325,7 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   def assert_saved_column_set(id, params, ignore=nil)
     column_set = MxColumnSet.find(id)
     assert_equal params[:name], column_set.name
-    assert_equal params[:comment], column_set.comment
+    assert_equal params[:comment].presence, column_set.comment
     [:header_columns, :footer_columns].each do |columns_sym|
       if params[columns_sym]
         assert_equal params[columns_sym].size, column_set.send(columns_sym).size
@@ -1350,7 +1350,7 @@ class MxColumnSetsControllerTest < ActionController::TestCase
           end
           assert_equal column_params[:nullable].present?, column.nullable
           assert_equal column_params[:default_value], column.default_value
-          assert_equal column_params[:comment], column.comment
+          assert_equal column_params[:comment].presence, column.comment
         end
       else
         assert_equal 0, column_set.send(columns_sym).size

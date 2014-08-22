@@ -511,6 +511,6 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_equal params[:identifier], database.identifier
     assert_equal params[:dbms_product_id].to_i, database.dbms_product_id
     assert_equal params[:summary], database.summary
-    assert_equal params[:comment], database.comment
+    assert_equal params[:comment].presence, database.comment
   end
 end

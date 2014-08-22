@@ -643,7 +643,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     dbms_product = MxDbmsProduct.find(id)
     assert_equal params[:name], dbms_product.name
     assert_equal params[:type], dbms_product.type
-    assert_equal params[:comment], dbms_product.comment
+    assert_equal params[:comment].presence, dbms_product.comment
     if params[:data_types]
       assert_equal params[:data_types].size, dbms_product.data_types.size
       params[:data_types].each do |data_type_id, data_type_param|
