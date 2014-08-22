@@ -5,6 +5,7 @@ class MxVm::Table
 
   validates :physical_name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxTable', scope: :database_id }
   validates :logical_name, length: { maximum: 200 }
+  validates :column_set_id, inclusion: { in: ->(table){ table.column_sets.map { |col_set| col_set.id.to_s } }, if: 'column_set_id.present?' }
 
   def initialize(params = {}, database = {})
     if params.is_a?(Hash)
