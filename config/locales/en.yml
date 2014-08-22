@@ -108,3 +108,12 @@ en:
         footer_column_scale: "Footer column's scale"
         footer_column_default_value:  "Footer column's default value"
         column_physical_name: "Column's physical name"
+      mx_vm/table:
+        physical_name: "Physical name"
+        logical_name: "Logical name"
+        column_physical_name: "Column's physical name"
+        column_logical_name: "Column's logical name"
+        column_data_type_id: "Column's data type"
+        column_size: "Column's size"
+        column_scale: "Column's scale"
+        column_default_value:  "Header column's default value"

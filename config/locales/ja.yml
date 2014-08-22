@@ -108,3 +108,12 @@ ja:
         footer_column_scale: 'フッタ列のスケール'
         footer_column_default_value: 'フッタ列の初期値'
         column_physical_name: "列の物理名"
+      mx_vm/table:
+        physical_name: '物理名'
+        logical_name: '論理名'
+        column_physical_name: '列の物理名'
+        column_logical_name: '列の論理名'
+        column_data_type_id: '列のデータ型'
+        column_size: '列のサイズ'
+        column_scale: '列のスケール'
+        column_default_value: '列の初期値'
