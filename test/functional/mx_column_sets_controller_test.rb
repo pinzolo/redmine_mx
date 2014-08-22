@@ -611,6 +611,7 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     assert_equal column_set.name, vm.name
     assert_equal column_set.comment, vm.comment
     assert_equal column_set.header_columns.size, vm.header_columns.size
+    assert_equal column_set.footer_columns.size, vm.footer_columns.size
     [:header_columns, :footer_columns].each do |columns_attr|
       column_set.send(columns_attr).each do |column|
         column_vm = vm.send(columns_attr).detect { |col| col.physical_name == column.physical_name }
@@ -618,7 +619,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
         [:logical_name, :data_type_id, :size, :scale, :nullable, :default_value, :comment].each do |attr|
           assert_equal column.send(attr), column_vm.send(attr)
         end
-        assert_equal column.logical_name, column_vm.logical_name
       end
     end
   end
