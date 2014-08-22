@@ -40,6 +40,9 @@ class MxTablesController < ApplicationController
   end
 
   def destroy
+    @table.destroy
+    flash[:notice] = l(:notice_successful_delete)
+    redirect_to action: :index
   end
 
   private
