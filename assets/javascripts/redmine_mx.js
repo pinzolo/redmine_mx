@@ -103,6 +103,14 @@ function prepareMxTableVue(data) {
       removeColumn: function(column) {
         this.table_columns.$remove(column.$index);
       },
+      upColumn: function(column) {
+        this.table_columns.$remove(column.$index);
+        this.table_columns.splice(column.$index - 1, 0, column.$data.column);
+      },
+      downColumn: function(column) {
+        this.table_columns.$remove(column.$index);
+        this.table_columns.splice(column.$index + 1, 0, column.$data.column);
+      },
       classFor: function(obj, prop) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
       },

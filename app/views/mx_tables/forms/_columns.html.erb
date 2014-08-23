@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
         <th><%= mx_label_for('physical_name', required: true) %></th>
         <th><%= mx_label_for('logical_name') %></th>
         <th><%= mx_label_for('data_type', required: true) %></th>
@@ -24,7 +25,11 @@
       </tr>
       <tr v-repeat="column: table_columns" id="mx-column-{{column.id}}" class="mx-column mx-table-column mx-fade" v-transition>
         <% prefix = "mx_table[table_columns][{{column.id}}]" %>
-        <td><%= mx_image_button 'add', 'v-on' => "click: insertColumn(this)" %></td>
+        <td><%= mx_image_button 'add', 'v-on' => 'click: insertColumn(this)' %></td>
+        <td>
+          <%= mx_image_button 'up', 'v-on' => 'click: upColumn(this)', icon: '1uparrow.png' %>
+          <%= mx_image_button 'down', 'v-on' => 'click: downColumn(this)', icon: '1downarrow.png' %>
+        </td>
         <td class="{{classFor(column, 'physical_name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="column.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />

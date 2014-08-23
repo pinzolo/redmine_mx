@@ -13,7 +13,7 @@ module MxHelper
   end
 
   def mx_image_button(name, options = {})
-    image_file = "#{name}.png"
+    image_file = options.delete(:icon) || "#{name}.png"
     image_tag(image_file, options.reverse_merge(title: l("button_#{name}")).merge(class: 'mx-image-button'))
   end
 
