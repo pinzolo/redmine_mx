@@ -8,8 +8,8 @@ class CreateMxPrimaryKeyColumns < ActiveRecord::Migration
       t.integer :position, null: false
     end
 
-    add_index :mx_primary_keys, :column_id
-    add_index :mx_primary_keys, [:primary_key_id, :column_id], unique: true, name: 'mx_primary_key_columns_uk1'
-    add_index :mx_primary_keys, [:primary_key_id, :position], unique: true, name: 'mx_primary_key_columns_uk2'
+    add_index :mx_primary_key_columns, :column_id
+    add_index :mx_primary_key_columns, [:primary_key_id, :column_id], unique: true, name: 'mx_primary_key_columns_uk1'
+    add_index :mx_primary_key_columns, [:primary_key_id, :position], unique: true, name: 'mx_primary_key_columns_uk2'
   end
 end
