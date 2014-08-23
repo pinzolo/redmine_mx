@@ -535,7 +535,337 @@ class MxTablesControllerTest < ActionController::TestCase
 
   # }}}
 
-  #TODO: update
+  # update {{{
+
+  def test_update_by_manager_with_valid_params
+    assert_update_success(valid_update_params)
+    assert_saved_table(1, valid_update_params)
+  end
+
+  def test_update_by_viewer
+    by_viewer
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      put :update, project_id: @project, database_id: @database, id: table, mx_table: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_by_not_member
+    by_not_member
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      put :update, project_id: @project, database_id: @database, id: table, mx_table: valid_update_params
+    end
+    assert_response 403
+  end
+
+  def test_update_with_invalid_project
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      put :update, project_id: 'invalid', database_id: @database, id: table, mx_table: valid_update_params
+    end
+    assert_response 404
+  end
+
+  def test_update_with_invalid_database
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      put :update, project_id: @project, database_id: 'invalid', id: table, mx_table: valid_update_params
+    end
+    assert_response 404
+  end
+
+  def test_update_without_physical_name
+    params = valid_update_params.tap { |p| p.delete(:physical_name) }
+    assert_update_failure(params)
+    assert_have_error(:physical_name, "can't be blank")
+  end
+
+  def test_update_with_empty_physical_name
+    params = valid_update_params.tap { |p| p[:physical_name] = '' }
+    assert_update_failure(params)
+    assert_have_error(:physical_name, "can't be blank")
+  end
+
+  def test_update_with_too_long_physical_name
+    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:physical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_physical_name
+    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 200 }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_already_taken_physical_name
+    params = valid_update_params.tap { |p| p[:physical_name] = 'items' }
+    assert_update_failure(params)
+    assert_have_error(:physical_name, 'has already been taken')
+  end
+
+  def test_update_with_same_physical_name
+    params = valid_update_params.tap { |p| p[:physical_name] = 'customers' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_already_taken_physical_name_in_other_database
+    params = valid_update_params.tap { |p| p[:physical_name] = 'books' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_logical_name
+    params = valid_update_params.tap { |p| p.delete(:logical_name) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_logical_name
+    params = valid_update_params.tap { |p| p[:logical_name] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_too_long_logical_name
+    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:logical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_logical_name
+    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 200 }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_comment
+    params = valid_update_params.tap { |p| p.delete(:comment) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_comment
+    params = valid_update_params.tap { |p| p[:comment] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_column_set_id
+    params = valid_update_params.tap { |p| p.delete(:column_set_id) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_column_set_id
+    params = valid_update_params.tap { |p| p[:column_set_id] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_invalid_column_set_id
+    params = valid_update_params.tap { |p| p[:column_set_id] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:column_set_id, 'is not included in the list')
+  end
+
+  def test_update_without_columns
+    params = valid_update_params.tap { |p| p.delete(:table_columns) }
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      assert_difference 'MxColumn.count', -7 do
+        put :update, project_id: @project, database_id: @database, id: table, mx_table: params
+      end
+    end
+    assert_response 302
+    table.reload
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert_saved_table(1, params)
+    assert MxTableColumn.where(owner_id: 1).empty?
+  end
+
+  def test_update_without_column_physical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:physical_name) }
+    assert_update_failure(params)
+    assert_have_error(:column_physical_name, "can't be blank")
+  end
+
+  def test_update_with_too_long_column_physical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:column_physical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_coumn_physical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'a' * 200 }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_duplicated_column_physical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'bar' }
+    assert_update_failure(params)
+    assert_have_error(:column_physical_name, 'is duplicated')
+  end
+
+  def test_update_with_column_physical_name_duplicated_with_column_of_column_set
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'id' }
+    assert_update_failure(params)
+    assert_have_error(:column_physical_name, 'is duplicated')
+  end
+
+  def test_update_without_column_logical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:logical_name) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_too_long_column_logical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:logical_name] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:column_logical_name, /is too long/)
+  end
+
+  def test_update_with_just_long_coumn_logical_name
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:logical_name] = 'a' * 200 }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_column_data_type_id
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:data_type_id) }
+    assert_update_failure(params)
+    assert_have_error(:column_data_type_id, "can't be blank")
+  end
+
+  def test_update_with_column_data_type_id_that_not_belong_to_table_belonging_dbms_product
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:data_type_id] = '51' }
+    assert_update_failure(params)
+    assert_have_error(:column_data_type_id, 'is not included in the list')
+  end
+
+  def test_update_without_column_size
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'].delete(:size) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_column_size
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:size] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_not_numeric_column_size
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:size] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:column_size, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_column_size
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:size] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:column_size, 'must be greater than 0')
+  end
+
+  def test_update_with_column_size_when_data_type_is_not_sizable
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column2'][:size] = '10' }
+    assert_update_success(params)
+    assert_saved_table(1, params, :column_size)
+    table = MxTable.find(1)
+    assert_nil table.table_columns.where(physical_name: 'bar').first.size
+  end
+
+  def test_update_without_column_scale
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'].delete(:scale) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_column_scale
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:scale] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_not_numeric_column_scale
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:scale] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:column_scale, 'is not a number')
+  end
+
+  def test_update_with_negative_numeric_column_scale
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column3'][:scale] = '-1' }
+    assert_update_failure(params)
+    assert_have_error(:column_scale, 'must be greater than 0')
+  end
+
+  def test_update_with_column_scale_when_data_type_is_not_scalable
+    params = valid_update_params.tap { |p| p[:table_columns]['v-column2'][:scale] = '10' }
+    assert_update_success(params)
+    assert_saved_table(1, params, :column_scale)
+    table = MxTable.find(1)
+    assert_nil table.table_columns.where(physical_name: 'bar').first.scale
+  end
+
+  def test_update_without_column_nullable
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:nullable) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_column_nullable
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:nullable] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_column_nullable_not_true
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:nullable] = 'foo' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_column_default_value
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:default_value) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_empty_column_default_value
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = '' }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_too_long_column_default_value
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = 'a' * 201 }
+    assert_update_failure(params)
+    assert_have_error(:column_default_value, /is too long/)
+  end
+
+  def test_update_with_just_long_coumn_default_value
+    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = 'a' * 200 }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_without_column_comment
+    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:comment) }
+    assert_update_success(params)
+    assert_saved_table(1, params)
+  end
+
+  def test_update_with_invalid_lock_version
+    params = valid_update_params.tap { |p| p[:lock_version] = '1' }
+    assert_update_failure(params)
+    assert_conflict_flash
+  end
+
+  # }}}
 
   # destroy {{{
 
@@ -634,6 +964,49 @@ class MxTablesControllerTest < ActionController::TestCase
     }
   end
 
+  def valid_update_params
+    {
+      physical_name: 'test',
+      logical_name: 'Test table',
+      comment: "foo\nbar\nbaz",
+      column_set_id: '1',
+      lock_version: '0',
+      table_columns: {
+        '7' => {
+          id: '7',
+          physical_name: 'full_name',
+          logical_name: 'Customer full name',
+          data_type_id: '12',
+          size: '150',
+          nullable: 'true',
+          comment: 'delimiter is space',
+          position: '0'
+        },
+        'v-column2' => {
+          id: 'v-column2',
+          physical_name: 'bar',
+          logical_name: 'BAR',
+          data_type_id: '21',
+          default_value: 'false',
+          comment: 'bar column',
+          position: '1'
+        },
+        'v-column3' => {
+          id: 'v-column3',
+          physical_name: 'baz',
+          logical_name: 'BAZ',
+          data_type_id: '5',
+          size: '10',
+          size: '2',
+          nulable: 'true',
+          default_value: '0.0',
+          comment: 'baz column',
+          position: '2'
+        }
+      }
+    }
+  end
+
   def assert_saved_table(id, params, ignore=nil)
     table = MxTable.find(id)
     assert_equal params[:physical_name], table.physical_name
@@ -699,7 +1072,7 @@ class MxTablesControllerTest < ActionController::TestCase
     end
   end
 
-  def assert_create_success(params, column_count=3)
+  def assert_create_success(params, column_count = 3)
     assert_difference 'MxTable.count', 1 do
       assert_difference 'MxColumn.count', column_count do
         post :create, project_id: @project, database_id: @database, mx_table: params
@@ -720,4 +1093,26 @@ class MxTablesControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  def assert_update_success(params, column_count = -4)
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      assert_difference 'MxColumn.count', column_count do
+        put :update, project_id: @project, database_id: @database, id: table, mx_table: params
+      end
+    end
+    table.reload
+    assert_response 302
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+  end
+
+  def assert_update_failure(params)
+    table = MxTable.find(1)
+    assert_no_difference 'MxTable.count' do
+      assert_no_difference 'MxColumn.count' do
+        put :update, project_id: @project, database_id: @database, id: table, mx_table: params
+      end
+    end
+    assert_response :success
+    assert_template 'edit'
+  end
 end

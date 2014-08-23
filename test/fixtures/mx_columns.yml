@@ -1,6 +1,6 @@
 ---
 mx_columns_001:
-  id: 6
+  id: 1
   created_at: 2014-08-16 01:13:00.627181000 +09:00
   updated_at: 2014-08-16 01:13:00.627181000 +09:00
   type: MxHeaderColumn
@@ -14,7 +14,7 @@ mx_columns_001:
   default_value: '1'
   position: 0
 mx_columns_002:
-  id: 7
+  id: 2
   created_at: 2014-08-16 01:13:00.630258000 +09:00
   updated_at: 2014-08-16 01:13:00.630258000 +09:00
   type: MxFooterColumn
@@ -28,7 +28,7 @@ mx_columns_002:
   default_value: current_timestamp
   position: 0
 mx_columns_003:
-  id: 8
+  id: 3
   created_at: 2014-08-16 01:13:00.632621000 +09:00
   updated_at: 2014-08-16 01:13:00.632621000 +09:00
   type: MxFooterColumn
@@ -42,7 +42,7 @@ mx_columns_003:
   default_value: ''
   position: 1
 mx_columns_004:
-  id: 9
+  id: 4
   created_at: 2014-08-16 01:16:20.725885000 +09:00
   updated_at: 2014-08-16 01:16:20.725885000 +09:00
   type: MxHeaderColumn
@@ -56,7 +56,7 @@ mx_columns_004:
   default_value: '1'
   position: 0
 mx_columns_005:
-  id: 10
+  id: 5
   created_at: 2014-08-16 01:16:20.729203000 +09:00
   updated_at: 2014-08-16 01:16:20.729203000 +09:00
   type: MxFooterColumn
@@ -70,7 +70,7 @@ mx_columns_005:
   default_value: CURRENT_TIMESTAMP
   position: 0
 mx_columns_006:
-  id: 11
+  id: 6
   created_at: 2014-08-16 01:16:20.733386000 +09:00
   updated_at: 2014-08-16 01:16:20.733386000 +09:00
   type: MxFooterColumn
@@ -84,7 +84,7 @@ mx_columns_006:
   default_value: ''
   position: 1
 mx_columns_007:
-  id: 12
+  id: 7
   created_at: 2014-08-22 16:56:56.950883000 +09:00
   updated_at: 2014-08-22 16:56:56.950883000 +09:00
   type: MxTableColumn
@@ -98,7 +98,7 @@ mx_columns_007:
   default_value: ''
   position: 0
 mx_columns_008:
-  id: 13
+  id: 8
   created_at: 2014-08-22 16:56:56.954122000 +09:00
   updated_at: 2014-08-22 16:56:56.954122000 +09:00
   type: MxTableColumn
@@ -112,7 +112,7 @@ mx_columns_008:
   default_value: ''
   position: 1
 mx_columns_009:
-  id: 14
+  id: 9
   created_at: 2014-08-22 16:56:56.956994000 +09:00
   updated_at: 2014-08-22 16:56:56.956994000 +09:00
   type: MxTableColumn
@@ -126,7 +126,7 @@ mx_columns_009:
   default_value: ''
   position: 2
 mx_columns_010:
-  id: 15
+  id: 10
   created_at: 2014-08-22 16:56:56.959723000 +09:00
   updated_at: 2014-08-22 16:56:56.959723000 +09:00
   type: MxTableColumn
@@ -140,7 +140,7 @@ mx_columns_010:
   default_value: ''
   position: 3
 mx_columns_011:
-  id: 16
+  id: 11
   created_at: 2014-08-22 16:56:56.963206000 +09:00
   updated_at: 2014-08-22 16:56:56.963206000 +09:00
   type: MxTableColumn
@@ -154,7 +154,7 @@ mx_columns_011:
   default_value: ''
   position: 4
 mx_columns_012:
-  id: 17
+  id: 12
   created_at: 2014-08-22 16:56:56.965831000 +09:00
   updated_at: 2014-08-22 16:56:56.965831000 +09:00
   type: MxTableColumn
@@ -168,7 +168,7 @@ mx_columns_012:
   default_value: current_date
   position: 5
 mx_columns_013:
-  id: 18
+  id: 13
   created_at: 2014-08-22 16:56:56.968626000 +09:00
   updated_at: 2014-08-22 16:56:56.968626000 +09:00
   type: MxTableColumn
@@ -182,7 +182,7 @@ mx_columns_013:
   default_value: ''
   position: 6
 mx_columns_014:
-  id: 19
+  id: 14
   created_at: 2014-08-22 17:06:39.483844000 +09:00
   updated_at: 2014-08-22 17:06:39.483844000 +09:00
   type: MxTableColumn
@@ -196,7 +196,7 @@ mx_columns_014:
   default_value: ''
   position: 0
 mx_columns_015:
-  id: 20
+  id: 15
   created_at: 2014-08-22 17:06:39.487318000 +09:00
   updated_at: 2014-08-22 17:06:39.487318000 +09:00
   type: MxTableColumn
@@ -210,7 +210,7 @@ mx_columns_015:
   default_value: ''
   position: 1
 mx_columns_016:
-  id: 21
+  id: 16
   created_at: 2014-08-22 17:10:06.682368000 +09:00
   updated_at: 2014-08-22 17:10:06.682368000 +09:00
   type: MxTableColumn
@@ -224,7 +224,7 @@ mx_columns_016:
   default_value: ''
   position: 0
 mx_columns_017:
-  id: 22
+  id: 17
   created_at: 2014-08-22 17:10:06.685693000 +09:00
   updated_at: 2014-08-22 17:10:06.685693000 +09:00
   type: MxTableColumn
@@ -238,7 +238,7 @@ mx_columns_017:
   default_value: ''
   position: 1
 mx_columns_018:
-  id: 23
+  id: 18
   created_at: 2014-08-22 17:14:01.288871000 +09:00
   updated_at: 2014-08-22 17:14:01.288871000 +09:00
   type: MxTableColumn
@@ -252,7 +252,7 @@ mx_columns_018:
   default_value: ''
   position: 0
 mx_columns_019:
-  id: 24
+  id: 19
   created_at: 2014-08-22 17:14:01.292192000 +09:00
   updated_at: 2014-08-22 17:14:01.292192000 +09:00
   type: MxTableColumn
@@ -266,7 +266,7 @@ mx_columns_019:
   default_value: ''
   position: 1
 mx_columns_020:
-  id: 25
+  id: 20
   created_at: 2014-08-22 17:14:01.295551000 +09:00
   updated_at: 2014-08-22 17:14:01.295551000 +09:00
   type: MxTableColumn
@@ -280,7 +280,7 @@ mx_columns_020:
   default_value: '1'
   position: 2
 mx_columns_021:
-  id: 26
+  id: 21
   created_at: 2014-08-22 17:16:19.956597000 +09:00
   updated_at: 2014-08-22 17:16:19.956597000 +09:00
   type: MxTableColumn
@@ -294,7 +294,7 @@ mx_columns_021:
   default_value: ''
   position: 0
 mx_columns_022:
-  id: 27
+  id: 22
   created_at: 2014-08-22 17:16:19.959451000 +09:00
   updated_at: 2014-08-22 17:16:19.959451000 +09:00
   type: MxTableColumn
@@ -308,7 +308,7 @@ mx_columns_022:
   default_value: ''
   position: 1
 mx_columns_023:
-  id: 28
+  id: 23
   created_at: 2014-08-22 17:21:37.755825000 +09:00
   updated_at: 2014-08-22 17:21:37.755825000 +09:00
   type: MxHeaderColumn
@@ -322,7 +322,7 @@ mx_columns_023:
   default_value: '1'
   position: 0
 mx_columns_024:
-  id: 29
+  id: 24
   created_at: 2014-08-22 17:21:37.761512000 +09:00
   updated_at: 2014-08-22 17:21:37.761512000 +09:00
   type: MxFooterColumn
@@ -336,7 +336,7 @@ mx_columns_024:
   default_value: current_timestamp
   position: 0
 mx_columns_025:
-  id: 30
+  id: 25
   created_at: 2014-08-22 17:21:37.764835000 +09:00
   updated_at: 2014-08-22 17:21:37.764835000 +09:00
   type: MxFooterColumn
@@ -350,7 +350,7 @@ mx_columns_025:
   default_value: ''
   position: 1
 mx_columns_026:
-  id: 31
+  id: 26
   created_at: 2014-08-22 17:21:37.768814000 +09:00
   updated_at: 2014-08-22 17:21:37.768814000 +09:00
   type: MxFooterColumn
@@ -364,7 +364,7 @@ mx_columns_026:
   default_value: ''
   position: 2
 mx_columns_027:
-  id: 32
+  id: 27
   created_at: 2014-08-22 17:21:37.771662000 +09:00
   updated_at: 2014-08-22 17:21:37.771662000 +09:00
   type: MxFooterColumn
@@ -378,7 +378,7 @@ mx_columns_027:
   default_value: ''
   position: 3
 mx_columns_028:
-  id: 41
+  id: 28
   created_at: 2014-08-23 01:22:04.804898000 +09:00
   updated_at: 2014-08-23 01:22:04.804898000 +09:00
   type: MxTableColumn
