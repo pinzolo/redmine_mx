@@ -1,6 +1,6 @@
 class MxForeignKeyRelation < ActiveRecord::Base
   unloadable
 
-  belongs_to :source_column, class_name: 'MxColumn'
-  belongs_to :referred_column, class_name: 'MxColumn'
+  belongs_to :column, class_name: 'MxColumn'
+  belongs_to :ref_column, class_name: 'MxColumn'
 end
