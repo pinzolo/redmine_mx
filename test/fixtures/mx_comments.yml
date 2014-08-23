@@ -66,21 +66,21 @@ mx_comments_010:
   id: 10
   created_at: 2014-08-16 01:13:00.628362000 +09:00
   updated_at: 2014-08-16 01:13:00.628362000 +09:00
-  mx_commentable_id: 6
+  mx_commentable_id: 23
   mx_commentable_type: MxColumn
   comment: Primary key
 mx_comments_011:
   id: 11
   created_at: 2014-08-16 01:13:00.630988000 +09:00
   updated_at: 2014-08-16 01:13:00.630988000 +09:00
-  mx_commentable_id: 7
+  mx_commentable_id: 24
   mx_commentable_type: MxColumn
   comment: Set automatically on create
 mx_comments_012:
   id: 12
   created_at: 2014-08-16 01:13:00.633394000 +09:00
   updated_at: 2014-08-16 01:13:00.633394000 +09:00
-  mx_commentable_id: 8
+  mx_commentable_id: 26
   mx_commentable_type: MxColumn
   comment: Set automatically on update
 mx_comments_013:
@@ -94,35 +94,35 @@ mx_comments_014:
   id: 14
   created_at: 2014-08-16 01:16:20.727046000 +09:00
   updated_at: 2014-08-16 01:16:20.727046000 +09:00
-  mx_commentable_id: 9
+  mx_commentable_id: 1
   mx_commentable_type: MxColumn
   comment: Primary key
 mx_comments_015:
   id: 15
   created_at: 2014-08-16 01:16:20.730413000 +09:00
   updated_at: 2014-08-16 01:16:20.730413000 +09:00
-  mx_commentable_id: 10
+  mx_commentable_id: 2
   mx_commentable_type: MxColumn
   comment: Set automatically on create
 mx_comments_016:
   id: 16
   created_at: 2014-08-16 01:16:20.734429000 +09:00
   updated_at: 2014-08-16 01:16:20.734429000 +09:00
-  mx_commentable_id: 11
+  mx_commentable_id: 3
   mx_commentable_type: MxColumn
   comment: Set automatically on update
 mx_comments_017:
   id: 17
   created_at: 2014-08-22 16:56:56.951994000 +09:00
   updated_at: 2014-08-22 16:56:56.951994000 +09:00
-  mx_commentable_id: 12
+  mx_commentable_id: 7
   mx_commentable_type: MxColumn
   comment: Full name
 mx_comments_018:
   id: 18
   created_at: 2014-08-22 16:56:56.954943000 +09:00
   updated_at: 2014-08-22 16:56:56.954943000 +09:00
-  mx_commentable_id: 13
+  mx_commentable_id: 8
   mx_commentable_type: MxColumn
   comment: xxx-xxxx
 mx_comments_019:
@@ -136,7 +136,7 @@ mx_comments_020:
   id: 20
   created_at: 2014-08-22 17:14:01.296236000 +09:00
   updated_at: 2014-08-22 17:14:01.296236000 +09:00
-  mx_commentable_id: 25
+  mx_commentable_id: 20
   mx_commentable_type: MxColumn
   comment: Allowed greater than 1
 mx_comments_021:
@@ -150,7 +150,7 @@ mx_comments_022:
   id: 22
   created_at: 2014-08-22 17:16:19.957361000 +09:00
   updated_at: 2014-08-22 17:16:19.957361000 +09:00
-  mx_commentable_id: 26
+  mx_commentable_id: 21
   mx_commentable_type: MxColumn
   comment: See ISO 3166-2:JP
 mx_comments_023:
