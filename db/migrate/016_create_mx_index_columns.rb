@@ -10,6 +10,5 @@ class CreateMxIndexColumns < ActiveRecord::Migration
 
     add_index :mx_index_columns, :column_id
     add_index :mx_index_columns, [:index_id, :column_id], unique: true, name: 'mx_index_columns_uk1'
-    add_index :mx_index_columns, [:index_id, :position], unique: true, name: 'mx_index_columns_uk2'
   end
 end

@@ -16,6 +16,5 @@ class CreateMxColumns < ActiveRecord::Migration
     end
 
     add_index :mx_columns, [:type, :owner_id, :physical_name], unique: true, name: 'mx_columns_uk1'
-    add_index :mx_columns, [:type, :owner_id, :position], unique: true, name: 'mx_columns_uk2'
   end
 end
