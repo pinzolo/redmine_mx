@@ -2,6 +2,8 @@ ja:
   project_module_mx: 'MX'
   permission_view_mx_tables: 'テーブル定義の閲覧'
   permission_manage_mx_tables: 'テーブル定義の管理'
+  button_down: '下へ'
+  button_up: '上へ'
   mx:
     label_mx: 'MX'
     label_comment: 'コメント'

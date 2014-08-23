@@ -2,6 +2,8 @@ en:
   project_module_mx: 'MX'
   permission_view_mx_tables: 'View table definitions'
   permission_manage_mx_tables: 'Manage table definitions'
+  button_down: 'Down'
+  button_up: 'Up'
   mx:
     label_mx: 'MX'
     label_comment: 'Comment'
