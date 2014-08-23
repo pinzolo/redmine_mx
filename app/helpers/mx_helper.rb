@@ -17,6 +17,10 @@ module MxHelper
     image_tag(image_file, options.reverse_merge(title: l("button_#{name}")).merge(class: 'mx-image-button'))
   end
 
+  def mx_empty_icon(options = {})
+    image_tag('empty.png', options.merge(plugin: 'redmine_mx'))
+  end
+
   def mx_submit(label, options = {})
     submit_tag(label, options.merge(disable_with: label))
   end

@@ -73,3 +73,7 @@
 .mx-columns-enum {
   max-width: 300px;
 }
+
+.mx-reorder-buttons {
+  white-space: nowrap;
+}
