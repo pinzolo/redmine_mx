@@ -1,6 +1,7 @@
 class MxVm::Table
   include MxVm::VueModel
   attr_accessor :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version
+  attr_accessor :primary_key
   attr_accessor :data_types, :column_sets
 
   validates :physical_name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxTable', scope: :database_id }
@@ -48,11 +49,13 @@ class MxVm::Table
   def build_from_hash(params)
     simple_load_values_from_hash!(params, :id, :physical_name, :logical_name, :database_id, :column_set_id, :comment, :lock_version)
     self.table_columns = params[:table_columns].values.map { |column_params| MxVm::Column.new(column_params) } if params[:table_columns]
+    self.primary_key = MxVm::PrimaryKey.new(params[:primary_key])
   end
 
   def build_from_mx_table(table)
     simple_load_values_from_object!(table, :id, :physical_name, :logical_name, :database_id, :column_set_id, :comment, :lock_version)
     self.table_columns = table.table_columns.map { |column| MxVm::Column.new(column) }
+    self.primary_key = MxVm::PrimaryKey.new(table.primary_key)
   end
 
   def safe_collections

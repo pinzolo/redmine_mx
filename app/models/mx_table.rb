@@ -7,6 +7,7 @@ class MxTable < ActiveRecord::Base
   belongs_to :column_set, class_name: 'MxColumnSet'
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
+  has_one :primary_key, class_name: 'MxPrimaryKey', foreign_key: :table_id, dependent: :destroy
   has_many :table_columns, class_name: 'MxTableColumn',
                            foreign_key: :owner_id,
                            order: :position,

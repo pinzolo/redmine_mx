@@ -21,4 +21,4 @@
 
 <%= javascript_include_tag 'vue', plugin: 'redmine_mx' %>
 <%= javascript_include_tag 'redmine_mx', plugin: 'redmine_mx' %>
-<%= javascript_tag "var vm = prepareMxTableVue(#{@vue_model.to_json});" %>
+<%= javascript_tag "var vm = prepareMxTableVue(#{@vue_model.to_json}, jQuery);" %>

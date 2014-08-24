@@ -77,3 +77,13 @@
 .mx-reorder-buttons {
   white-space: nowrap;
 }
+
+.mx-float-left {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.mx-float-right {
+  display: inline-block;
+  padding-left: 10px;
+}

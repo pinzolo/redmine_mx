@@ -4,6 +4,7 @@ var mx = {
   },
   findById: function(collection, id) {
     if (!id) { return null; }
+    if (!collection) { return null; }
 
     var obj;
     collection.forEach(function(item) {
@@ -79,7 +80,8 @@ function prepareMxColumnSetVue(data) {
   });
 }
 
-function prepareMxTableVue(data) {
+function prepareMxTableVue(data, $) {
+  data.editingPrimaryKey = data.primary_key.column_ids.length > 0;
   return new Vue({
     el: '#mx_table_form',
     data: data,
@@ -91,7 +93,17 @@ function prepareMxTableVue(data) {
       footerColumns: function() {
         var columnSet = mx.findById(this.column_sets, this.column_set_id);
         return columnSet ? columnSet.footer_columns : [];
-      }
+      },
+      columns: function() {
+        return $.merge($.merge($.merge([], this.headerColumns), this.table_columns), this.footerColumns);
+      },
+      primaryKeySelectableColumnIds: function() {
+        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
+        var selectedColumnIds = this.primary_key.column_ids;
+        return $.grep(allColumnIds, function(columnId) {
+          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+        });
+      },
     },
     methods: {
       addColumn: function() {
@@ -114,8 +126,11 @@ function prepareMxTableVue(data) {
       classFor: function(obj, prop) {
         return obj.errors && obj.errors[prop] ? 'mx-error' : '';
       },
+      getColumn: function(columnId) {
+        return mx.findById(this.columns, columnId);
+      },
       getDataType: function(dataTypeId) {
-        return mx.findById(this.$data.data_types, dataTypeId);
+        return mx.findById(this.data_types, dataTypeId);
       },
       sizeEditable: function(obj) {
         var dataType = this.getDataType(obj.$data.column.data_type_id);
@@ -132,6 +147,27 @@ function prepareMxTableVue(data) {
         if (!this.scaleEditable(obj)) {
           obj.$data.column.scale = null;
         }
+      },
+      editPrimaryKey: function() {
+        this.editingPrimaryKey = true;
+      },
+      deletePrimaryKey: function() {
+        this.editingPrimaryKey = false;
+        this.primary_key.column_ids = [];
+      },
+      addToPrimaryKey: function(columnId) {
+        this.primary_key.column_ids.push(columnId.$data.columnId);
+      },
+      removeFromPrimaryKey: function(columnId) {
+        this.primary_key.column_ids.$remove(columnId.$index);
+      },
+      upPrimaryKeyColumn: function(columnId) {
+        this.primary_key.column_ids.$remove(columnId.$index);
+        this.primary_key.column_ids.splice(columnId.$index - 1, 0, columnId.$data.columnId);
+      },
+      downPrimaryKeyColumn: function(columnId) {
+        this.primary_key.column_ids.$remove(columnId.$index);
+        this.primary_key.column_ids.splice(columnId.$index + 1, 0, columnId.$data.columnId);
       }
     }
   });
