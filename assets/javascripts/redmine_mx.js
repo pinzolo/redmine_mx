@@ -165,7 +165,11 @@ function prepareMxTableVue(data, $) {
       deletePrimaryKey: function() {
         this.editingPrimaryKey = false;
         this.primary_key.name = null;
+        this.primary_key.comment = null;
         this.primary_key.column_ids = [];
+      },
+      hidePrimaryKey: function() {
+        this.editingPrimaryKey = false;
       },
       addToPrimaryKey: function(columnId) {
         this.primary_key.column_ids.push(columnId.$data.columnId);

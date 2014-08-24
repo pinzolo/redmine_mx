@@ -5,6 +5,8 @@ en:
   button_down: 'Down'
   button_up: 'Up'
   mx:
+    button_hide: 'Hide'
+
     label_mx: 'MX'
     label_comment: 'Comment'
     label_summary: 'Summary'

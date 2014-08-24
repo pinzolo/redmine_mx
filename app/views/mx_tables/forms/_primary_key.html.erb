@@ -49,6 +49,7 @@
       </div>
     </div>
     <br />
+    <a href="#mk-primary-key" v-on="click: hidePrimaryKey" v-if="editingPrimaryKey"><%= l('mx.button_hide') %></a>&nbsp;
     <a href="#mk-primary-key" v-on="click: deletePrimaryKey" v-if="editingPrimaryKey"><%= l(:button_delete) %></a>
   </div>
   <a href="#mk-primary-key" v-on="click: editPrimaryKey" v-if="!editingPrimaryKey"><%= l(:button_edit) %></a>
