@@ -688,61 +688,61 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_without_column_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:physical_name) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:physical_name) }
     assert_update_failure(params)
     assert_have_error(:column_physical_name, "can't be blank")
   end
 
   def test_update_with_too_long_column_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 201 }
     assert_update_failure(params)
     assert_have_error(:column_physical_name, /is too long/)
   end
 
   def test_update_with_just_long_coumn_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 200 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_duplicated_column_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'bar' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'bar' }
     assert_update_failure(params)
     assert_have_error(:column_physical_name, 'is duplicated')
   end
 
   def test_update_with_column_physical_name_duplicated_with_column_of_column_set
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:physical_name] = 'id' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'id' }
     assert_update_failure(params)
     assert_have_error(:column_physical_name, 'is duplicated')
   end
 
   def test_update_without_column_logical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:logical_name) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:logical_name) }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_too_long_column_logical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:logical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 201 }
     assert_update_failure(params)
     assert_have_error(:column_logical_name, /is too long/)
   end
 
   def test_update_with_just_long_coumn_logical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:logical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 200 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_without_column_data_type_id
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:data_type_id) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:data_type_id) }
     assert_update_failure(params)
     assert_have_error(:column_data_type_id, "can't be blank")
   end
 
   def test_update_with_column_data_type_id_that_not_belong_to_table_belonging_dbms_product
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:data_type_id] = '51' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:data_type_id] = '51' }
     assert_update_failure(params)
     assert_have_error(:column_data_type_id, 'is not included in the list')
   end
@@ -812,49 +812,49 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_without_column_nullable
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:nullable) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:nullable) }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_empty_column_nullable
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:nullable] = '' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:nullable] = '' }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_column_nullable_not_true
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:nullable] = 'foo' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:nullable] = 'foo' }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_without_column_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:default_value) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:default_value) }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_empty_column_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = '' }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = '' }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_with_too_long_column_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 201 }
     assert_update_failure(params)
     assert_have_error(:column_default_value, /is too long/)
   end
 
   def test_update_with_just_long_coumn_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['7'][:default_value] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 200 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
 
   def test_update_without_column_comment
-    params = valid_update_params.tap { |p| p[:table_columns]['7'].delete(:comment) }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'].delete(:comment) }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
