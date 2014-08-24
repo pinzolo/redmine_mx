@@ -12,7 +12,15 @@ var mx = {
         obj = item;
       }
     });
-  return obj;
+    return obj;
+  },
+  isPresent: function(text) {
+    console.log('isPresent');
+    return text && text.length > 0;
+  },
+  isEmpty: function(text) {
+    console.log('isEmpty');
+    return !this.isPresent(text);
   }
 };
 
@@ -149,10 +157,14 @@ function prepareMxTableVue(data, $) {
         }
       },
       editPrimaryKey: function() {
+        if (mx.isEmpty(this.primary_key.name) && mx.isPresent(this.physical_name)) {
+          this.primary_key.name = this.physical_name + '_pk';
+        }
         this.editingPrimaryKey = true;
       },
       deletePrimaryKey: function() {
         this.editingPrimaryKey = false;
+        this.primary_key.name = null;
         this.primary_key.column_ids = [];
       },
       addToPrimaryKey: function(columnId) {
