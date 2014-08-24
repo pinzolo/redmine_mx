@@ -972,8 +972,8 @@ class MxTablesControllerTest < ActionController::TestCase
       column_set_id: '1',
       lock_version: '0',
       table_columns: {
-        '7' => {
-          id: '7',
+        '12' => {
+          id: '12',
           physical_name: 'full_name',
           logical_name: 'Customer full name',
           data_type_id: '12',
