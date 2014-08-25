@@ -1,3 +1,8 @@
+<div class="contextual">
+  <a href="#mk-primary-key" v-on="click: editPrimaryKey" v-if="!editingPrimaryKey" class="icon icon-edit"><%= l(:button_edit) %></a>
+  <a href="#mk-primary-key" v-on="click: hidePrimaryKey" v-if="editingPrimaryKey"><%= l('mx.button_hide') %></a>&nbsp;
+  <a href="#mk-primary-key" v-on="click: deletePrimaryKey" v-if="editingPrimaryKey" class="icon icon-del"><%= l(:button_delete) %></a>
+</div>
 <h2 class="mx-section-caption"><%= l('mx.title_primary_key') %></h2>
 <p id="mx-primary-key">
   <div class="mx-fade" v-show="editingPrimaryKey" v-transition>
@@ -48,9 +53,5 @@
         </table>
       </div>
     </div>
-    <br />
-    <a href="#mk-primary-key" v-on="click: hidePrimaryKey" v-if="editingPrimaryKey"><%= l('mx.button_hide') %></a>&nbsp;
-    <a href="#mk-primary-key" v-on="click: deletePrimaryKey" v-if="editingPrimaryKey"><%= l(:button_delete) %></a>
   </div>
-  <a href="#mk-primary-key" v-on="click: editPrimaryKey" v-if="!editingPrimaryKey"><%= l(:button_edit) %></a>
 </p>
