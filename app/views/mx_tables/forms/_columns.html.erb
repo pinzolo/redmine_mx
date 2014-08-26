@@ -55,7 +55,13 @@
         <td class="{{classFor(column, 'scale')}}">
           <input type="text" class="mx-column-scale mx-numeric" name="<%= prefix %>[scale]" v-attr="disabled: !scaleEditable(this)" v-model="column.scale" size="5" />
         </td>
-        <td class="mx-mark-cell"><input type="checkbox" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/></td>
+        <td class="mx-mark-cell">
+          <input type="checkbox" id="mx-column-nullable-{{column.id}}" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/>
+          <label for="mx-column-nullable-{{column.id}}">
+            <%= image_tag('false.png', 'v-show' => '!column.nullable') %>
+            <%= image_tag('true.png', 'v-show' => 'column.nullable') %>
+          </label>
+        </td>
         <td class="{{classFor(column, 'default_value')}}">
           <input type="text" class="mx-column-default-value" name="<%= prefix %>[default_value]" v-model="column.default_value" size="30" />
         </td>

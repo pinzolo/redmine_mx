@@ -1,6 +1,6 @@
 <td>&nbsp;</td>
 <td class="mx-mark-cell"><%= mark %></td>
-<td>
+<td class="mx-primary-key-check-cell">
   <input type="checkbox" name="mx_table[primary_key][position][{{column.physical_name}}]" value="{{getPrimaryKeyColumnPosition(this)}}" v-on="click: togglePrimaryKeyColumn(this)" />
   {{getPrimaryKeyColumnPosition(this)}}
 </td>
@@ -9,7 +9,7 @@
 <td>{{column.data_type.name}}</td>
 <td class="mx-numeric">{{column.size}}</td>
 <td class="mx-numeric">{{column.scale}}</td>
-<td class="mx-mark-cell">{{column.nullable)}}</td>
+<td class="mx-mark-cell"><%= image_tag('false.png', 'v-show' => '!column.nullable') %></td>
 <td>{{column.default_value}}</td>
 <td>{{column.comment}}</td>
 <td></td>
