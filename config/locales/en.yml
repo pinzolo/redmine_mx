@@ -42,6 +42,7 @@ en:
     label_column_set: 'Column set'
     label_selected_columns: 'Selected columns'
     label_primary_key_name: 'Primary key name'
+    label_primary_key_short_name: 'PK'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
@@ -63,7 +64,6 @@ en:
     title_tables_detail: 'Table [%{name}]'
     title_tables_edit: 'Edit table'
     title_columns: 'Columns'
-    title_primary_key: 'Primary key'
 
     tab_tables: 'Tables'
     tab_column_sets: 'Column set'

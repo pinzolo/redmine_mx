@@ -42,6 +42,7 @@ ja:
     label_column_set: '列セット'
     label_selected_columns: '選択列'
     label_primary_key_name: '主キー名'
+    label_primary_key_short_name: 'PK'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
@@ -63,7 +64,6 @@ ja:
     title_tables_detail: 'テーブル [%{name}]'
     title_tables_edit: 'テーブルの編集'
     title_columns: '列一覧'
-    title_primary_key: '主キー'
 
     tab_tables: 'テーブル'
     tab_column_sets: '列セット'

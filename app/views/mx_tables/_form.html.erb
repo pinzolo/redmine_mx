@@ -18,6 +18,12 @@
         </td>
       </tr>
       <tr>
+        <th><%= mx_label_for('primary_key_name') %></th>
+        <td class="{{classFor(this, 'primary_key_name')}}">
+          <%= text_field 'mx_table[primary_key]', 'name', size: 70, 'v-model' => 'primary_key.name' %>
+        </td>
+      </tr>
+      <tr>
         <th><%= mx_label_for('comment') %></th>
         <td><%= text_area 'mx_table', 'comment', size: '70x8', 'v-model' => 'comment' %></td>
       </tr>
@@ -25,4 +31,3 @@
   </table>
 </p>
 <%= render partial: 'mx_tables/forms/columns', locals: { f: f, database: database } %>
-<%= render partial: 'mx_tables/forms/primary_key' %>

@@ -87,3 +87,7 @@
   display: inline-block;
   padding-left: 10px;
 }
+
+.mx-primary-key-check-cell {
+  white-space: nowrap;
+}

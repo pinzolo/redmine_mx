@@ -1,5 +1,9 @@
 <td>&nbsp;</td>
 <td class="mx-mark-cell"><%= mark %></td>
+<td>
+  <input type="checkbox" name="mx_table[primary_key][position][{{column.physical_name}}]" value="{{getPrimaryKeyColumnPosition(this)}}" v-on="click: togglePrimaryKeyColumn(this)" />
+  {{getPrimaryKeyColumnPosition(this)}}
+</td>
 <td>{{column.physical_name}}</td>
 <td>{{column.logical_name}}</td>
 <td>{{column.data_type.name}}</td>

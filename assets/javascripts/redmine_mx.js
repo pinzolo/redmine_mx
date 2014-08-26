@@ -156,34 +156,17 @@ function prepareMxTableVue(data, $) {
           obj.$data.column.scale = null;
         }
       },
-      editPrimaryKey: function() {
-        if (mx.isEmpty(this.primary_key.name) && mx.isPresent(this.physical_name)) {
-          this.primary_key.name = this.physical_name + '_pk';
+      getPrimaryKeyColumnPosition: function(column) {
+        var primaryKeyColumnIndex = $.inArray(column.$data.column.id.toString(), this.primary_key.column_ids);
+        return primaryKeyColumnIndex === -1 ? '' : (primaryKeyColumnIndex + 1).toString();
+      },
+      togglePrimaryKeyColumn: function(column) {
+        var primaryKeyColumnIndex = $.inArray(column.$data.column.id.toString(), this.primary_key.column_ids);
+        if (primaryKeyColumnIndex === -1) {
+          this.primary_key.column_ids.push(column.$data.column.id.toString());
+        } else {
+          this.primary_key.column_ids.$remove(primaryKeyColumnIndex);
         }
-        this.editingPrimaryKey = true;
-      },
-      deletePrimaryKey: function() {
-        this.editingPrimaryKey = false;
-        this.primary_key.name = null;
-        this.primary_key.comment = null;
-        this.primary_key.column_ids = [];
-      },
-      hidePrimaryKey: function() {
-        this.editingPrimaryKey = false;
-      },
-      addToPrimaryKey: function(columnId) {
-        this.primary_key.column_ids.push(columnId.$data.columnId);
-      },
-      removeFromPrimaryKey: function(columnId) {
-        this.primary_key.column_ids.$remove(columnId.$index);
-      },
-      upPrimaryKeyColumn: function(columnId) {
-        this.primary_key.column_ids.$remove(columnId.$index);
-        this.primary_key.column_ids.splice(columnId.$index - 1, 0, columnId.$data.columnId);
-      },
-      downPrimaryKeyColumn: function(columnId) {
-        this.primary_key.column_ids.$remove(columnId.$index);
-        this.primary_key.column_ids.splice(columnId.$index + 1, 0, columnId.$data.columnId);
       }
     }
   });
