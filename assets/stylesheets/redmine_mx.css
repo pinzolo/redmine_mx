@@ -91,3 +91,7 @@
 .mx-nowrap {
   white-space: nowrap;
 }
+
+.mx-nullable-check {
+  text-align: right;
+}

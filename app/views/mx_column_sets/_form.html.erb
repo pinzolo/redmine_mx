@@ -60,7 +60,7 @@
         <td class="{{classFor(column, 'scale')}}">
           <input type="text" class="mx-column-scale mx-numeric" name="<%= prefix %>[scale]" v-attr="disabled: !scaleEditable(this)" v-model="column.scale" size="5" />
         </td>
-        <td class="mx-mark-cell">
+        <td class="mx-nullable-check">
           <input type="checkbox" id="mx-column-nullable-{{column.id}}" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/>
           <label for="mx-column-nullable-{{column.id}}">
             <%= image_tag('false.png', 'v-show' => '!column.nullable') %>
