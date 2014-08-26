@@ -32,7 +32,7 @@
           <%= mx_image_button 'up', icon: '1uparrow.png', 'v-on' => 'click: upColumn(this)', 'v-show' => '$index !== 0' %>
           <%= mx_image_button 'down', icon: '1downarrow.png', 'v-on' => 'click: downColumn(this)', 'v-show' => '$index !== table_columns.length - 1' %>
         </td>
-        <td class="mx-primary-key-check-cell">
+        <td class="mx-nowrap">
           <input type="checkbox" name="mx_table[primary_key][position][{{column.physical_name}}]" value="{{getPrimaryKeyColumnPosition(this)}}" v-on="click: togglePrimaryKeyColumn(this)" />
           {{getPrimaryKeyColumnPosition(this)}}
         </td>
@@ -55,7 +55,7 @@
         <td class="{{classFor(column, 'scale')}}">
           <input type="text" class="mx-column-scale mx-numeric" name="<%= prefix %>[scale]" v-attr="disabled: !scaleEditable(this)" v-model="column.scale" size="5" />
         </td>
-        <td class="mx-mark-cell">
+        <td class="mx-mark-cell mx-nowrap">
           <input type="checkbox" id="mx-column-nullable-{{column.id}}" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/>
           <label for="mx-column-nullable-{{column.id}}">
             <%= image_tag('false.png', 'v-show' => '!column.nullable') %>

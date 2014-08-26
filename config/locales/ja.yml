@@ -33,7 +33,7 @@ ja:
     label_data_type: 'データ型'
     label_size: 'サイズ'
     label_scale: 'スケール'
-    label_nullable: 'NULL許可'
+    label_nullable: 'NULL'
     label_default_value: '初期値'
     label_header_column_new: '新しいヘッダ列'
     label_footer_column_new: '新しいフッタ列'

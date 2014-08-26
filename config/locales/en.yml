@@ -33,7 +33,7 @@ en:
     label_data_type: 'Data type'
     label_size: 'Size'
     label_scale: 'Scale'
-    label_nullable: 'Nullable'
+    label_nullable: 'NULL'
     label_default_value: 'Default value'
     label_header_column_new: 'New header column'
     label_footer_column_new: 'New footer column'
