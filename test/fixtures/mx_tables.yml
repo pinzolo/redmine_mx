@@ -45,7 +45,7 @@ mx_tables_004:
   lock_version: 0
   project_id: 1
   database_id: 1
-  column_set_id: 2
+  column_set_id:
   physical_name: order_items
   logical_name: Items in order
   current_version: 1
