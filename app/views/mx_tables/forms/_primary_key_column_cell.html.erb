@@ -1,0 +1,5 @@
+<td class="mx-nowrap">
+  <input type="checkbox" name="mx_table[primary_key][columns][{{column.id}}]" value="{{getPrimaryKeyColumnPosition(this)}}" v-attr="checked: isPrimaryKeyColumn(this)" v-on="click: togglePrimaryKeyColumn(this)" />
+  {{getPrimaryKeyColumnPosition(this)}}
+</td>
+

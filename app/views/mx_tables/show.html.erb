@@ -24,6 +24,10 @@
           <td><%= @table.logical_name %></td>
         </tr>
         <tr>
+          <th><%= mx_label_for('primary_key_name') %></th>
+          <td><%= @table.primary_key.try(:name) %></td>
+        </tr>
+        <tr>
           <th><%= mx_label_for('comment') %></th>
           <td><%= simple_format_without_paragraph(@table.comment) %></td>
         </tr>
@@ -36,6 +40,7 @@
       <thead>
         <tr>
           <th></th>
+          <th><%= mx_label_for('primary_key_short_name') %></th>
           <th><%= mx_label_for('physical_name') %></th>
           <th><%= mx_label_for('logical_name') %></th>
           <th><%= mx_label_for('data_type') %></th>
@@ -50,6 +55,7 @@
 <% @table.columns.each do |column| %>
         <tr id="mx-column-<%= column.id %>">
           <td class="mx-mark-cell"><%= column.type[2] unless column.is_a?(MxTableColumn) %></td>
+          <td><%= @table.primary_key.position_for(column) if @table.primary_key %></td>
           <td><%= column.physical_name %></td>
           <td><%= column.logical_name %></td>
           <td><%= column.data_type.name %></td>

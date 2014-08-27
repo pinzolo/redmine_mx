@@ -35,6 +35,10 @@ class MxVm::Table
     end
   end
 
+  def column_physical_name_for(id)
+    self.columns.detect { |column| column.id.to_s == id.to_s }.try(:physical_name)
+  end
+
   def valid_with_children?
     valid_without_children?
     assign_values_to_columns_for_validation

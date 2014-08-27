@@ -156,6 +156,9 @@ function prepareMxTableVue(data, $) {
           obj.$data.column.scale = null;
         }
       },
+      isPrimaryKeyColumn: function(column) {
+        return $.inArray(column.$data.column.id.toString(), this.primary_key.column_ids) > -1;
+      },
       getPrimaryKeyColumnPosition: function(column) {
         var primaryKeyColumnIndex = $.inArray(column.$data.column.id.toString(), this.primary_key.column_ids);
         return primaryKeyColumnIndex === -1 ? '' : (primaryKeyColumnIndex + 1).toString();

@@ -32,10 +32,7 @@
           <%= mx_image_button 'up', icon: '1uparrow.png', 'v-on' => 'click: upColumn(this)', 'v-show' => '$index !== 0' %>
           <%= mx_image_button 'down', icon: '1downarrow.png', 'v-on' => 'click: downColumn(this)', 'v-show' => '$index !== table_columns.length - 1' %>
         </td>
-        <td class="mx-nowrap">
-          <input type="checkbox" name="mx_table[primary_key][position][{{column.physical_name}}]" value="{{getPrimaryKeyColumnPosition(this)}}" v-on="click: togglePrimaryKeyColumn(this)" />
-          {{getPrimaryKeyColumnPosition(this)}}
-        </td>
+        <%= render partial: 'mx_tables/forms/primary_key_column_cell' %>
         <td class="{{classFor(column, 'physical_name')}}">
           <input type="hidden" name="<%= prefix %>[id]" v-model="column.id" />
           <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />

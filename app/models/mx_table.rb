@@ -52,6 +52,11 @@ class MxTable < ActiveRecord::Base
     self.created_user_id = User.current.id
     self.updated_user_id = User.current.id
     self.save!
+    create_table_columns!(vue_model)
+    create_primary_key!(vue_model) if vue_model.primary_key.column_ids.present?
+  end
+
+  def create_table_columns!(vue_model)
     vue_model.table_columns.each do |vm_column|
       vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
                                                :nullable, :default_value, :position, :comment)
@@ -59,9 +64,26 @@ class MxTable < ActiveRecord::Base
     end
   end
 
+  def create_primary_key!(vue_model)
+    self.build_primary_key.save_with!(create_primary_key_vue_model_for_db(vue_model))
+  end
+
+  def create_primary_key_vue_model_for_db(vue_model)
+    pk_vue_model = vue_model.primary_key.dup
+    pk_vue_model.columns.each do |column|
+      column_physical_name = vue_model.column_physical_name_for(column.column_id)
+      column.column_id = self.columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+    end
+    pk_vue_model
+  end
+
   def update_with!(vue_model)
     self.updated_user_id = User.current.id
     self.update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
+    update_table_columns!(vue_model)
+  end
+
+  def update_table_columns!(vue_model)
     column_ids = vue_model.table_columns.map { |col| col.id.to_s }
     base_column_ids = self.table_columns.map { |col| col.id.to_s }
     insert_column_ids = column_ids - base_column_ids
