@@ -26,11 +26,11 @@ class MxDatabase < ActiveRecord::Base
   end
 
   def save_with(vm)
-    if self.persisted?
-      self.update_attributes(vm.params_with(:identifier, :dbms_product_id, :summary, :comment, :lock_version))
+    if persisted?
+      update_attributes(vm.params_with(:identifier, :dbms_product_id, :summary, :comment, :lock_version))
     else
       self.attributes = vm.params_with(:identifier, :dbms_product_id, :summary, :comment)
-      self.save
+      save
     end
   end
 end

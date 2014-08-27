@@ -33,7 +33,7 @@ class MxDbmsProduct < ActiveRecord::Base
   def update_with!(vue_model)
     update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
     update_attribute(:type, vue_model.type)
-    base_data_types = Hash[self.data_types.map { |data_type| [data_type.name, data_type] }]
+    base_data_types = Hash[data_types.map { |data_type| [data_type.name, data_type] }]
     vue_model.data_types.each do |vm_data_type|
       data_type = base_data_types.delete(vm_data_type.name) || data_types.build
       data_type.save_with!(vm_data_type)

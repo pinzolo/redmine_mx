@@ -65,7 +65,7 @@ class MxTable < ActiveRecord::Base
   end
 
   def create_primary_key!(vue_model)
-    self.build_primary_key.save_with!(create_primary_key_vue_model_for_db(vue_model))
+    build_primary_key.save_with!(create_primary_key_vue_model_for_db(vue_model))
   end
 
   def create_primary_key_vue_model_for_db(vue_model)
