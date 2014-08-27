@@ -37,7 +37,7 @@ class MxTable < ActiveRecord::Base
 
   def save_with!(vue_model)
     ActiveRecord::Base.transaction do
-      if self.persisted?
+      if persisted?
         update_with!(vue_model)
       else
         create_with!(vue_model)
@@ -51,7 +51,7 @@ class MxTable < ActiveRecord::Base
     self.attributes = vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment)
     self.created_user_id = User.current.id
     self.updated_user_id = User.current.id
-    self.save!
+    save!
     create_table_columns!(vue_model)
     create_primary_key!(vue_model) if vue_model.primary_key.column_ids.present?
   end
@@ -60,7 +60,7 @@ class MxTable < ActiveRecord::Base
     vue_model.table_columns.each do |vm_column|
       vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
                                                :nullable, :default_value, :position, :comment)
-      self.table_columns.build(vm_column_params).save!
+      table_columns.build(vm_column_params).save!
     end
   end
 
@@ -72,33 +72,29 @@ class MxTable < ActiveRecord::Base
     pk_vue_model = vue_model.primary_key.dup
     pk_vue_model.columns.each do |column|
       column_physical_name = vue_model.column_physical_name_for(column.column_id)
-      column.column_id = self.columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+      column.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
     end
     pk_vue_model
   end
 
   def update_with!(vue_model)
     self.updated_user_id = User.current.id
-    self.update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
+    update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
   end
 
   def update_table_columns!(vue_model)
     column_ids = vue_model.table_columns.map { |col| col.id.to_s }
-    base_column_ids = self.table_columns.map { |col| col.id.to_s }
+    base_column_ids = table_columns.map { |col| col.id.to_s }
     insert_column_ids = column_ids - base_column_ids
     update_column_ids = base_column_ids & column_ids
     delete_column_ids = base_column_ids - column_ids
-    delete_column_ids.each { |id| self.table_columns.find(id).destroy }
+    delete_column_ids.each { |id| table_columns.find(id).destroy }
     vue_model.table_columns.select { |vm_column| update_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
-      vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
-                                               :nullable, :default_value, :position, :comment)
-      self.table_columns.find(vm_column.id).update_attributes!(vm_column_params)
+      table_columns.find(vm_column.id).save_with!(vm_column)
     end
     vue_model.table_columns.select { |vm_column| insert_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
-      vm_column_params = vm_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
-                                               :nullable, :default_value, :position, :comment)
-      self.table_columns.build(vm_column_params).save!
+      table_columns.build.save_with!(vm_column)
     end
   end
 end

@@ -20,7 +20,7 @@ class MxColumnSet < ActiveRecord::Base
 
   def save_with!(vue_model)
     ActiveRecord::Base.transaction do
-      if self.persisted?
+      if persisted?
         update_with!(vue_model)
       else
         create_with!(vue_model)
@@ -32,27 +32,23 @@ class MxColumnSet < ActiveRecord::Base
 
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:name, :comment)
-    self.save!
+    save!
     create_columns!(vue_model)
   end
 
   def update_with!(vue_model)
-    self.update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
-    self.header_columns.delete_all
-    self.footer_columns.delete_all
+    update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
+    header_columns.delete_all
+    footer_columns.delete_all
     create_columns!(vue_model)
   end
 
   def create_columns!(vue_model)
     vue_model.header_columns.each do |vm_header_column|
-      vm_header_params = vm_header_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
-                                                      :nullable, :default_value, :position, :comment)
-      self.header_columns.build(vm_header_params).save!
+      header_columns.build.save_with!(vm_header_column)
     end
     vue_model.footer_columns.each do |vm_footer_column|
-      vm_footer_params = vm_footer_column.params_with(:physical_name, :logical_name, :data_type_id, :size, :scale,
-                                                      :nullable, :default_value, :position, :comment)
-      self.footer_columns.build(vm_footer_params).save!
+      footer_columns.build.save_with!(vm_footer_column)
     end
   end
 end
