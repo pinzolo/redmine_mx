@@ -38,9 +38,8 @@ class MxColumnSet < ActiveRecord::Base
 
   def update_with!(vue_model)
     update_attributes!(vue_model.params_with(:name, :comment, :lock_version))
-    header_columns.delete_all
-    footer_columns.delete_all
-    create_columns!(vue_model)
+    update_columns!(header_columns, vue_model.header_columns)
+    update_columns!(footer_columns, vue_model.footer_columns)
   end
 
   def create_columns!(vue_model)
@@ -49,6 +48,21 @@ class MxColumnSet < ActiveRecord::Base
     end
     vue_model.footer_columns.each do |vm_footer_column|
       footer_columns.build.save_with!(vm_footer_column)
+    end
+  end
+
+  def update_columns!(base_columns, vue_model_columns)
+    column_ids = vue_model_columns.map { |col| col.id.to_s }
+    base_column_ids = base_columns.map { |col| col.id.to_s }
+    insert_column_ids = column_ids - base_column_ids
+    update_column_ids = base_column_ids & column_ids
+    delete_column_ids = base_column_ids - column_ids
+    delete_column_ids.each { |id| base_columns.find(id).destroy }
+    vue_model_columns.select { |vm_column| update_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+      base_columns.find(vm_column.id).save_with!(vm_column)
+    end
+    vue_model_columns.select { |vm_column| insert_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+      base_columns.build.save_with!(vm_column)
     end
   end
 end
