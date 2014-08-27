@@ -30,5 +30,22 @@ class MxPrimaryKey < ActiveRecord::Base
   end
 
   def update_with!(vue_model)
+    update_attributes!(name: vue_model.name)
+    update_columns!(vue_model)
+  end
+
+  def update_columns!(vue_model)
+    column_ids = vue_model.columns.map { |col| col.column_id.to_s }
+    base_column_ids = columns_rels.map { |col| col.column_id.to_s }
+    insert_column_ids = column_ids - base_column_ids
+    update_column_ids = base_column_ids & column_ids
+    delete_column_ids = base_column_ids - column_ids
+    delete_column_ids.each { |column_id| columns_rels.where(column_id: column_id).first.destroy }
+    vue_model.columns.select { |vm_pk_column| update_column_ids.include?(vm_pk_column.column_id.to_s) }.each do |vm_pk_column|
+      columns_rels.where(column_id: vm_pk_column.column_id).first.save_with!(vm_pk_column)
+    end
+    vue_model.columns.select { |vm_pk_column| insert_column_ids.include?(vm_pk_column.column_id.to_s) }.each do |vm_pk_column|
+      columns_rels.build.save_with!(vm_pk_column)
+    end
   end
 end

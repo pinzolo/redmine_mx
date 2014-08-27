@@ -53,7 +53,7 @@ class MxTable < ActiveRecord::Base
     self.updated_user_id = User.current.id
     save!
     create_table_columns!(vue_model)
-    create_primary_key!(vue_model) if vue_model.primary_key.column_ids.present?
+    create_primary_key!(vue_model) if vue_model.primary_key.columns.present?
   end
 
   def create_table_columns!(vue_model)
@@ -81,6 +81,16 @@ class MxTable < ActiveRecord::Base
     self.updated_user_id = User.current.id
     update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
+    if vue_model.primary_key.columns.present?
+      vm_primary_key = create_primary_key_vue_model_for_db(vue_model)
+      if primary_key
+        primary_key.save_with!(vm_primary_key)
+      else
+        create_primary_key!(vm_primary_key)
+      end
+    else
+      primary_key.try(:destroy)
+    end
   end
 
   def update_table_columns!(vue_model)
