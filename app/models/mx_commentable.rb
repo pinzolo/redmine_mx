@@ -7,21 +7,24 @@ module MxCommentable
   end
 
   def comment
-    mx_comment.try(:comment)
+    @comment || mx_comment.try(:comment)
   end
 
   def comment=(comment)
-    build_mx_comment unless mx_comment
-    mx_comment.comment = comment
+    @comment = comment
   end
 
   private
 
   def save_comment
-    if mx_comment.try(:comment).presence
-      mx_comment.save
+    if @comment.presence
+      if mx_comment
+        mx_comment.update_attributes!(comment: @comment)
+      else
+        build_mx_comment(comment: @comment).save
+      end
     else
-      mx_comment.try(:destroy)
+      mx_comment.destroy if mx_comment
     end
   end
 end
