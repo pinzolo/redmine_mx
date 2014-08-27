@@ -53,15 +53,15 @@ class MxVm::ColumnSet
   end
 
   def assign_values_to_columns_for_validation
-    data_type_ids = self.data_types.map { |data_type| data_type.id.to_s }
-    self.columns.each do |column|
+    data_type_ids = data_types.map { |data_type| data_type.id.to_s }
+    columns.each do |column|
       column.data_type_ids = data_type_ids
-      column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
+      column.using_physical_names = columns.reject { |col| col.id == column.id }.map(&:physical_name)
     end
   end
 
   def clear_assigned_values_to_columns
-    self.columns.each do |column|
+    columns.each do |column|
       column.data_type_ids = nil
       column.using_physical_names = nil
     end
