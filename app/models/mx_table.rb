@@ -86,7 +86,7 @@ class MxTable < ActiveRecord::Base
       if primary_key
         primary_key.save_with!(vm_primary_key)
       else
-        create_primary_key!(vm_primary_key)
+        create_primary_key!(vue_model)
       end
     else
       primary_key.try(:destroy)
