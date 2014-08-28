@@ -38,7 +38,7 @@ $ touch tmp/restart.txt
 - Ruby: 1.9.3, 2.0.0, 2.1.2
 - Redmine: 2.3.x, 2.4.x, 2.5.x
 
-This plugin does not work in IE8 or lower, because redmine_mx uses [Vue.js](http://vuejs.org/).
+This plugin does not work in IE8 and lower, because redmine_mx uses [Vue.js](http://vuejs.org/).
 
 ## Contributing
 
