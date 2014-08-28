@@ -124,3 +124,6 @@ ja:
         column_size: '列のサイズ'
         column_scale: '列のスケール'
         column_default_value: '列の初期値'
+        primary_key_name: '主キー名'
+        primary_key_column_column_id: '主キー列'
+        primary_key_column_position: '主キー順序'

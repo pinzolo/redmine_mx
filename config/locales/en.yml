@@ -124,3 +124,6 @@ en:
         column_size: "Column's size"
         column_scale: "Column's scale"
         column_default_value:  "Header column's default value"
+        primary_key_name: 'Primary key name'
+        primary_key_column_column_id: 'Primary key column'
+        primary_key_column_position: 'Primary key column position'

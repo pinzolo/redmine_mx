@@ -43,6 +43,7 @@ class MxVm::Table
     valid_without_children?
     assign_values_to_columns_for_validation
     merge_children_errors!(table_columns, :column)
+    merge_children_errors!([primary_key], :primary_key)
     clear_assigned_values_to_columns
     errors.empty?
   end
@@ -69,17 +70,22 @@ class MxVm::Table
   end
 
   def assign_values_to_columns_for_validation
-    data_type_ids = self.data_types.map { |data_type| data_type.id.to_s }
-    self.table_columns.each do |column|
+    data_type_ids = data_types.map { |data_type| data_type.id.to_s }
+    table_columns.each do |column|
       column.data_type_ids = data_type_ids
       column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
     end
+    primary_key.used_primary_key_names = MxDatabase.find(database_id).tables.map { |table| table.primary_key.try(:name).presence }.compact
+    column_ids = columns.map { |column| column.id.to_s }
+    primary_key.belonging_column_ids = column_ids
   end
 
   def clear_assigned_values_to_columns
-    self.table_columns.each do |column|
+    table_columns.each do |column|
       column.data_type_ids = nil
       column.using_physical_names = nil
     end
+    primary_key.used_primary_key_names = nil
+    primary_key.belonging_column_ids = nil
   end
 end
