@@ -68,6 +68,9 @@ en:
     tab_tables: 'Tables'
     tab_column_sets: 'Column set'
 
+    hint_not_null: 'Not NULL'
+    hint_nullable: 'Allow NULL'
+
   mx_vm:
     errors:
       messages:

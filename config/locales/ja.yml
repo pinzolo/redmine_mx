@@ -68,6 +68,9 @@ ja:
     tab_tables: 'テーブル'
     tab_column_sets: '列セット'
 
+    hint_not_null: 'NULL不可'
+    hint_nullable: 'NULL可'
+
   mx_vm:
     errors:
       messages:

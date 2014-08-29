@@ -55,8 +55,8 @@
         <td class="mx-nullable-check mx-nowrap">
           <input type="checkbox" id="mx-column-nullable-{{column.id}}" class="mx-column-nullable" name="<%= prefix %>[nullable]" value="true" v-model="column.nullable"/>
           <label for="mx-column-nullable-{{column.id}}">
-            <%= image_tag('false.png', 'v-show' => '!column.nullable') %>
-            <%= image_tag('true.png', 'v-show' => 'column.nullable') %>
+            <%= image_tag('false.png', alt: l('mx.hint_not_null'), title: l('mx.hint_not_null'), 'v-show' => '!column.nullable') %>
+            <%= image_tag('true.png', alt: l('mx.hint_nullable'), title: l('mx.hint_nullable'), 'v-show' => 'column.nullable') %>
           </label>
         </td>
         <td class="{{classFor(column, 'default_value')}}">
