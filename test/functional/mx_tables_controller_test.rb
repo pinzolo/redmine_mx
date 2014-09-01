@@ -1007,7 +1007,7 @@ class MxTablesControllerTest < ActionController::TestCase
     }
   end
 
-  def assert_saved_table(id, params, ignore=nil)
+  def assert_saved_table(id, params, ignore = nil)
     table = MxTable.find(id)
     assert_equal params[:physical_name], table.physical_name
     assert_equal params[:logical_name], table.logical_name
