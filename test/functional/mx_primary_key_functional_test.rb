@@ -1,0 +1,229 @@
+require File.expand_path('../../test_helper', __FILE__)
+
+class MxPrimaryKeyFunctionalTest < ActionController::TestCase
+  tests MxTablesController
+  fixtures :users, :projects, :members, :roles, :member_roles,
+    :mx_dbms_products, :mx_data_types, :mx_comments, :mx_databases, :mx_column_sets, :mx_columns, :mx_tables,
+    :mx_primary_keys, :mx_primary_key_columns
+
+  def setup
+    enable_mx!
+    setup_mx_permissions!
+    @project = Project.find('ecookbook')
+    @database = MxDatabase.find_database(@project, 'main')
+    by_manager
+  end
+
+  def test_create_with_primary_key_params
+    assert_create_success(valid_create_params)
+    table = MxTable.find(7)
+    assert table.primary_key
+    assert_equal 'test_pk', table.primary_key.name
+    assert_equal 1, table.primary_key.columns.size
+    assert_equal 'id', table.primary_key.columns.first.physical_name
+  end
+
+  def test_create_without_primary_key_params
+    params = valid_create_params.tap { |p| p.delete(:primary_key) }
+    assert_no_difference 'MxPrimaryKey.count' do
+      assert_no_difference 'MxPrimaryKeyColumn.count' do
+        post :create, project_id: @project, database_id: @database, mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(7)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert table.primary_key.nil?
+  end
+
+  def test_create_without_primary_key_name
+    params = valid_create_params.tap { |p| p[:primary_key].delete(:name) }
+    assert_create_success(params)
+    table = MxTable.find(7)
+    assert table.primary_key
+    assert table.primary_key.name.nil?
+    assert_equal 1, table.primary_key.columns.size
+    assert_equal 'id', table.primary_key.columns.first.physical_name
+  end
+
+  def test_create_with_empty_primary_key_name
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = '' }
+    assert_create_success(params)
+    table = MxTable.find(7)
+    assert table.primary_key
+    assert table.primary_key.name.blank?
+    assert_equal 1, table.primary_key.columns.size
+    assert_equal 'id', table.primary_key.columns.first.physical_name
+  end
+
+  def test_create_with_too_long_primary_key_name
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 201 }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_name, /is too long/)
+  end
+
+  def test_create_with_just_long_primary_key_name
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 200 }
+    assert_create_success(params)
+    table = MxTable.find(7)
+    assert table.primary_key
+    assert_equal 'a' * 200, table.primary_key.name
+    assert_equal 1, table.primary_key.columns.size
+    assert_equal 'id', table.primary_key.columns.first.physical_name
+  end
+
+  def test_create_with_already_taken_primary_key_name
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'customers_pk' }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_name, 'has already been taken')
+  end
+
+  def test_create_with_primary_key_name_but_no_primary_key_columns
+    params = valid_create_params.tap { |p| p[:primary_key].delete(:columns) }
+    assert_no_difference 'MxPrimaryKey.count' do
+      assert_no_difference 'MxPrimaryKeyColumn.count' do
+        post :create, project_id: @project, database_id: @database, mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(7)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert table.primary_key.nil?
+  end
+
+  def test_create_with_primary_key_name_but_empty_primary_key_columns
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = {} }
+    assert_no_difference 'MxPrimaryKey.count' do
+      assert_no_difference 'MxPrimaryKeyColumn.count' do
+        post :create, project_id: @project, database_id: @database, mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(7)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert table.primary_key.nil?
+  end
+
+  def test_create_with_multi_primary_key_columns
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '1', 'v-column1' => '2' } }
+    assert_create_success(params, 2)
+    table = MxTable.find(7)
+    assert table.primary_key
+    assert_equal 'test_pk', table.primary_key.name
+    assert_equal 2, table.primary_key.columns.size
+    assert_equal ['id', 'foo'], table.primary_key.columns.map(&:physical_name)
+  end
+
+  def test_create_when_primary_key_columns_contains_invalid_column_id_that_not_exist_in_table
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '6' => '1' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_column_id, 'is not included in the list')
+  end
+
+  def test_create_when_primary_key_columns_contains_no_poision
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => nil } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, "can't be blank")
+  end
+
+  def test_create_when_primary_key_columns_contains_not_number_poision
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => 'a' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, 'is not a number')
+  end
+
+  def test_create_when_primary_key_columns_contains_zero_poision
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '0' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, 'must be greater than 0')
+  end
+
+  def test_create_when_primary_key_columns_contains_negative_poision
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '-1' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, 'must be greater than 0')
+  end
+
+  def test_create_when_primary_key_columns_contains_invalid_poision_as_order
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '1', 'v-column1' => '3' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, 'is invalid')
+  end
+
+  def test_create_when_primary_key_columns_contains_duplicated_poision
+    params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '1', 'v-column1' => '1' } }
+    assert_create_failure(params)
+    assert_have_error(:primary_key_column_position, 'is invalid')
+  end
+
+  private
+
+  def valid_create_params
+    {
+      physical_name: 'test',
+      logical_name: 'Test table',
+      comment: "foo\nbar\nbaz",
+      column_set_id: '1',
+      table_columns: {
+        'v-column1' => {
+          id: 'v-column1',
+          physical_name: 'foo',
+          logical_name: 'FOO',
+          data_type_id: '12',
+          size: '150',
+          nullable: 'true',
+          comment: 'foo column',
+          position: '0'
+        },
+        'v-column2' => {
+          id: 'v-column2',
+          physical_name: 'bar',
+          logical_name: 'BAR',
+          data_type_id: '21',
+          default_value: 'false',
+          comment: 'bar column',
+          position: '1'
+        },
+        'v-column3' => {
+          id: 'v-column3',
+          physical_name: 'baz',
+          logical_name: 'BAZ',
+          data_type_id: '5',
+          size: '10',
+          size: '2',
+          nulable: 'true',
+          default_value: '0.0',
+          comment: 'baz column',
+          position: '2'
+        }
+      },
+      primary_key: {
+        name: 'test_pk',
+        columns: {
+          '1' => '1'
+        }
+      }
+    }
+  end
+
+  def assert_create_success(params, column_count = 1)
+    assert_difference 'MxPrimaryKey.count', 1 do
+      assert_difference 'MxPrimaryKeyColumn.count', column_count do
+        post :create, project_id: @project, database_id: @database, mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(7)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+  end
+
+  def assert_create_failure(params)
+    assert_no_difference 'MxPrimaryKey.count' do
+      assert_no_difference 'MxPrimaryKeyColumn.count' do
+        post :create, project_id: @project, database_id: @database, mx_table: params
+      end
+    end
+    assert_response :success
+    assert_template 'new'
+  end
+end
