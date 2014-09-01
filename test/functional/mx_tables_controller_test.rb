@@ -1064,14 +1064,6 @@ class MxTablesControllerTest < ActionController::TestCase
     assert_equal column_params[:comment].presence, column.comment
   end
 
-  def assert_have_error(attribute, error)
-    if error.is_a?(Regexp)
-      assert_match error, assigns(:vue_model).errors[attribute].first
-    else
-      assert_equal error, assigns(:vue_model).errors[attribute].first
-    end
-  end
-
   def assert_create_success(params, column_count = 3)
     assert_difference 'MxTable.count', 1 do
       assert_difference 'MxColumn.count', column_count do

@@ -47,3 +47,11 @@ end
 def assert_conflict_flash
   assert_tag tag: 'div', attributes: { id: 'flash_error' }, content: I18n.t(:notice_locking_conflict)
 end
+
+def assert_have_error(attribute, error, model = :vue_model)
+  if error.is_a?(Regexp)
+    assert_match error, assigns(model).errors[attribute].first
+  else
+    assert_equal error, assigns(model).errors[attribute].first
+  end
+end
