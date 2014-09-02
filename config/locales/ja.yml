@@ -26,6 +26,8 @@ ja:
     label_table_new: '新しいテーブル'
     label_physical_name: '物理名'
     label_logical_name: '論理名'
+    label_created_user: '作成'
+    label_updated_at: '作成者'
     label_updated_at: '最終更新'
     label_updated_user: '最終更新者'
     label_database: 'データベース'

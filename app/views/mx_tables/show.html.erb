@@ -9,27 +9,29 @@
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_tables_show') %></h2>
   <p id="mx-table">
-    <table class="mx-defs">
+    <table class="mx-twin-defs">
       <tbody>
-        <tr>
-          <th><%= mx_label_for('database') %></th>
-          <td><%= @database.identifier %></td>
-        </tr>
         <tr>
           <th><%= mx_label_for('physical_name') %></th>
           <td><%= @table.physical_name %></td>
-        </tr>
-        <tr>
           <th><%= mx_label_for('logical_name') %></th>
           <td><%= @table.logical_name %></td>
         </tr>
         <tr>
+          <th><%= mx_label_for('database') %></th>
+          <td><%= @database.identifier %></td>
           <th><%= mx_label_for('primary_key_name') %></th>
           <td><%= @table.primary_key.try(:name) %></td>
         </tr>
         <tr>
+          <th><%= mx_label_for('created_user') %></th>
+          <td><%= link_to_user(@table.created_user) %> <br />(<%= format_time(@table.created_at) %>)</td>
+          <th><%= mx_label_for('updated_user') %></th>
+          <td><%= link_to_user(@table.updated_user) %> <br />(<%= format_time(@table.updated_at) %>)</td>
+        </tr>
+        <tr>
           <th><%= mx_label_for('comment') %></th>
-          <td><%= simple_format_without_paragraph(@table.comment) %></td>
+          <td colspan="3"><%= simple_format_without_paragraph(@table.comment) %></td>
         </tr>
       </tbody>
     </table>

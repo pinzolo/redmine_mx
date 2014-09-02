@@ -26,6 +26,8 @@ en:
     label_table_new: 'New table'
     label_physical_name: 'Physical name'
     label_logical_name: 'Logical name'
+    label_created_at: 'Created time'
+    label_created_user: 'Created user'
     label_updated_at: 'Last updated time'
     label_updated_user: 'Last updated user'
     label_database: 'Database'

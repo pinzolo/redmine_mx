@@ -42,6 +42,27 @@
   width: 80%;
 }
 
+.mx-twin-defs {
+  border: 1px solid #d3d3d3;
+  border-collapse: collapse;
+}
+
+.mx-twin-defs th, .mx-twin-defs td {
+  padding: 7px;
+  border: solid #d3d3d3 1px;
+}
+
+.mx-twin-defs th {
+  background-color: #eeeeee;
+  width: 20%;
+  vertical-align: top;
+  text-align: left;
+}
+
+.mx-twin-defs td {
+  width: 30%;
+}
+
 .mx-section-caption {
   border-bottom: 1px dashed #d3d3d3;
 }
