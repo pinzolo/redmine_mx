@@ -6,6 +6,7 @@ class CreateMxIndices < ActiveRecord::Migration
       t.integer :table_id, null: false
       t.string :name, null: false
       t.boolean :unique, null: false, default: false
+      t.string :condition
     end
 
     add_index :mx_indices, [:table_id, :name], unique: true, name: 'mx_indices_uk1'
