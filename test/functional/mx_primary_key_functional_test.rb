@@ -348,6 +348,18 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
 
   # }}}
 
+  def test_destroy
+    primary_key_id = MxPrimaryKey.where(table_id: 4).first.id
+    assert_difference 'MxPrimaryKey.count', -1 do
+      assert_difference 'MxPrimaryKeyColumn.count', -2 do
+        delete :destroy, project_id: @project, database_id: @database, id: 4
+      end
+    end
+    assert_response 302
+    assert_redirected_to project_mx_database_tables_path(@project, @database)
+    assert MxPrimaryKey.where(table_id: 4).empty?
+    assert MxPrimaryKeyColumn.where(primary_key_id: primary_key_id).empty?
+  end
   private
 
   def valid_create_params
