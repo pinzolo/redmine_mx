@@ -75,9 +75,11 @@ class MxVm::Table
       column.data_type_ids = data_type_ids
       column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
     end
-    primary_key.used_primary_key_names = MxDatabase.find(database_id).tables.map { |table| table.primary_key.try(:name).presence }.compact
-    column_ids = columns.map { |column| column.id.to_s }
-    primary_key.belonging_column_ids = column_ids
+    primary_key_names_in_database = MxDatabase.find(database_id).tables.map do |table|
+      table.primary_key.try(:name).presence if table.id.to_s != self.id.to_s
+    end
+    primary_key.used_primary_key_names = primary_key_names_in_database.compact
+    primary_key.belonging_column_ids = columns.map { |column| column.id.to_s }
   end
 
   def clear_assigned_values_to_columns
