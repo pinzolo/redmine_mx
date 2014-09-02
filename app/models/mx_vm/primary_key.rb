@@ -4,7 +4,7 @@ class MxVm::PrimaryKey
   attr_accessor :name, :columns, :column_ids
   attr_accessor :used_primary_key_names, :belonging_column_ids
 
-  validates :name, length: { maximum: 200 }, exclusion: { in: ->(record){ record.used_primary_key_names }, message: :taken, if: 'name.present?' }
+  validates :name, length: { maximum: 255 }, exclusion: { in: ->(record){ record.used_primary_key_names }, message: :taken, if: 'name.present?' }
 
   def initialize(params={})
     if params.is_a?(Hash)

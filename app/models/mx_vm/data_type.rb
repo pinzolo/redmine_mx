@@ -5,7 +5,7 @@ class MxVm::DataType
   attr_accessor :using_names
 
   validates :name, presence: true,
-                   length: { maximum: 200 },
+                   length: { maximum: 255 },
                    exclusion: { in: ->(record){ record.using_names },
                                 message: :duplicated,
                                 if: 'name.present?' }

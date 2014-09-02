@@ -3,7 +3,7 @@ class MxVm::DbmsProduct
 
   attr_accessor :name, :type, :comment, :lock_version, :data_types
 
-  validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxDbmsProduct' }
+  validates :name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxDbmsProduct' }
   validates :type, presence: true, inclusion: { in: MxDbmsProduct::PRODUCT_TYPES.keys, if: 'type.present?' }
 
   def initialize(params={})

@@ -6,17 +6,17 @@ class MxVm::Column
   attr_accessor :data_type_ids, :using_physical_names
 
   validates :physical_name, presence: true,
-                            length: { maximum: 200 },
+                            length: { maximum: 255 },
                             exclusion: { in: ->(record){ record.using_physical_names },
                                          message: :duplicated,
                                          if: 'physical_name.present?' }
-  validates :logical_name, length: { maximum: 200 }
+  validates :logical_name, length: { maximum: 255 }
   validates :data_type_id, presence: true,
                            inclusion: { in: ->(record){ record.data_type_ids },
                                         if: 'data_type_id.present?' }
   validates :size, numericality: { only_integer: true, greater_than: 0, if: 'size.present?' }
   validates :scale, numericality: { only_integer: true, greater_than: 0, if: 'scale.present?' }
-  validates :default_value, length: { maximum: 200 }
+  validates :default_value, length: { maximum: 255 }
 
   def initialize(params={})
     if params.is_a?(Hash)

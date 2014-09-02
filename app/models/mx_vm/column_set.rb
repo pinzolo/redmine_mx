@@ -3,7 +3,7 @@ class MxVm::ColumnSet
 
   attr_accessor :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
 
-  validates :name, presence: true, length: { maximum: 200 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
+  validates :name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
 
   def initialize(params={}, database=nil)
     if params.is_a?(Hash)

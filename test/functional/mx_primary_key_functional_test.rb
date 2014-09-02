@@ -59,17 +59,17 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_primary_key_name
-    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:primary_key_name, /is too long/)
   end
 
   def test_create_with_just_long_primary_key_name
-    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 255 }
     assert_create_success(params)
     table = MxTable.find(7)
     assert table.primary_key
-    assert_equal 'a' * 200, table.primary_key.name
+    assert_equal 'a' * 255, table.primary_key.name
     assert_equal 1, table.primary_key.columns.size
     assert_equal 'id', table.primary_key.columns.first.physical_name
   end
@@ -206,17 +206,17 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_primary_key_name
-    params = valid_update_params.tap { |p| p[:primary_key][:name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:primary_key][:name] = 'a' * 256 }
     assert_update_failure(params, 4)
     assert_have_error(:primary_key_name, /is too long/)
   end
 
   def test_update_with_just_long_primary_key_name
-    params = valid_update_params.tap { |p| p[:primary_key][:name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:primary_key][:name] = 'a' * 255 }
     assert_update_success(params, 4)
     table = MxTable.find(4)
     assert table.primary_key
-    assert_equal 'a' * 200, table.primary_key.name
+    assert_equal 'a' * 255, table.primary_key.name
     assert_equal 1, table.primary_key.columns.size
     assert_equal 'serial_no', table.primary_key.columns.first.physical_name
   end

@@ -209,7 +209,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_create_with_too_long_name
     by_admin
-    params = valid_create_params.tap { |p| p[:name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:name] = 'a' * 256 }
     assert_no_difference 'MxDbmsProduct.count' do
       post :create, mx_dbms_product: params
     end
@@ -231,7 +231,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_create_with_just_long_name
     by_admin
-    params = valid_create_params.tap { |p| p[:name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:name] = 'a' * 255 }
     assert_difference 'MxDbmsProduct.count', 1 do
       post :create, mx_dbms_product: params
     end
@@ -329,7 +329,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_create_with_too_long_data_type_name
     by_admin
-    params = valid_create_params.tap { |p| p[:data_types]['v-a'][:name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:data_types]['v-a'][:name] = 'a' * 256 }
     assert_no_difference 'MxDbmsProduct.count' do
       post :create, mx_dbms_product: params
     end
@@ -340,7 +340,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_create_with_just_long_type_name
     by_admin
-    params = valid_create_params.tap { |p| p[:data_types]['v-a'][:name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:data_types]['v-a'][:name] = 'a' * 255 }
     assert_difference 'MxDbmsProduct.count', 1 do
       post :create, mx_dbms_product: params
     end
@@ -449,7 +449,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_update_with_too_long_name
     by_admin
-    params = valid_update_params.tap { |p| p[:name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 256 }
     put :update, id: 5, mx_dbms_product: params
     assert_response :success
     assert_template 'edit'
@@ -467,7 +467,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_update_with_just_long_name
     by_admin
-    params = valid_update_params.tap { |p| p[:name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 255 }
     put :update, id: 5, mx_dbms_product: params
     assert_response 302
     assert_redirected_to mx_dbms_product_path(5)
@@ -556,7 +556,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_update_with_too_long_data_type_name
     by_admin
-    params = valid_update_params.tap { |p| p[:data_types]['v-c'][:name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:data_types]['v-c'][:name] = 'a' * 256 }
     put :update, id: 5, mx_dbms_product: params
     assert_response :success
     assert_template 'edit'
@@ -565,7 +565,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
 
   def test_update_with_just_long_type_name
     by_admin
-    params = valid_update_params.tap { |p| p[:data_types]['v-c'][:name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:data_types]['v-c'][:name] = 'a' * 255 }
     put :update, id: 5, mx_dbms_product: params
     assert_response 302
     assert_redirected_to mx_dbms_product_path(5)

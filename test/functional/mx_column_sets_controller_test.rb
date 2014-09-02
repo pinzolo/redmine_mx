@@ -190,13 +190,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_name
-    params = valid_create_params.tap { |p| p[:name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:name, /is too long/)
   end
 
   def test_create_with_just_long_name
-    params = valid_create_params.tap { |p| p[:name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -263,13 +263,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_header_column_physical_name
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:header_column_physical_name, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_physical_name
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -287,13 +287,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_header_column_logical_name
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:header_column_logical_name, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_logical_name
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -405,13 +405,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_header_column_default_value
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:header_column_default_value, /is too long/)
   end
 
   def test_create_with_just_long_header_coumn_default_value
-    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -429,13 +429,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_footer_column_physical_name
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:footer_column_physical_name, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_physical_name
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -453,13 +453,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_footer_column_logical_name
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:footer_column_logical_name, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_logical_name
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -571,13 +571,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_footer_column_default_value
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:footer_column_default_value, /is too long/)
   end
 
   def test_create_with_just_long_footer_coumn_default_value
-    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_column_set(4, params)
   end
@@ -702,13 +702,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_name
-    params = valid_update_params.tap { |p| p[:name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:name, /is too long/)
   end
 
   def test_update_with_just_long_name
-    params = valid_update_params.tap { |p| p[:name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:name] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -775,13 +775,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_header_column_physical_name
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:header_column_physical_name, /is too long/)
   end
 
   def test_update_with_just_long_header_coumn_physical_name
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:physical_name] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -799,13 +799,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_header_column_logical_name
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:header_column_logical_name, /is too long/)
   end
 
   def test_update_with_just_long_header_coumn_logical_name
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:logical_name] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -917,13 +917,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_header_column_default_value
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:header_column_default_value, /is too long/)
   end
 
   def test_update_with_just_long_header_coumn_default_value
-    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:header_columns]['v-ha'][:default_value] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -941,13 +941,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_footer_column_physical_name
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:footer_column_physical_name, /is too long/)
   end
 
   def test_update_with_just_long_footer_coumn_physical_name
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:physical_name] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -965,13 +965,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_footer_column_logical_name
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:footer_column_logical_name, /is too long/)
   end
 
   def test_update_with_just_long_footer_coumn_logical_name
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:logical_name] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end
@@ -1083,13 +1083,13 @@ class MxColumnSetsControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_footer_column_default_value
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:footer_column_default_value, /is too long/)
   end
 
   def test_update_with_just_long_footer_coumn_default_value
-    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:footer_columns]['v-fa'][:default_value] = 'a' * 255 }
     assert_update_success(params, 1)
     assert_saved_column_set(1, params)
   end

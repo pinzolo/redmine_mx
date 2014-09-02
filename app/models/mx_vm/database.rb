@@ -4,11 +4,11 @@ class MxVm::Database
   attr_accessor :identifier, :dbms_product_id, :summary, :comment, :lock_version
 
   validates :identifier, presence: true,
-                         length: { maximum: 200 },
+                         length: { maximum: 255 },
                          mx_db_absence: { class_name: 'MxDatabase' },
                          format: { with: /\A\w+\z/, if: 'identifier.present?' }
   validates :dbms_product_id, presence: true, mx_db_presence: { class_name: 'MxDbmsProduct', attribute: :id, if: 'dbms_product_id.present?' }
-  validates :summary, length: { maximum: 200 }
+  validates :summary, length: { maximum: 255 }
 
   def initialize(params={})
     simple_load_values!(params, :id, :identifier, :dbms_product_id, :summary, :comment, :lock_version)

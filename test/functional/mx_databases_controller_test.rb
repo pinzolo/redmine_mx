@@ -156,13 +156,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_identifier
-    assert_create_with_value_overriden_params(:identifier, 'a' * 201)
+    assert_create_with_value_overriden_params(:identifier, 'a' * 256)
     assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
   end
 
   def test_create_with_just_long_identifier
     by_manager
-    params = valid_create_params.tap { |p| p[:identifier] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:identifier] = 'a' * 255 }
     assert_difference 'MxDatabase.count', 1 do
       post :create, project_id: @project, mx_vm_database: params
     end
@@ -214,13 +214,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_summary
-    assert_create_with_value_overriden_params(:summary, 'a' * 201)
+    assert_create_with_value_overriden_params(:summary, 'a' * 256)
     assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
   end
 
   def test_create_with_just_long_summary
     by_manager
-    params = valid_create_params.tap { |p| p[:summary] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:summary] = 'a' * 255 }
     assert_difference 'MxDatabase.count', 1 do
       post :create, project_id: @project, mx_vm_database: params
     end
@@ -343,13 +343,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_identifier
-    assert_update_with_value_overriden_params(:identifier, 'a' * 201)
+    assert_update_with_value_overriden_params(:identifier, 'a' * 256)
     assert_match(/is too long/, assigns(:vue_model).errors[:identifier].first)
   end
 
   def test_update_with_just_long_identifier
     by_manager
-    params = valid_update_params.tap { |p| p[:identifier] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:identifier] = 'a' * 255 }
     assert_no_difference 'MxDatabase.count' do
       put :update, project_id: @project, id: 'sub', mx_vm_database: params
     end
@@ -379,13 +379,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_summary
-    assert_update_with_value_overriden_params(:summary, 'a' * 201)
+    assert_update_with_value_overriden_params(:summary, 'a' * 256)
     assert_match(/is too long/, assigns(:vue_model).errors[:summary].first)
   end
 
   def test_update_with_just_long_summary
     by_manager
-    params = valid_update_params.tap { |p| p[:summary] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:summary] = 'a' * 255 }
     assert_no_difference 'MxDatabase.count' do
       put :update, project_id: @project, id: 'sub', mx_vm_database: params
     end

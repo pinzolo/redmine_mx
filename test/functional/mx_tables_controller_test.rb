@@ -215,13 +215,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_physical_name
-    params = valid_create_params.tap { |p| p[:physical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:physical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:physical_name, /is too long/)
   end
 
   def test_create_with_just_long_physical_name
-    params = valid_create_params.tap { |p| p[:physical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:physical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_table(7, params)
   end
@@ -251,13 +251,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_logical_name
-    params = valid_create_params.tap { |p| p[:logical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:logical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:logical_name, /is too long/)
   end
 
   def test_create_with_just_long_logical_name
-    params = valid_create_params.tap { |p| p[:logical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:logical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_table(7, params)
   end
@@ -313,13 +313,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_column_physical_name
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:physical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:physical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:column_physical_name, /is too long/)
   end
 
   def test_create_with_just_long_coumn_physical_name
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:physical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:physical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_table(7, params)
   end
@@ -343,13 +343,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_column_logical_name
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:logical_name] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:logical_name] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:column_logical_name, /is too long/)
   end
 
   def test_create_with_just_long_coumn_logical_name
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:logical_name] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:logical_name] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_table(7, params)
   end
@@ -461,13 +461,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_create_with_too_long_column_default_value
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = 'a' * 201 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = 'a' * 256 }
     assert_create_failure(params)
     assert_have_error(:column_default_value, /is too long/)
   end
 
   def test_create_with_just_long_coumn_default_value
-    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = 'a' * 200 }
+    params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = 'a' * 255 }
     assert_create_success(params)
     assert_saved_table(7, params)
   end
@@ -589,13 +589,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_physical_name
-    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:physical_name, /is too long/)
   end
 
   def test_update_with_just_long_physical_name
-    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:physical_name] = 'a' * 255 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
@@ -631,13 +631,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_logical_name
-    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:logical_name, /is too long/)
   end
 
   def test_update_with_just_long_logical_name
-    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:logical_name] = 'a' * 255 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
@@ -694,13 +694,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_column_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:column_physical_name, /is too long/)
   end
 
   def test_update_with_just_long_coumn_physical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:physical_name] = 'a' * 255 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
@@ -724,13 +724,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_column_logical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:column_logical_name, /is too long/)
   end
 
   def test_update_with_just_long_coumn_logical_name
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:logical_name] = 'a' * 255 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
@@ -842,13 +842,13 @@ class MxTablesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_too_long_column_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 201 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 256 }
     assert_update_failure(params)
     assert_have_error(:column_default_value, /is too long/)
   end
 
   def test_update_with_just_long_coumn_default_value
-    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 200 }
+    params = valid_update_params.tap { |p| p[:table_columns]['12'][:default_value] = 'a' * 255 }
     assert_update_success(params)
     assert_saved_table(1, params)
   end
