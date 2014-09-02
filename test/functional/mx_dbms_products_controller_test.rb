@@ -589,24 +589,18 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
       type: 'MxDbms::Postgresql',
       comment: "foo\nbar\nbaz",
       data_types: {
-        'v-a' => {
-          id: 'v-a',
-          name: 'foo',
-          position: '0'
-        },
-        'v-b' => {
-          id: 'v-b',
-          name: 'bar',
-          sizable: 'true',
-          scalable: 'true',
-          position: '1'
-        },
-        'v-c' => {
-          id: 'v-c',
-          name: 'baz',
-          scalable: 'true',
-          position: '2'
-        }
+        'v-a' => { id: 'v-a',
+                   name: 'foo',
+                   position: '0' },
+        'v-b' => { id: 'v-b',
+                   name: 'bar',
+                   sizable: 'true',
+                   scalable: 'true',
+                   position: '1' },
+        'v-c' => { id: 'v-c',
+                   name: 'baz',
+                   scalable: 'true',
+                   position: '2' }
       }
     }
   end
@@ -618,23 +612,17 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
       comment: "foo\nbar\nbaz",
       lock_version: '0',
       data_types: {
-        '86' => {
-          id: '86',
-          name: 'TEXT',
-          position: '0'
-        },
-        '87' => {
-          id: '87',
-          name: 'NUMBER',
-          sizable: 'true',
-          scalable: 'true',
-          position: '1'
-        },
-        'v-c' => {
-          id: 'v-c',
-          name: 'BLOB',
-          position: '2'
-        }
+        '86' => { id: '86',
+                  name: 'TEXT',
+                  position: '0' },
+        '87' => { id: '87',
+                  name: 'NUMBER',
+                  sizable: 'true',
+                  scalable: 'true',
+                  position: '1' },
+        'v-c' => { id: 'v-c',
+                   name: 'BLOB',
+                   position: '2' }
       }
     }
   end

@@ -929,37 +929,31 @@ class MxTablesControllerTest < ActionController::TestCase
       comment: "foo\nbar\nbaz",
       column_set_id: '1',
       table_columns: {
-        'v-column1' => {
-          id: 'v-column1',
-          physical_name: 'foo',
-          logical_name: 'FOO',
-          data_type_id: '12',
-          size: '150',
-          nullable: 'true',
-          comment: 'foo column',
-          position: '0'
-        },
-        'v-column2' => {
-          id: 'v-column2',
-          physical_name: 'bar',
-          logical_name: 'BAR',
-          data_type_id: '21',
-          default_value: 'false',
-          comment: 'bar column',
-          position: '1'
-        },
-        'v-column3' => {
-          id: 'v-column3',
-          physical_name: 'baz',
-          logical_name: 'BAZ',
-          data_type_id: '5',
-          size: '10',
-          size: '2',
-          nulable: 'true',
-          default_value: '0.0',
-          comment: 'baz column',
-          position: '2'
-        }
+        'v-column1' => { id: 'v-column1',
+                         physical_name: 'foo',
+                         logical_name: 'FOO',
+                         data_type_id: '12',
+                         size: '150',
+                         nullable: 'true',
+                         comment: 'foo column',
+                         position: '0' },
+        'v-column2' => { id: 'v-column2',
+                         physical_name: 'bar',
+                         logical_name: 'BAR',
+                         data_type_id: '21',
+                         default_value: 'false',
+                         comment: 'bar column',
+                         position: '1' },
+        'v-column3' => { id: 'v-column3',
+                         physical_name: 'baz',
+                         logical_name: 'BAZ',
+                         data_type_id: '5',
+                         size: '10',
+                         size: '2',
+                         nulable: 'true',
+                         default_value: '0.0',
+                         comment: 'baz column',
+                         position: '2' }
       }
     }
   end
@@ -972,37 +966,31 @@ class MxTablesControllerTest < ActionController::TestCase
       column_set_id: '1',
       lock_version: '0',
       table_columns: {
-        '12' => {
-          id: '12',
-          physical_name: 'full_name',
-          logical_name: 'Customer full name',
-          data_type_id: '12',
-          size: '150',
-          nullable: 'true',
-          comment: 'delimiter is space',
-          position: '0'
-        },
-        'v-column2' => {
-          id: 'v-column2',
-          physical_name: 'bar',
-          logical_name: 'BAR',
-          data_type_id: '21',
-          default_value: 'false',
-          comment: 'bar column',
-          position: '1'
-        },
-        'v-column3' => {
-          id: 'v-column3',
-          physical_name: 'baz',
-          logical_name: 'BAZ',
-          data_type_id: '5',
-          size: '10',
-          size: '2',
-          nulable: 'true',
-          default_value: '0.0',
-          comment: 'baz column',
-          position: '2'
-        }
+        '12' => { id: '12',
+                  physical_name: 'full_name',
+                  logical_name: 'Customer full name',
+                  data_type_id: '12',
+                  size: '150',
+                  nullable: 'true',
+                  comment: 'delimiter is space',
+                  position: '0' },
+        'v-column2' => { id: 'v-column2',
+                         physical_name: 'bar',
+                         logical_name: 'BAR',
+                         data_type_id: '21',
+                         default_value: 'false',
+                         comment: 'bar column',
+                         position: '1' },
+        'v-column3' => { id: 'v-column3',
+                         physical_name: 'baz',
+                         logical_name: 'BAZ',
+                         data_type_id: '5',
+                         size: '10',
+                         size: '2',
+                         nulable: 'true',
+                         default_value: '0.0',
+                         comment: 'baz column',
+                         position: '2' }
       }
     }
   end
