@@ -122,6 +122,10 @@ function prepareMxTableVue(data, $) {
       },
       removeColumn: function(column) {
         this.table_columns.$remove(column.$index);
+        var pkIndex = $.inArray(column.$data.column.id.toString(), this.primary_key.column_ids);
+        if (pkIndex > -1) {
+          this.primary_key.column_ids.$remove(pkIndex);
+        }
       },
       upColumn: function(column) {
         this.table_columns.$remove(column.$index);
