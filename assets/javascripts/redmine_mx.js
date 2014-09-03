@@ -21,6 +21,12 @@ var mx = {
   isEmpty: function(text) {
     console.log('isEmpty');
     return !this.isPresent(text);
+  },
+  unselectedColumnIds: function(columns, selectedColumnIds, $) {
+    var allColumnIds = $.map(columns, function(column) { return column.id.toString(); });
+    return $.grep(allColumnIds, function(columnId) {
+      return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+    });
   }
 };
 
@@ -181,11 +187,8 @@ function prepareMxTableVue(data, $) {
         this.editingIndex.unique = index.$data.index.unique;
         this.editingIndex.condition = index.$data.index.condition;
         this.editingIndex.comment = index.$data.index.comment;
-        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
         var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
-          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
-        });
+        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
         $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
         $('#mx-new-index-link').hide();
       },
@@ -194,19 +197,13 @@ function prepareMxTableVue(data, $) {
       },
       addToIndexColumns: function(columnId) {
         this.editingIndex.columnIds.push(columnId.$data.columnId);
-        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
         var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
-          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
-        });
+        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
       },
       removeFromIndexColumns: function(columnId) {
         this.editingIndex.columnIds.$remove(columnId.$index);
-        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
         var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
-          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
-        });
+        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
       },
       upIndexColumn: function(columnId) {
         this.editingIndex.columnIds.$remove(columnId.$index);

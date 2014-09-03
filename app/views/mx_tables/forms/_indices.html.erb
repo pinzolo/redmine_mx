@@ -59,13 +59,13 @@
           <fieldset class="mx-selected-columns">
             <legend><%= l('mx.label_selected_columns') %></legend>
             <span v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column" title="{{getColumn(columnId).logical_name}}">
-              <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>{{getColumn(columnId).physical_name}}
+              <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>&nbsp;{{getColumn(columnId).physical_name}}
             </span>
           </fieldset>
           <fieldset class="mx-unselected-columns">
             <legend><%= l('mx.label_selectable_columns') %></legend>
             <span v-repeat="columnId: editingIndex.unselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getColumn(columnId).logical_name}}">
-              <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>{{getColumn(columnId).physical_name}}
+              <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>&nbsp;{{getColumn(columnId).physical_name}}
             </span>
           </fieldset>
         </td>
