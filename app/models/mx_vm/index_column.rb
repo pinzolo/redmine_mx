@@ -6,7 +6,7 @@ class MxVm::IndexColumn
 
   validates :column_id, presence: true, inclusion: { in: ->(record){ record.belonging_column_ids } }
   validates :position, presence: true,
-                       numericality: { only_integer: true, greater_than: 0 },
+                       numericality: { only_integer: true, greater_than_or_equal_to: 0 },
                        inclusion: { in: ->(record){ record.valid_positions }, message: :invalid },
                        exclusion: { in: ->(record){ record.other_positions }, message: :invalid }
 

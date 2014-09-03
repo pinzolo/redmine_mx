@@ -23,10 +23,13 @@
           <input type="hidden" name="<%= prefix %>[name]" v-model="index.name" />
         </td>
         <td>
-          {{enumColumnNames(index.columnIds)}}
-          <input type="hidden" v-repeat="columnId: index.columnIds" name="<%= prefix %>[columns][{{columnId}}]" value="{{$index}}" />
+          {{enumColumnNames(index.column_ids)}}
+          <input type="hidden" v-repeat="columnId: index.column_ids" name="<%= prefix %>[columns][{{columnId}}]" value="{{$index}}" />
         </td>
-        <td class="mx-mark-cell"><%= image_tag('true.png', 'v-show' => 'index.unique') %></td>
+        <td class="mx-mark-cell">
+          <%= image_tag('true.png', 'v-show' => 'index.unique') %>
+          <input type="hidden" name="<%= prefix %>[unique]" v-model="index.unique" v-if="index.unique" />
+        </td>
         <td class="{{classFor(index, 'condition')}}">
           {{index.condition}}
           <input type="hidden" name="<%= prefix %>[condition]" v-model="index.condition" />

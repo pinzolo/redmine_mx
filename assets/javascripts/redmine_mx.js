@@ -177,7 +177,7 @@ function prepareMxTableVue(data, $) {
       editIndex: function(index) {
         this.editingIndex.id = index.$data.index.id;
         this.editingIndex.name = index.$data.index.name;
-        this.editingIndex.columnIds = index.$data.index.columnIds;
+        this.editingIndex.columnIds = index.$data.index.column_ids;
         this.editingIndex.unique = index.$data.index.unique;
         this.editingIndex.condition = index.$data.index.condition;
         this.editingIndex.comment = index.$data.index.comment;
@@ -229,7 +229,7 @@ function prepareMxTableVue(data, $) {
         var data = {
           id: this.editingIndex.id,
           name: this.editingIndex.name,
-          columnIds: this.editingIndex.columnIds,
+          column_ids: this.editingIndex.columnIds,
           unique: this.editingIndex.unique,
           condition: this.editingIndex.condition,
           comment: this.editingIndex.comment
@@ -242,6 +242,9 @@ function prepareMxTableVue(data, $) {
         this.editingIndex = { id: mx.randomId(), columnIds: [] };
       },
       enumColumnNames: function(columnIds) {
+        if (!columnIds) {
+          return '';
+        }
         var columns = this.columns;
         var physicalNames = $.map(columnIds, function(columnId) {
           return mx.findById(columns, columnId).physical_name;

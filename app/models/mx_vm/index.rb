@@ -31,7 +31,8 @@ class MxVm::Index
   private
 
   def build_from_hash(params)
-    simple_load_values_from_hash!(params, :name)
+    simple_load_values_from_hash!(params, :id, :name, :condition, :comment)
+    self.unique = params[:unique].present?
     if params[:columns]
       column_vms = params[:columns].map { |column_id, position| MxVm::IndexColumn.new(column_id: column_id, position: position) }
       self.columns = column_vms.sort_by { |vm| vm.position.to_i }
@@ -39,12 +40,12 @@ class MxVm::Index
   end
 
   def build_from_mx_index(index)
-    simple_load_values_from_object!(index, :name, :condition, :comment)
+    simple_load_values_from_object!(index, :id, :name, :unique, :condition, :comment)
     self.columns = index.columns_rels.map { |index_column| MxVm::IndexColumn.new(index_column) }
   end
 
   def assign_values_to_columns_for_validation
-    valid_positions = [*(1..columns.size)].map(&:to_s)
+    valid_positions = [*(0..columns.size-1)].map(&:to_s)
     self.columns.each do |column|
       column.belonging_column_ids = belonging_column_ids
       column.valid_positions = valid_positions
