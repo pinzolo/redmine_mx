@@ -1,4 +1,4 @@
-<p id="mx-column-set">
+<div id="mx-column-set" class="mx-area">
   <table class="mx-defs">
     <tbody>
       <tr>
@@ -17,10 +17,12 @@
       </tr>
     </tbody>
   </table>
-</p>
+</div>
 <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
-<p id="mx-columns">
-  <%= link_to l('mx.label_header_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addHeaderColumn' %>
+<div id="mx-columns" class="mx-area">
+  <div class="mx-header-commands">
+    <%= link_to l('mx.label_header_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addHeaderColumn' %>
+  </div>
   <table class="mx-grid">
     <thead>
       <tr>
@@ -76,7 +78,8 @@
 <% end %>
     </tbody>
   </table>
-  <br />
-  <%= link_to l('mx.label_footer_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addFooterColumn' %>
-</p>
+  <div class="mx-footer-commands">
+    <%= link_to l('mx.label_footer_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addFooterColumn' %>
+  </div>
+</div>
 

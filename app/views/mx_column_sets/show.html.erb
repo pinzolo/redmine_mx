@@ -8,7 +8,7 @@
 <% end %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_column_sets_show') %></h2>
-  <p id="mx-column-set">
+  <div id="mx-column-set" class="mx-area">
     <table class="mx-defs">
       <tbody>
         <tr>
@@ -25,9 +25,9 @@
         </tr>
       </tbody>
     </table>
-  </p>
+  </div>
   <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
-  <p id="mx-columns">
+  <div id="mx-columns" class="mx-area">
     <table class="mx-grid">
       <thead>
         <tr>
@@ -58,7 +58,7 @@
 <% end %>
       </tbody>
     </table>
-  </p>
+  </div>
 </div>
 
 <% html_title(l('mx.title_column_sets_detail', name: @column_set.name)) %>

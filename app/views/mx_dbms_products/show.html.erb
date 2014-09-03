@@ -7,7 +7,7 @@
 <% end %>
   </div>
   <h2 class="mx-section-caption"><%= l('mx.title_dbms_products_show') %></h2>
-  <p id="mx-dbms-product">
+  <div id="mx-dbms-product" class="mx-area">
     <table class="mx-defs">
       <tbody>
         <tr>
@@ -24,9 +24,9 @@
         </tr>
       </tbody>
     </table>
-  </p>
+  </div>
   <h2 class="mx-section-caption"><%= l('mx.title_data_types') %></h2>
-  <p id="mx-data-types">
+  <div id="mx-data-types" class="mx-area">
     <table class="mx-grid">
       <thead>
         <tr>
@@ -45,7 +45,7 @@
 <% end %>
       </tbody>
     </table>
-  </p>
+  </div>
 </div>
 
 <% html_title(l('mx.title_dbms_products_detail', name: @dbms_product.name)) %>

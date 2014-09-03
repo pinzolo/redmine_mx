@@ -10,7 +10,7 @@
 <% if @column_sets.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>
 <% else %>
-  <p id="mx-column_sets">
+  <div id="mx-column_sets" class="mx-area">
     <table class="mx-grid">
       <thead>
         <tr>
@@ -29,7 +29,7 @@
   <% end %>
       </tbody>
     </table>
-  </p>
+  </div>
 <% end %>
 </div>
 

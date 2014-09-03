@@ -10,7 +10,7 @@
 <% if @database.tables.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>
 <% else %>
-  <p id="mx-tables">
+  <div id="mx-tables" class="mx-area">
     <table class="mx-grid">
       <thead>
         <tr>
@@ -41,7 +41,7 @@
   <% end %>
       </tbody>
     </table>
-  </p>
+  </div>
 <% end %>
 </div>
 

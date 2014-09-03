@@ -1,4 +1,4 @@
-<p id="mx-dbms-product">
+<div id="mx-dbms-product" class="mx-area">
   <table class="mx-defs">
     <tbody>
       <tr>
@@ -19,9 +19,9 @@
       </tr>
     </tbody>
   </table>
-</p>
+</div>
 <h2 class="mx-section-caption"><%= l('mx.title_data_types') %></h2>
-<p id="mx-data-types">
+<div id="mx-data-types" class="mx-area">
   <table class="mx-grid">
     <thead>
       <tr>
@@ -47,7 +47,8 @@
       </tr>
     </tbody>
   </table>
-  <br />
-  <%= link_to l('mx.label_data_type_new'), '#mx-data-types',  class: 'icon icon-add', 'v-on' => 'click: addDataType' %>
-</p>
+  <div class="mx-footer-commands">
+    <%= link_to l('mx.label_data_type_new'), '#mx-data-types',  class: 'icon icon-add', 'v-on' => 'click: addDataType' %>
+  </div>
+</div>
 

@@ -1,8 +1,8 @@
 <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
-<div>
-  <%= mx_label_for('column_set') %>: <select name="mx_table[column_set_id]" v-model="column_set_id"><%= mx_options_from_collection(database.column_sets) %></select>
-</div>
-<p id="mx-columns">
+<div id="mx-columns" class="mx-area">
+  <div class="mx-header-commands">
+    <%= mx_label_for('column_set') %>: <select name="mx_table[column_set_id]" v-model="column_set_id"><%= mx_options_from_collection(database.column_sets) %></select>
+  </div>
   <table class="mx-grid">
     <thead>
       <tr>
@@ -70,7 +70,8 @@
       </tr>
     </tbody>
   </table>
-  <br />
-  <%= link_to l('mx.label_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addColumn' %>
-</p>
+  <div class="mx-footer-commands">
+    <%= link_to l('mx.label_column_new'), '#mx-columns',  class: 'icon icon-add', 'v-on' => 'click: addColumn' %>
+  </div>
+</div>
 
