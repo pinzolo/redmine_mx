@@ -14,7 +14,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     assert_template 'index'
     dbms_products = assigns(:dbms_products)
     assert dbms_products.size == 5
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-products' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-products' }
     assert_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_tag tag: 'a', attributes: { href: new_mx_dbms_product_path }
   end
@@ -26,7 +26,7 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     assert_template 'index'
     dbms_products = assigns(:dbms_products)
     assert dbms_products.size == 5
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-products' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-products' }
     assert_no_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_no_tag tag: 'a', attributes: { href: new_mx_dbms_product_path }
   end
@@ -56,8 +56,8 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     dbms_product = assigns(:dbms_product)
     assert_equal 'PostgreSQL', dbms_product.name
     assert_equal  21, dbms_product.data_types.size
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-product' }
-    assert_tag tag: 'p', attributes: { id: 'mx-data-types' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-product' }
+    assert_tag tag: 'div', attributes: { id: 'mx-data-types' }
     assert_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_tag tag: 'a', attributes: { href: mx_dbms_products_path }
     assert_tag tag: 'a', attributes: { href: edit_mx_dbms_product_path(dbms_product) }
@@ -72,8 +72,8 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     dbms_product = assigns(:dbms_product)
     assert_equal 'PostgreSQL', dbms_product.name
     assert_equal  21, dbms_product.data_types.size
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-product' }
-    assert_tag tag: 'p', attributes: { id: 'mx-data-types' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-product' }
+    assert_tag tag: 'div', attributes: { id: 'mx-data-types' }
     assert_no_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_tag tag: 'a', attributes: { href: mx_dbms_products_path }
     assert_no_tag tag: 'a', attributes: { href: edit_mx_dbms_product_path(dbms_product) }
@@ -131,8 +131,8 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     vue_model = assigns(:vue_model)
     assert_nil dbms_product.id
     assert vue_model
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-product' }
-    assert_tag tag: 'p', attributes: { id: 'mx-data-types' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-product' }
+    assert_tag tag: 'div', attributes: { id: 'mx-data-types' }
     assert_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_tag tag: 'a', attributes: { href: mx_dbms_products_path }
   end
@@ -369,8 +369,8 @@ class MxDbmsProductsControllerTest < ActionController::TestCase
     vue_model = assigns(:vue_model)
     assert_equal 1, dbms_product.id
     assert vue_model
-    assert_tag tag: 'p', attributes: { id: 'mx-dbms-product' }
-    assert_tag tag: 'p', attributes: { id: 'mx-data-types' }
+    assert_tag tag: 'div', attributes: { id: 'mx-dbms-product' }
+    assert_tag tag: 'div', attributes: { id: 'mx-data-types' }
     assert_tag tag: 'div', attributes: { id: 'admin-menu' }
     assert_tag tag: 'a', attributes: { href: mx_dbms_products_path }
   end
