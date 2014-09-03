@@ -172,6 +172,7 @@ function prepareMxTableVue(data, $) {
         var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
         this.editingIndex = { id: mx.randomId(), unselectedColumnIds: allColumnIds, columnIds: [] };
         $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
+        $('#mx-new-index-link').hide();
       },
       editIndex: function(index) {
         this.editingIndex.id = index.$data.index.id;
@@ -186,6 +187,7 @@ function prepareMxTableVue(data, $) {
           return $.inArray(columnId.toString(), selectedColumnIds) < 0;
         });
         $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
+        $('#mx-new-index-link').hide();
       },
       removeIndex: function(index) {
         this.indices.$remove(index.$index);
@@ -216,10 +218,12 @@ function prepareMxTableVue(data, $) {
       },
       cancelIndexEditing: function() {
         $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
+        $('#mx-new-index-link').show();
         this.editingIndex = { id: mx.randomId(), columnIds: [] };
       },
       saveIndex: function() {
         $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
+        $('#mx-new-index-link').show();
         var savedIndexIds = $.map(this.indices, function(index) { return index.id.toString(); });
         var indexPosition = $.inArray(this.editingIndex.id.toString(), savedIndexIds);
         var data = {
