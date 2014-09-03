@@ -43,8 +43,13 @@ en:
     label_column_new: 'New column'
     label_column_set: 'Column set'
     label_selected_columns: 'Selected columns'
+    label_selectable_columns: 'Selectable columns'
     label_primary_key_name: 'Primary key name'
     label_primary_key_short_name: 'PK'
+    label_index_new: 'New index'
+    label_index_name: 'Index name'
+    label_condition: 'Condition'
+    label_unique: 'Unique'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
@@ -66,12 +71,16 @@ en:
     title_tables_detail: 'Table [%{name}]'
     title_tables_edit: 'Edit table'
     title_columns: 'Columns'
+    title_indices: 'Indices'
 
     tab_tables: 'Tables'
     tab_column_sets: 'Column set'
 
     hint_not_null: 'Not NULL'
     hint_nullable: 'Allow NULL'
+    hint_unique_index: 'Add unique constraint'
+
+    no_selected_columns: 'No selected columns'
 
   mx_vm:
     errors:

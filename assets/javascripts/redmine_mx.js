@@ -89,7 +89,7 @@ function prepareMxColumnSetVue(data) {
 }
 
 function prepareMxTableVue(data, $) {
-  data.editingPrimaryKey = data.primary_key.column_ids.length > 0;
+  $('#mx-index-edit').hide();
   return new Vue({
     el: '#mx_table_form',
     data: data,
@@ -104,14 +104,7 @@ function prepareMxTableVue(data, $) {
       },
       columns: function() {
         return $.merge($.merge($.merge([], this.headerColumns), this.table_columns), this.footerColumns);
-      },
-      primaryKeySelectableColumnIds: function() {
-        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
-        var selectedColumnIds = this.primary_key.column_ids;
-        return $.grep(allColumnIds, function(columnId) {
-          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
-        });
-      },
+      }
     },
     methods: {
       addColumn: function() {
@@ -174,6 +167,82 @@ function prepareMxTableVue(data, $) {
         } else {
           this.primary_key.column_ids.$remove(primaryKeyColumnIndex);
         }
+      },
+      newIndex: function() {
+        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
+        this.editingIndex = { id: mx.randomId(), unselectedColumnIds: allColumnIds, columnIds: [] };
+        $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
+      },
+      editIndex: function(index) {
+        this.editingIndex.id = index.$data.index.id;
+        this.editingIndex.name = index.$data.index.name;
+        this.editingIndex.columnIds = index.$data.index.columnIds;
+        this.editingIndex.unique = index.$data.index.unique;
+        this.editingIndex.condition = index.$data.index.condition;
+        this.editingIndex.comment = index.$data.index.comment;
+        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
+        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
+        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
+          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+        });
+        $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
+      },
+      removeIndex: function(index) {
+        this.indices.$remove(index.$index);
+      },
+      addToIndexColumns: function(columnId) {
+        this.editingIndex.columnIds.push(columnId.$data.columnId);
+        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
+        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
+        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
+          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+        });
+      },
+      removeFromIndexColumns: function(columnId) {
+        this.editingIndex.columnIds.$remove(columnId.$index);
+        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
+        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
+        this.editingIndex.unselectedColumnIds = $.grep(allColumnIds, function(columnId) {
+          return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+        });
+      },
+      upIndexColumn: function(columnId) {
+        this.editingIndex.columnIds.$remove(columnId.$index);
+        this.editingIndex.columnIds.splice(columnId.$index - 1, 0, columnId.$data.columnId);
+      },
+      downIndexColumn: function(columnId) {
+        this.editingIndex.columnIds.$remove(columnId.$index);
+        this.editingIndex.columnIds.splice(columnId.$index + 1, 0, columnId.$data.columnId);
+      },
+      cancelIndexEditing: function() {
+        $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
+        this.editingIndex = { id: mx.randomId(), columnIds: [] };
+      },
+      saveIndex: function() {
+        $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
+        var savedIndexIds = $.map(this.indices, function(index) { return index.id.toString(); });
+        var indexPosition = $.inArray(this.editingIndex.id.toString(), savedIndexIds);
+        var data = {
+          id: this.editingIndex.id,
+          name: this.editingIndex.name,
+          columnIds: this.editingIndex.columnIds,
+          unique: this.editingIndex.unique,
+          condition: this.editingIndex.condition,
+          comment: this.editingIndex.comment
+        };
+        if (indexPosition > -1) {
+          this.indices.$set(indexPosition, data);
+        } else {
+          this.indices.push(data);
+        }
+        this.editingIndex = { id: mx.randomId(), columnIds: [] };
+      },
+      enumColumnNames: function(columnIds) {
+        var columns = this.columns;
+        var physicalNames = $.map(columnIds, function(columnId) {
+          return mx.findById(columns, columnId).physical_name;
+        });
+        return physicalNames.join(', ');
       }
     }
   });

@@ -1,0 +1,94 @@
+<h2 class="mx-section-caption"><%= l('mx.title_indices') %></h2>
+<div id="mx-indices" class="mx-area">
+  <table class="mx-grid">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><%= mx_label_for('index_name', required: true) %></th>
+        <th><%= mx_label_for('columns', required: true) %></th>
+        <th><%= mx_label_for('unique') %></th>
+        <th><%= mx_label_for('condition') %></th>
+        <th><%= mx_label_for('comment') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-repeat="index: indices" id="mx-index-{{index.id}}" class="mx-index mx-fade" v-transition>
+        <% prefix = "mx_table[indices][{{index.id}}]" %>
+        <td><%= mx_image_button 'edit', 'v-on' => 'click: editIndex(this)' %></td>
+        <td class="{{classFor(index, 'name')}}">
+          {{index.name}}
+          <input type="hidden" name="<%= prefix %>[id]" v-model="index.id" />
+          <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
+          <input type="hidden" name="<%= prefix %>[name]" v-model="index.name" />
+        </td>
+        <td>
+          {{enumColumnNames(index.columnIds)}}
+          <input type="hidden" v-repeat="columnId: index.columnIds" name="<%= prefix %>[columns][{{columnId}}]" value="{{$index}}" />
+        </td>
+        <td class="mx-mark-cell"><%= image_tag('true.png', 'v-show' => 'index.unique') %></td>
+        <td class="{{classFor(index, 'condition')}}">
+          {{index.condition}}
+          <input type="hidden" name="<%= prefix %>[condition]" v-model="index.condition" />
+        </td>
+        <td>
+          {{index.comment}}
+          <input type="hidden" name="<%= prefix %>[comment]" v-model="index.comment" />
+        </td>
+        <td><%= mx_image_button 'delete', 'v-on' => "click: removeIndex(this)" %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mx-footer-commands">
+    <%= link_to l('mx.label_index_new'), '#mx-index-edit',  class: 'icon icon-add', 'v-on' => 'click: newIndex' %>
+  </div>
+</div>
+<div id="mx-index-edit" class="mx-area">
+  <div>
+    <table class="mx-defs">
+      <tbody>
+        <tr>
+          <th><%= mx_label_for('index_name', required: true) %></th>
+          <td><input type="text" name="editingIndex[name]" size="70" v-model="editingIndex.name" /></td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('columns') %></th>
+          <td>
+            <fieldset class="mx-selected-columns">
+              <legend><%= l('mx.label_selected_columns') %></legend>
+              <span v-show="editingIndex.columnIds.length > 0" v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column">
+                <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>{{getColumn(columnId).physical_name}}
+              </span>
+            </fieldset>
+            <fieldset class="mx-unselected-columns">
+              <legend><%= l('mx.label_selectable_columns') %></legend>
+              <span v-repeat="columnId: editingIndex.unselectedColumnIds" class="mx-selectable-column mx-unselected-column">
+                <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>{{getColumn(columnId).physical_name}}
+              </span>
+            </fieldset>
+          </td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('unique') %></th>
+          <td>
+            <input type="checkbox" id="mx-editing-index-unique" name="editingIndex[unique]" size="70" v-model="editingIndex.unique" />
+            <label for="mx-editing-index-unique"><%= l('mx.hint_unique_index') %></label>
+          </td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('condition') %></th>
+          <td><input type="text" name="editingIndex[condition]" size="70" v-model="editingIndex.condition" /></td>
+        </tr>
+        <tr>
+          <th><%= mx_label_for('comment') %></th>
+          <td><input type="text" name="editingIndex[comment]" size="70" v-model="editingIndex.comment" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mx-footer-commands">
+    <input type="button" name="save" value="<%= l(:button_save) %>" v-on="click: saveIndex" />
+    <%= link_to l(:button_cancel), '#mx-indices',  'v-on' => 'click: cancelIndexEditing' %>
+  </div>
+</div>
+

@@ -43,8 +43,13 @@ ja:
     label_column_new: '新しい列'
     label_column_set: '列セット'
     label_selected_columns: '選択列'
+    label_selectable_columns: '選択可能な列'
     label_primary_key_name: '主キー名'
     label_primary_key_short_name: 'PK'
+    label_index_name: 'インデックス名'
+    label_index_new: '新しいインデックス'
+    label_condition: '条件'
+    label_unique: 'ユニーク'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
@@ -66,12 +71,16 @@ ja:
     title_tables_detail: 'テーブル [%{name}]'
     title_tables_edit: 'テーブルの編集'
     title_columns: '列一覧'
+    title_indices: 'インデックス'
 
     tab_tables: 'テーブル'
     tab_column_sets: '列セット'
 
     hint_not_null: 'NULL不可'
     hint_nullable: 'NULL可'
+    hint_unique_index: 'ユニーク制約を付与'
+
+    no_selected_columns: '選択された列はありません'
 
   mx_vm:
     errors:

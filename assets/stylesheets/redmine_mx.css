@@ -116,3 +116,27 @@
 .mx-nullable-check {
   text-align: right;
 }
+
+.mx-footer-commands {
+  padding-top: 10px;
+}
+
+.mx-area {
+  margin-bottom: 10px;
+}
+
+.mx-selectable-column {
+  display: inline-block;
+  padding: 7px;
+  margin: 3px 5px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.mx-selected-column {
+  background-color: #f0f8ff;
+}
+
+.mx-unselected-column {
+  background-color: #fff0f5;
+}
