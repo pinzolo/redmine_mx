@@ -44,48 +44,46 @@
   </div>
 </div>
 <div id="mx-index-edit" class="mx-area">
-  <div>
-    <table class="mx-defs">
-      <tbody>
-        <tr>
-          <th><%= mx_label_for('index_name', required: true) %></th>
-          <td><input type="text" name="editingIndex[name]" size="70" v-model="editingIndex.name" /></td>
-        </tr>
-        <tr>
-          <th><%= mx_label_for('columns', required: true) %></th>
-          <td>
-            <fieldset class="mx-selected-columns">
-              <legend><%= l('mx.label_selected_columns') %></legend>
-              <span v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column" title="{{getColumn(columnId).logical_name}}">
-                <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>{{getColumn(columnId).physical_name}}
-              </span>
-            </fieldset>
-            <fieldset class="mx-unselected-columns">
-              <legend><%= l('mx.label_selectable_columns') %></legend>
-              <span v-repeat="columnId: editingIndex.unselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getColumn(columnId).logical_name}}">
-                <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>{{getColumn(columnId).physical_name}}
-              </span>
-            </fieldset>
-          </td>
-        </tr>
-        <tr>
-          <th><%= mx_label_for('unique') %></th>
-          <td>
-            <input type="checkbox" id="mx-editing-index-unique" name="editingIndex[unique]" size="70" v-model="editingIndex.unique" />
-            <label for="mx-editing-index-unique"><%= l('mx.hint_unique_index') %></label>
-          </td>
-        </tr>
-        <tr>
-          <th><%= mx_label_for('condition') %></th>
-          <td><input type="text" name="editingIndex[condition]" size="70" v-model="editingIndex.condition" /></td>
-        </tr>
-        <tr>
-          <th><%= mx_label_for('comment') %></th>
-          <td><input type="text" name="editingIndex[comment]" size="70" v-model="editingIndex.comment" /></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="mx-defs">
+    <tbody>
+      <tr>
+        <th><%= mx_label_for('index_name', required: true) %></th>
+        <td><input type="text" name="editingIndex[name]" size="70" v-model="editingIndex.name" /></td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('columns', required: true) %></th>
+        <td>
+          <fieldset class="mx-selected-columns">
+            <legend><%= l('mx.label_selected_columns') %></legend>
+            <span v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column" title="{{getColumn(columnId).logical_name}}">
+              <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>{{getColumn(columnId).physical_name}}
+            </span>
+          </fieldset>
+          <fieldset class="mx-unselected-columns">
+            <legend><%= l('mx.label_selectable_columns') %></legend>
+            <span v-repeat="columnId: editingIndex.unselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getColumn(columnId).logical_name}}">
+              <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>{{getColumn(columnId).physical_name}}
+            </span>
+          </fieldset>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('unique') %></th>
+        <td>
+          <input type="checkbox" id="mx-editing-index-unique" name="editingIndex[unique]" size="70" v-model="editingIndex.unique" />
+          <label for="mx-editing-index-unique"><%= l('mx.hint_unique_index') %></label>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('condition') %></th>
+        <td><input type="text" name="editingIndex[condition]" size="70" v-model="editingIndex.condition" /></td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('comment') %></th>
+        <td><input type="text" name="editingIndex[comment]" size="70" v-model="editingIndex.comment" /></td>
+      </tr>
+    </tbody>
+  </table>
   <div class="mx-footer-commands">
     <input type="button" name="save" value="<%= l(:button_save) %>" v-on="click: saveIndex" />
     <%= link_to l(:button_cancel), '#mx-indices',  'v-on' => 'click: cancelIndexEditing' %>
