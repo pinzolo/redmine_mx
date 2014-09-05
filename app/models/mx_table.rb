@@ -106,6 +106,7 @@ class MxTable < ActiveRecord::Base
     update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
     update_primary_key!(vue_model)
+    update_indices!(vue_model)
   end
 
   def update_table_columns!(vue_model)
@@ -121,13 +122,15 @@ class MxTable < ActiveRecord::Base
   end
 
   def update_columns_for_update!(column_ids, vue_model)
-    vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+    cols = vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }
+    cols.each do |vm_column|
       table_columns.find(vm_column.id).save_with!(vm_column)
     end
   end
 
   def create_columns_for_update!(column_ids, vue_model)
-    vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+    cols = vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }
+    cols.each do |vm_column|
       table_columns.build.save_with!(vm_column)
     end
   end
@@ -142,6 +145,33 @@ class MxTable < ActiveRecord::Base
       end
     else
       primary_key.try(:destroy)
+    end
+  end
+
+  def update_indices!(vue_model)
+    index_vue_models = create_index_vue_models_for_saving(vue_model)
+    index_ids = index_vue_models.map { |idx| idx.id.to_s }
+    base_index_ids = indices.map { |idx| idx.id.to_s }
+    delete_indices_for_update!(base_index_ids - index_ids)
+    update_indices_for_update!(base_index_ids & index_ids, vue_model)
+    create_indices_for_update!(index_ids - base_index_ids, vue_model)
+  end
+
+  def delete_indices_for_update!(index_ids)
+    index_ids.each { |id| indices.find(id).destroy }
+  end
+
+  def update_indices_for_update!(index_ids, vue_model)
+    idxs = vue_model.indices.select { |vm_index| index_ids.include?(vm_index.id.to_s) }
+    idxs.each do |vm_index|
+      indices.find(vm_index.id).save_with!(vm_index)
+    end
+  end
+
+  def create_indices_for_update!(index_ids, vue_model)
+    idxs = vue_model.indices.select { |vm_index| index_ids.include?(vm_index.id.to_s) }
+    idxs.each do |vm_index|
+      indices.build.save_with!(vm_index)
     end
   end
 end

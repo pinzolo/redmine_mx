@@ -87,7 +87,7 @@ class MxVm::Table
     data_type_ids = data_types.map { |data_type| data_type.id.to_s }
     table_columns.each do |column|
       column.data_type_ids = data_type_ids
-      column.using_physical_names = self.columns.reject { |col| col.id == column.id }.map(&:physical_name)
+      column.using_physical_names = columns.reject { |col| col.id == column.id }.map(&:physical_name)
     end
   end
 
@@ -99,7 +99,7 @@ class MxVm::Table
   def assign_values_for_indices_validation(other_tables, belonging_column_ids)
     other_index_names = other_tables.map { |table| table.indices.map(&:name) }.flatten
     indices.each do |index|
-      index.used_index_names = other_index_names
+      index.used_index_names = other_index_names + indices.reject { |idx| idx.id.to_s == index.id.to_s }.map(&:name)
       index.belonging_column_ids = belonging_column_ids
     end
   end
