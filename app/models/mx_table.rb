@@ -111,22 +111,22 @@ class MxTable < ActiveRecord::Base
   def update_table_columns!(vue_model)
     column_ids = vue_model.table_columns.map { |col| col.id.to_s }
     base_column_ids = table_columns.map { |col| col.id.to_s }
-    delete_columns!(base_column_ids - column_ids)
-    update_columns!(base_column_ids & column_ids, vue_model)
-    create_columns!(column_ids - base_column_ids, vue_model)
+    delete_columns_for_update!(base_column_ids - column_ids)
+    update_columns_for_update!(base_column_ids & column_ids, vue_model)
+    create_columns_for_update!(column_ids - base_column_ids, vue_model)
   end
 
-  def delete_columns!(column_ids)
+  def delete_columns_for_update!(column_ids)
     column_ids.each { |id| table_columns.find(id).destroy }
   end
 
-  def update_columns!(column_ids, vue_model)
+  def update_columns_for_update!(column_ids, vue_model)
     vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
       table_columns.find(vm_column.id).save_with!(vm_column)
     end
   end
 
-  def create_columns!(column_ids, vue_model)
+  def create_columns_for_update!(column_ids, vue_model)
     vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
       table_columns.build.save_with!(vm_column)
     end
