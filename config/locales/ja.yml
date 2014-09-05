@@ -141,3 +141,8 @@ ja:
         primary_key_name: '主キー名'
         primary_key_column_column_id: '主キー列'
         primary_key_column_position: '主キー順序'
+        index_name: 'インデックス名'
+        index_condition: 'インデックス条件'
+        index_columns: 'インデックス列'
+        index_column_column_id: 'インデックス列'
+        index_column_position: 'インデックス列順序'

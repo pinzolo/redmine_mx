@@ -7,6 +7,7 @@ class MxVm::Index
   validates :name, presence: true,
                    length: { maximum: 255 },
                    exclusion: { in: ->(record){ record.used_index_names }, message: :taken, if: 'name.present?' }
+  validates :columns, presence: true
   validates :condition, length: { maximum: 255 }
 
   def initialize(params={})

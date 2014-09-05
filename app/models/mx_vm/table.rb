@@ -76,7 +76,7 @@ class MxVm::Table
   def assign_values_for_validation
     assign_values_for_columns_validation
 
-    other_tables = MxDatabase.find(database_id).tables.reject { |table| table.id.to_s == self.id.to_s }
+    other_tables = MxDatabase.includes(tables: :indices).find(database_id).tables.reject { |table| table.id.to_s == self.id.to_s }
     belonging_column_ids = columns.map { |column| column.id.to_s }
 
     assign_values_for_primary_key_validation(other_tables, belonging_column_ids)

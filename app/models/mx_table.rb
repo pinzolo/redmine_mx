@@ -61,6 +61,7 @@ class MxTable < ActiveRecord::Base
     save!
     create_table_columns!(vue_model)
     create_primary_key!(vue_model) if vue_model.primary_key.columns.present?
+    create_indices!(vue_model) if vue_model.indices.present?
   end
 
   def create_table_columns!(vue_model)
@@ -72,16 +73,32 @@ class MxTable < ActiveRecord::Base
   end
 
   def create_primary_key!(vue_model)
-    build_primary_key.save_with!(create_primary_key_vue_model_for_db(vue_model))
+    build_primary_key.save_with!(create_primary_key_vue_model_for_saving(vue_model))
   end
 
-  def create_primary_key_vue_model_for_db(vue_model)
-    pk_vue_model = vue_model.primary_key.dup
-    pk_vue_model.columns.each do |column|
-      column_physical_name = vue_model.column_physical_name_for(column.column_id)
-      column.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+  def create_indices!(vue_model)
+    index_vue_models = create_index_vue_models_for_saving(vue_model)
+    index_vue_models.each { |vm_index| indices.build.save_with!(vm_index) }
+  end
+
+  def create_primary_key_vue_model_for_saving(vue_model)
+    vue_model.primary_key.dup.tap do |pk_vue_model|
+      pk_vue_model.columns.each do |column|
+        column_physical_name = vue_model.column_physical_name_for(column.column_id)
+        column.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+      end
     end
-    pk_vue_model
+  end
+
+  def create_index_vue_models_for_saving(vue_model)
+    vue_model.indices.map do |index_vue_model|
+      index_vue_model.dup.tap do |duplicated_index_vue_model|
+        duplicated_index_vue_model.columns.each do |column|
+          column_physical_name = vue_model.column_physical_name_for(column.column_id)
+          column.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+        end
+      end
+    end
   end
 
   def update_with!(vue_model)
@@ -89,7 +106,7 @@ class MxTable < ActiveRecord::Base
     update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
     if vue_model.primary_key.columns.present?
-      vm_primary_key = create_primary_key_vue_model_for_db(vue_model)
+      vm_primary_key = create_primary_key_vue_model_for_saving(vue_model)
       if primary_key
         primary_key.save_with!(vm_primary_key)
       else
