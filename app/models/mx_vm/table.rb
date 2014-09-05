@@ -36,7 +36,7 @@ class MxVm::Table
   end
 
   def column_physical_name_for(id)
-    self.columns.detect { |column| column.id.to_s == id.to_s }.try(:physical_name)
+    columns.detect { |column| column.id.to_s == id.to_s }.try(:physical_name)
   end
 
   def valid_with_children?
