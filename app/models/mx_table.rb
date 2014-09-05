@@ -7,13 +7,20 @@ class MxTable < ActiveRecord::Base
   belongs_to :column_set, class_name: 'MxColumnSet'
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
-  has_one :primary_key, class_name: 'MxPrimaryKey', foreign_key: :table_id, dependent: :destroy
+  has_one :primary_key, class_name: 'MxPrimaryKey',
+                        foreign_key: :table_id,
+                        include: :columns,
+                        dependent: :destroy
   has_many :table_columns, class_name: 'MxTableColumn',
                            foreign_key: :owner_id,
                            order: :position,
                            include: [:mx_comment, :data_type],
                            dependent: :destroy
-  has_many :indices, class_name: 'MxIndex', foreign_key: :table_id, order: :name, dependent: :destroy
+  has_many :indices, class_name: 'MxIndex',
+                     foreign_key: :table_id,
+                     order: :name,
+                     include: [:mx_comment, :columns],
+                     dependent: :destroy
   has_many :foreign_keys, class_name: 'MxForeignKey', foreign_key: :table_id, dependent: :destroy
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
