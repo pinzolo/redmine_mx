@@ -105,6 +105,34 @@ class MxTable < ActiveRecord::Base
     self.updated_user_id = User.current.id
     update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
+    update_primary_key!(vue_model)
+  end
+
+  def update_table_columns!(vue_model)
+    column_ids = vue_model.table_columns.map { |col| col.id.to_s }
+    base_column_ids = table_columns.map { |col| col.id.to_s }
+    delete_columns!(base_column_ids - column_ids)
+    update_columns!(base_column_ids & column_ids, vue_model)
+    create_columns!(column_ids - base_column_ids, vue_model)
+  end
+
+  def delete_columns!(column_ids)
+    column_ids.each { |id| table_columns.find(id).destroy }
+  end
+
+  def update_columns!(column_ids, vue_model)
+    vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+      table_columns.find(vm_column.id).save_with!(vm_column)
+    end
+  end
+
+  def create_columns!(column_ids, vue_model)
+    vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
+      table_columns.build.save_with!(vm_column)
+    end
+  end
+
+  def update_primary_key!(vue_model)
     if vue_model.primary_key.columns.present?
       vm_primary_key = create_primary_key_vue_model_for_saving(vue_model)
       if primary_key
@@ -114,21 +142,6 @@ class MxTable < ActiveRecord::Base
       end
     else
       primary_key.try(:destroy)
-    end
-  end
-
-  def update_table_columns!(vue_model)
-    column_ids = vue_model.table_columns.map { |col| col.id.to_s }
-    base_column_ids = table_columns.map { |col| col.id.to_s }
-    insert_column_ids = column_ids - base_column_ids
-    update_column_ids = base_column_ids & column_ids
-    delete_column_ids = base_column_ids - column_ids
-    delete_column_ids.each { |id| table_columns.find(id).destroy }
-    vue_model.table_columns.select { |vm_column| update_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
-      table_columns.find(vm_column.id).save_with!(vm_column)
-    end
-    vue_model.table_columns.select { |vm_column| insert_column_ids.include?(vm_column.id.to_s) }.each do |vm_column|
-      table_columns.build.save_with!(vm_column)
     end
   end
 end
