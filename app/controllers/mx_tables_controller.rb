@@ -6,7 +6,7 @@ class MxTablesController < ApplicationController
   before_filter :find_table, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tables = MxTable.where(database_id: @database).order(:physical_name).includes(:table_columns, :mx_comment)
+    @tables = MxTable.where(database_id: @database).order(:physical_name).includes(:updated_user, :mx_comment)
   end
 
   def show
