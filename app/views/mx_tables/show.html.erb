@@ -71,6 +71,33 @@
       </tbody>
     </table>
   </div>
+<% if @table.indices.present? %>
+  <h2 class="mx-section-caption"><%= l('mx.title_indices') %></h2>
+  <div id="mx-columns" class="mx-area">
+    <table class="mx-grid">
+      <thead>
+        <tr>
+          <th><%= mx_label_for('index_name') %></th>
+          <th><%= mx_label_for('columns') %></th>
+          <th><%= mx_label_for('unique') %></th>
+          <th><%= mx_label_for('condition') %></th>
+          <th><%= mx_label_for('comment') %></th>
+        </tr>
+      </thead>
+      <tbody>
+  <% @table.indices.each do |index| %>
+        <tr id="mx-index-<%= index.id %>">
+          <td><%= index.name %></td>
+          <td><%= mx_enumerate_texts_with_wbr(index.columns.map(&:physical_name)) %></td>
+          <td class="mx-mark-cell"><%= mx_bool_icon(index.unique, blank_false: true) %></td>
+          <td><%= index.condition %></td>
+          <td><%= index.comment %></td>
+        </tr>
+  <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 </div>
 
 <% html_title(l('mx.title_tables_detail', name: @table.physical_name)) %>
