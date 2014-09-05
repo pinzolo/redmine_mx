@@ -125,6 +125,12 @@ function prepareMxTableVue(data, $) {
         if (pkIndex > -1) {
           this.primary_key.column_ids.$remove(pkIndex);
         }
+        this.indices.forEach(function(index) {
+          var idxIndex = $.inArray(column.$data.column.id.toString(), index.column_ids);
+          if (idxIndex > -1) {
+            index.column_ids.$remove(idxIndex);
+          }
+        });
       },
       upColumn: function(column) {
         this.table_columns.$remove(column.$index);
