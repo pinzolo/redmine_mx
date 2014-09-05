@@ -31,23 +31,28 @@ class MxPrimaryKey < ActiveRecord::Base
 
   def update_with!(vue_model)
     update_attributes!(name: vue_model.name)
-    update_columns!(vue_model)
+    update_column_rels_with!(vue_model)
   end
 
-  def update_columns!(vue_model)
+  def update_column_rels_with!(vue_model)
     column_ids = vue_model.columns.map { |col| col.column_id.to_s }
     base_column_ids = columns_rels.map { |col| col.column_id.to_s }
+    delete_column_rels!(base_column_ids - column_ids)
+    update_column_rels!(base_column_ids & column_ids, vue_model)
+    create_column_rels!(column_ids - base_column_ids, vue_model)
+  end
 
-    insert_column_ids = column_ids - base_column_ids
-    update_column_ids = base_column_ids & column_ids
-    delete_column_ids = base_column_ids - column_ids
+  def delete_column_rels!(column_ids)
+    column_ids.each { |column_id| columns_rels.where(column_id: column_id).first.destroy }
+  end
 
-    delete_column_ids.each { |column_id| columns_rels.where(column_id: column_id).first.destroy }
-    update_columns = vue_model.columns.select { |vm_pk_column| update_column_ids.include?(vm_pk_column.column_id.to_s) }
-    update_columns.each do |vm_pk_column|
-      columns_rels.where(column_id: vm_pk_column.column_id).first.save_with!(vm_pk_column)
-    end
-    insert_columns = vue_model.columns.select { |vm_pk_column| insert_column_ids.include?(vm_pk_column.column_id.to_s) }
-    insert_columns.each { |vm_pk_column| columns_rels.build.save_with!(vm_pk_column) }
+  def create_column_rels!(column_ids, vue_model)
+    cols = vue_model.columns.select { |vm_pk_column| column_ids.include?(vm_pk_column.column_id.to_s) }
+    cols.each { |vm_pk_column| columns_rels.build.save_with!(vm_pk_column) }
+  end
+
+  def update_column_rels!(column_ids , vue_model)
+    cols = vue_model.columns.select { |vm_pk_column| column_ids.include?(vm_pk_column.column_id.to_s) }
+    cols.each { |vm_pk_column| columns_rels.where(column_id: vm_pk_column.column_id).first.save_with!(vm_pk_column) }
   end
 end
