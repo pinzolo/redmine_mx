@@ -14,4 +14,16 @@ class MxIndicesFunctionalTest < ActionController::TestCase
     by_manager
   end
 
+  def test_destroy
+    index_ids = MxIndex.where(table_id: 1).map(&:id)
+    assert_difference 'MxIndex.count', -2 do
+      assert_difference 'MxIndexColumn.count', -3 do
+        delete :destroy, project_id: @project, database_id: @database, id: 1
+      end
+    end
+    assert_response 302
+    assert_redirected_to project_mx_database_tables_path(@project, @database)
+    assert MxIndex.where(table_id: 1).empty?
+    assert MxIndexColumn.where(index_id: index_ids).empty?
+  end
 end
