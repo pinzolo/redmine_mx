@@ -360,6 +360,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
     assert MxPrimaryKey.where(table_id: 4).empty?
     assert MxPrimaryKeyColumn.where(primary_key_id: primary_key_id).empty?
   end
+
   private
 
   def valid_create_params
