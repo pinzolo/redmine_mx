@@ -1,8 +1,8 @@
 class MxVm::Table
   include MxVm::VueModel
-  attr_accessor :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version
-  attr_accessor :primary_key, :indices
-  attr_accessor :data_types, :column_sets
+  attr_accessor :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version,
+                :primary_key, :indices, :foreign_keys,
+                :data_types, :column_sets
 
   validates :physical_name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxTable', scope: :database_id }
   validates :logical_name, length: { maximum: 255 }
@@ -45,6 +45,7 @@ class MxVm::Table
     merge_children_errors!(table_columns, :column)
     merge_children_errors!([primary_key], :primary_key)
     merge_children_errors!(indices, :index)
+    merge_children_errors!(foreign_keys, :foreign_key)
     clear_assigned_values
     errors.empty?
   end
@@ -71,6 +72,7 @@ class MxVm::Table
     self.data_types ||= []
     self.column_sets ||= []
     self.indices ||= []
+    self.foreign_keys ||= []
   end
 
   def assign_values_for_validation
@@ -104,10 +106,19 @@ class MxVm::Table
     end
   end
 
+  def assign_values_for_foreign_keys_validation(other_tables, belonging_column_ids)
+    other_foreign_key_names = other_tables.map { |table| table.foreign_keys.map(&:name) }.flatten
+    foreign_keys.each do |foreign_key|
+      foreign_key.used_foreign_key_names = other_foreign_key_names + foreign_keys.reject { |fkey| fkey.id.to_s == foreign_key.id.to_s }.map(&:name)
+      foreign_key.belonging_column_ids = belonging_column_ids
+    end
+  end
+
   def clear_assigned_values
     clear_assigned_values_of_columns
-    clear_assigned_values_of_primary_keys
+    clear_assigned_values_of_primary_key
     clear_assigned_values_of_indices
+    clear_assigned_values_of_foreign_keys
   end
 
   def clear_assigned_values_of_columns
@@ -117,7 +128,7 @@ class MxVm::Table
     end
   end
 
-  def clear_assigned_values_of_primary_keys
+  def clear_assigned_values_of_primary_key
     primary_key.used_primary_key_names = nil
     primary_key.belonging_column_ids = nil
   end
@@ -126,6 +137,13 @@ class MxVm::Table
     indices.each do |index|
       index.used_index_names = nil
       index.belonging_column_ids = nil
+    end
+  end
+
+  def clear_assigned_values_of_foreign_keys
+    foreign_keys.each do |foreign_key|
+      foreign_key.used_foreign_key_names = nil
+      foreign_key.belonging_column_ids = nil
     end
   end
 end
