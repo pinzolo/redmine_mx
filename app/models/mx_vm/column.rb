@@ -1,8 +1,8 @@
 class MxVm::Column
   include MxVm::VueModel
 
-  attr_accessor :physical_name, :logical_name, :data_type_id, :size, :scale, :nullable, :default_value, :position, :comment,
-                :data_type_ids, :using_physical_names
+  def_attr :physical_name, :logical_name, :data_type_id, :size, :scale, :nullable, :default_value, :position, :comment
+  attr_accessor :data_type_ids, :using_physical_names
 
   validates :physical_name, presence: true,
                             length: { maximum: 255 },
@@ -24,6 +24,11 @@ class MxVm::Column
       build_from_mx_column(params)
     end
   end
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

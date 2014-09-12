@@ -1,8 +1,8 @@
 class MxVm::ForeignKey
   include MxVm::VueModel
 
-  attr_accessor :name, :ref_table_id, :comment, :relations,
-                :used_foreign_key_names, :belonging_column_ids
+  def_attr :name, :ref_table_id, :comment, :relations
+  attr_accessor :used_foreign_key_names, :belonging_column_ids
 
   validates :name, presence: true,
                    length: { maximum: 255 },
@@ -29,6 +29,11 @@ class MxVm::ForeignKey
     errors.empty?
   end
   alias_method_chain :valid?, :relations
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors, :relations])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

@@ -1,7 +1,7 @@
 class MxVm::ColumnSet
   include MxVm::VueModel
 
-  attr_accessor :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
+  def_attr :name, :database_id, :comment, :data_types, :header_columns, :footer_columns, :lock_version
 
   validates :name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
 
@@ -31,6 +31,11 @@ class MxVm::ColumnSet
     errors.empty?
   end
   alias_method_chain :valid?, :columns
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors, :header_columns, :footer_columns])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

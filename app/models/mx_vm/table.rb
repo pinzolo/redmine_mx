@@ -1,8 +1,8 @@
 class MxVm::Table
   include MxVm::VueModel
-  attr_accessor :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version,
-                :primary_key, :indices, :foreign_keys,
-                :data_types, :column_sets
+  def_attr :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version,
+           :primary_key, :indices, :foreign_keys,
+           :data_types, :column_sets
 
   validates :physical_name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxTable', scope: :database_id }
   validates :logical_name, length: { maximum: 255 }
@@ -51,6 +51,11 @@ class MxVm::Table
   end
   alias_method_chain :valid?, :children
 
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors, :column_sets, :data_types, :table_columns, :primary_key, :indices, :foreign_keys])
+  end
+  alias_method_chain :as_json, :mx
+
   private
 
   def build_from_hash(params)
@@ -62,6 +67,9 @@ class MxVm::Table
     if params[:indices]
       self.indices = params[:indices].values.map { |index_params| MxVm::Index.new(index_params) }.sort_by { |idx| idx.position.to_i}
     end
+    if params[:foreign_keys]
+      self.foreign_keys = params[:foreign_keys].values.map { |foreign_key_params| MxVm::ForeignKey.new(foreign_keys) }.sort_by { |fk| fk.position.to_i }
+    end
   end
 
   def build_from_mx_table(table)
@@ -69,6 +77,7 @@ class MxVm::Table
     self.table_columns = table.table_columns.map { |column| MxVm::Column.new(column) }
     self.primary_key = MxVm::PrimaryKey.new(table.primary_key)
     self.indices = table.indices.map { |index| MxVm::Index.new(index) }
+    self.foreign_keys = table.foreign_keys.map { |foreign_key| MxVm::ForeignKey.new(foreign_key) }
   end
 
   def safe_collections

@@ -1,8 +1,8 @@
 class MxVm::Index
   include MxVm::VueModel
 
-  attr_accessor :name, :unique, :condition, :comment, :position, :columns, :column_ids,
-                :used_index_names, :belonging_column_ids
+  def_attr :name, :unique, :condition, :comment, :position, :columns, :column_ids
+  attr_accessor :used_index_names, :belonging_column_ids
 
   validates :name, presence: true,
                    length: { maximum: 255 },
@@ -28,6 +28,11 @@ class MxVm::Index
     errors.empty?
   end
   alias_method_chain :valid?, :columns
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

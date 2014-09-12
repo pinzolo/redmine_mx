@@ -1,7 +1,7 @@
 class MxVm::DbmsProduct
   include MxVm::VueModel
 
-  attr_accessor :name, :type, :comment, :lock_version, :data_types
+  def_attr :name, :type, :comment, :lock_version, :data_types
 
   validates :name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxDbmsProduct' }
   validates :type, presence: true, inclusion: { in: MxDbmsProduct::PRODUCT_TYPES.keys, if: 'type.present?' }
@@ -23,6 +23,11 @@ class MxVm::DbmsProduct
     errors.empty?
   end
   alias_method_chain :valid?, :data_types
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

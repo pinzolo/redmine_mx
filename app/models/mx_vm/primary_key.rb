@@ -1,8 +1,8 @@
 class MxVm::PrimaryKey
   include MxVm::VueModel
 
-  attr_accessor :name, :columns, :column_ids,
-                :used_primary_key_names, :belonging_column_ids
+  def_attr :name, :columns, :column_ids
+  attr_accessor :used_primary_key_names, :belonging_column_ids
 
   validates :name, length: { maximum: 255 }, exclusion: { in: ->(record){ record.used_primary_key_names }, message: :taken, if: 'name.present?' }
 
@@ -24,6 +24,11 @@ class MxVm::PrimaryKey
     errors.empty?
   end
   alias_method_chain :valid?, :columns
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors, :columns])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 

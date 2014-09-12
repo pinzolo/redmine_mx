@@ -1,7 +1,7 @@
 class MxVm::Database
   include MxVm::VueModel
 
-  attr_accessor :identifier, :dbms_product_id, :summary, :comment, :lock_version
+  def_attr :identifier, :dbms_product_id, :summary, :comment, :lock_version
 
   validates :identifier, presence: true,
                          length: { maximum: 255 },
@@ -13,5 +13,10 @@ class MxVm::Database
   def initialize(params={})
     simple_load_values!(params, :id, :identifier, :dbms_product_id, :summary, :comment, :lock_version)
   end
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 end
 

@@ -1,9 +1,8 @@
 class MxVm::ForeignKeyRelatin
   include MxVm::VueModel
 
-  attr_accessor :column_id, :ref_column_id, :position,
-                :belonging_column_ids, :belonging_column_ids_in_ref_table,
-                :valid_positions, :other_positions
+  def_attr :column_id, :ref_column_id, :position
+  attr_accessor :belonging_column_ids, :belonging_column_ids_in_ref_table, :valid_positions, :other_positions
 
   validates :column_id, presence: true, inclusion: { in: ->(record){ record.belonging_column_ids } }
   validates :ref_column_id, presence: true, inclusion: { in: ->(record){ record.belonging_column_ids_in_ref_table } }
@@ -15,4 +14,9 @@ class MxVm::ForeignKeyRelatin
   def initialize(params = {})
     simple_load_values!(params, :column_id, :ref_column_id, :position)
   end
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 end

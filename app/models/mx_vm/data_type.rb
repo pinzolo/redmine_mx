@@ -1,8 +1,8 @@
 class MxVm::DataType
   include MxVm::VueModel
 
-  attr_accessor :name, :sizable, :scalable, :position,
-                :using_names
+  def_attr :name, :sizable, :scalable, :position
+  attr_accessor :using_names
 
   validates :name, presence: true,
                    length: { maximum: 255 },
@@ -17,6 +17,11 @@ class MxVm::DataType
       build_from_mx_data_type(params)
     end
   end
+
+  def as_json_with_mx(options = {})
+    as_json_without_mx(root: false, methods: [:errors])
+  end
+  alias_method_chain :as_json, :mx
 
   private
 
