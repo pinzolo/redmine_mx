@@ -1,8 +1,8 @@
 class MxVm::ForeignKey
   include MxVm::VueModel
 
-  attr_accessor :name, :ref_table_id, :comment, :relations
-  attr_accessor :used_foreign_key_names, :belonging_column_ids
+  attr_accessor :name, :ref_table_id, :comment, :relations,
+                :used_foreign_key_names, :belonging_column_ids
 
   validates :name, presence: true,
                    length: { maximum: 255 },

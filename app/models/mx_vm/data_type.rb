@@ -1,8 +1,8 @@
 class MxVm::DataType
   include MxVm::VueModel
 
-  attr_accessor :name, :sizable, :scalable, :position
-  attr_accessor :using_names
+  attr_accessor :name, :sizable, :scalable, :position,
+                :using_names
 
   validates :name, presence: true,
                    length: { maximum: 255 },

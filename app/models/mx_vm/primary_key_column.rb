@@ -1,8 +1,8 @@
 class MxVm::PrimaryKeyColumn
   include MxVm::VueModel
 
-  attr_accessor :column_id, :position
-  attr_accessor :belonging_column_ids, :valid_positions, :other_positions
+  attr_accessor :column_id, :position,
+                :belonging_column_ids, :valid_positions, :other_positions
 
   validates :column_id, presence: true, inclusion: { in: ->(record){ record.belonging_column_ids } }
   validates :position, presence: true,
