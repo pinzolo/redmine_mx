@@ -55,9 +55,13 @@ class MxVm::Table
 
   def build_from_hash(params)
     simple_load_values_from_hash!(params, :id, :physical_name, :logical_name, :database_id, :column_set_id, :comment, :lock_version)
-    self.table_columns = params[:table_columns].values.map { |column_params| MxVm::Column.new(column_params) } if params[:table_columns]
+    if params[:table_columns]
+      self.table_columns = params[:table_columns].values.map { |column_params| MxVm::Column.new(column_params) }.sort_by { |col| col.position.to_i }
+    end
     self.primary_key = MxVm::PrimaryKey.new(params[:primary_key])
-    self.indices = params[:indices].values.map { |index_params| MxVm::Index.new(index_params) } if params[:indices]
+    if params[:indices]
+      self.indices = params[:indices].values.map { |index_params| MxVm::Index.new(index_params) }.sort_by { |idx| idx.position.to_i}
+    end
   end
 
   def build_from_mx_table(table)

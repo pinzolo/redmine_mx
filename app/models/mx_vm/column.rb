@@ -1,9 +1,8 @@
 class MxVm::Column
   include MxVm::VueModel
 
-  attr_accessor :physical_name, :logical_name, :data_type_id,
-    :size, :scale, :nullable, :default_value, :position, :comment
-  attr_accessor :data_type_ids, :using_physical_names
+  attr_accessor :physical_name, :logical_name, :data_type_id, :size, :scale, :nullable, :default_value, :position, :comment,
+                :data_type_ids, :using_physical_names
 
   validates :physical_name, presence: true,
                             length: { maximum: 255 },

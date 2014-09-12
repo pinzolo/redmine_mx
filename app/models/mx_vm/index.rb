@@ -1,8 +1,8 @@
 class MxVm::Index
   include MxVm::VueModel
 
-  attr_accessor :name, :unique, :condition, :comment, :columns, :column_ids
-  attr_accessor :used_index_names, :belonging_column_ids
+  attr_accessor :name, :unique, :condition, :comment, :position, :columns, :column_ids,
+                :used_index_names, :belonging_column_ids
 
   validates :name, presence: true,
                    length: { maximum: 255 },
@@ -32,7 +32,7 @@ class MxVm::Index
   private
 
   def build_from_hash(params)
-    simple_load_values_from_hash!(params, :id, :name, :condition, :comment)
+    simple_load_values_from_hash!(params, :id, :name, :condition, :comment, :position)
     self.unique = params[:unique].present?
     if params[:columns]
       column_vms = params[:columns].map { |column_id, position| MxVm::IndexColumn.new(column_id: column_id, position: position) }
