@@ -1,0 +1,105 @@
+<h2 class="mx-section-caption"><%= l('mx.title_foreign_keys') %></h2>
+<div id="mx-foreign-keys" class="mx-area">
+  <table class="mx-grid">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><%= mx_label_for('foreign_key_name', required: true) %></th>
+        <th><%= mx_label_for('columns', required: true) %></th>
+        <th><%= mx_label_for('ref_table', required: true) %></th>
+        <th><%= mx_label_for('ref_columns') %></th>
+        <th><%= mx_label_for('comment') %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-repeat="foreign_key: foreign_keys" id="mx-foreign-key-{{foreign_key.id}}" class="mx-foreign-key mx-fade" v-transition>
+        <% prefix = "mx_table[foreign_keys][{{foreign_key.id}}]" %>
+        <td><%= mx_image_button 'edit', 'v-on' => 'click: editForeignKey(this)' %></td>
+        <td class="{{classFor(foreign_key, 'name')}}">
+          {{foreign_key.name}}
+          <input type="hidden" name="<%= prefix %>[id]" v-model="foreign_key.id" />
+          <input type="hidden" name="<%= prefix %>[position]" v-model="$index" />
+          <input type="hidden" name="<%= prefix %>[name]" v-model="foreign_key.name" />
+        </td>
+        <td>
+          {{enumForeignKeyColumnNames(foreign_key)}}
+          <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][column_id]" value="{{relation.column_id}}" />
+          <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][position]" value="{{$index}}" />
+        </td>
+        <td class="{{classFor(foreign_key, 'ref_table_id')}}">
+          {{foreign_key.ref_table_name}}
+          <input type="hidden" name="<%= prefix %>[ref_table_id]" v-model="foreign_key.ref_table_id" />
+        </td>
+        <td>
+          {{enumRefColumnNames(foreign_key)}}
+          <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][ref_column_id]" value="{{relation.ref_column_id}}" />
+        </td>
+        <td>
+          {{foreign_key.comment}}
+          <input type="hidden" name="<%= prefix %>[comment]" v-model="foreign_key.comment" />
+        </td>
+        <td><%= mx_image_button 'delete', 'v-on' => "click: removeForeignKey(this)" %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="mx-new-foreign-key-link" class="mx-footer-commands">
+    <%= link_to l('mx.label_foreign_key_new'), '#mx-foreign-key-edit',  class: 'icon icon-add', 'v-on' => 'click: newForeignKey' %>
+  </div>
+</div>
+<div id="mx-foreign-key-edit" class="mx-area mx-temp-form">
+  <table class="mx-defs">
+    <tbody>
+      <tr>
+        <th><%= mx_label_for('foreign_key_name', required: true) %></th>
+        <td><input type="text" name="editingForeignKey[name]" size="70" v-model="editingForeignKey.name" /></td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('ref_table', required: true) %></th>
+        <td>
+          <select id="ref-table" name="editingForeignKey[ref_table_id]" v-model="editingForeignKey.ref_table_id" v-on="change: loadRefTableColumns(this)">
+            <%= mx_options_from_collection(other_tables, :id, :physical_name) %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('columns', required: true) %></th>
+        <td>
+          <fieldset class="mx-selected-columns">
+            <legend><%= l('mx.label_selected_columns') %></legend>
+            <table class="mx-grid">
+              <tbody>
+                <tr v-repeat="rel: editingForeignKey.relations">
+                  <td><%= mx_image_button 'delete', 'v-on' => "click: removeFromForeignKeyRelations(this)" %>&nbsp;{{getPhysicalName(rel.column_id)}}</td>
+                  <td>
+                    <select v-model="rel.ref_column_id">
+                      <option value=""></option>
+                      <option value="{{refTableColumn.id}}"
+                              v-repeat="refTableColumn: refTableColumns"
+                              v-attr="selected: rel.ref_column_id === refTableColumn.id.toString()">{{refTableColumn.physical_name}}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </fieldset>
+          <fieldset class="mx-unselected-columns">
+            <legend><%= l('mx.label_selectable_columns') %></legend>
+            <span v-repeat="columnId: foreignKeyUnselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getLogicalName(columnId)}}">
+              <%= mx_image_button 'add', 'v-on' => 'click: addToForeignKeyRelations(this)' %>&nbsp;{{getPhysicalName(columnId)}}
+            </span>
+          </fieldset>
+        </td>
+      </tr>
+      <tr>
+        <th><%= mx_label_for('comment') %></th>
+        <td><input type="text" name="editingForeignKey[comment]" size="70" v-model="editingForeignKey.comment" /></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mx-footer-commands">
+    <input type="button" name="save" value="<%= l(:button_save) %>" v-on="click: saveForeignKey" />
+    <%= link_to l(:button_cancel), '#mx-foreign-keys',  'v-on' => 'click: cancelForeignKeyEditing' %>
+  </div>
+</div>
+

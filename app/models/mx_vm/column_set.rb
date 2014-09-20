@@ -5,7 +5,7 @@ class MxVm::ColumnSet
 
   validates :name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxColumnSet', scope: :database_id }
 
-  def initialize(params={}, database=nil)
+  def initialize(params={}, database = nil)
     if params.is_a?(Hash)
       build_from_hash(params)
     elsif params.is_a?(MxColumnSet)
@@ -33,7 +33,7 @@ class MxVm::ColumnSet
   alias_method_chain :valid?, :columns
 
   def as_json_with_mx(options = {})
-    as_json_without_mx(root: false, methods: [:errors, :header_columns, :footer_columns])
+    as_json_without_mx(root: false, methods: [:errors, :data_types, :header_columns, :footer_columns])
   end
   alias_method_chain :as_json, :mx
 

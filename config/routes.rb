@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :mx, module: nil do
       resources :databases, controller: :mx_databases do
         resources :tables, controller: :mx_tables do
+          get :columns, on: :member
           resources :versions, controller: :mx_table_versions, only: [:index]
           match 'versions/:version', to: 'mx_table_versions#show', via: :get, as: 'version'
         end

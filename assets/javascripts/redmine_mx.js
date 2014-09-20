@@ -15,17 +15,44 @@ var mx = {
     return obj;
   },
   isPresent: function(text) {
-    console.log('isPresent');
     return text && text.length > 0;
   },
   isEmpty: function(text) {
-    console.log('isEmpty');
     return !this.isPresent(text);
   },
-  unselectedColumnIds: function(columns, selectedColumnIds, $) {
-    var allColumnIds = $.map(columns, function(column) { return column.id.toString(); });
+  unselectedColumnIds: function(allColumns, selectedColumnIds) {
+    var allColumnIds = $.map(allColumns, function(column) { return column.id.toString(); });
     return $.grep(allColumnIds, function(columnId) {
       return $.inArray(columnId.toString(), selectedColumnIds) < 0;
+    });
+  },
+  foreignKeyColumnIds: function(foreignKey) {
+    return $.map(foreignKey.relations, function(relation) { return relation.column_id; });
+  },
+  initEditingIndex: function(editingIndex) {
+    editingIndex.id = this.randomId();
+    editingIndex.name = '';
+    editingIndex.columnIds = [];
+    editingIndex.unique = false;
+    editingIndex.condition = '';
+    editingIndex.comment = '';
+  },
+  initEditingForeignKey: function(vueModel) {
+    vueModel.refTableColumns = [];
+    vueModel.editingForeignKey.id = this.randomId();
+    vueModel.editingForeignKey.name = '';
+    vueModel.editingForeignKey.ref_table_id = '';
+    vueModel.editingForeignKey.relations = [];
+    vueModel.editingForeignKey.comment = '';
+  },
+  loadRefTableColumns: function(vueModel, refTalbleId, func) {
+    $.ajax({
+      type: 'GET',
+      url: '../' + refTalbleId + '/columns'
+    }).done(function(columnsData) {
+      vueModel.refTableColumns = columnsData;
+    }).done(function() {
+      if (func) { func(); }
     });
   }
 };
@@ -95,7 +122,33 @@ function prepareMxColumnSetVue(data) {
 }
 
 function prepareMxTableVue(data, $) {
-  $('#mx-index-edit').hide();
+  var controllMxTableSubmitCommandsDisplay = function() {
+    $('#mx-table-submit-commands').toggle($('#mx-index-edit').is(':hidden') && $('#mx-foreign-key-edit').is(':hidden'));
+  };
+  var showMxIndexEdit = function() {
+    $('#mx-new-index-link').hide();
+    $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 }).promise().done(controllMxTableSubmitCommandsDisplay);
+  };
+  var hideMxIndexEdit = function() {
+    $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 }).promise().done(function() {
+      $('#mx-new-index-link').show();
+      controllMxTableSubmitCommandsDisplay();
+    });
+  };
+  var showMxForeignKeyEdit = function() {
+    $('#mx-new-foreign-key-link').hide();
+    $('#mx-foreign-key-edit').animate({ opacity: 'show' }, { duration: 300 }).promise().done(controllMxTableSubmitCommandsDisplay);
+  };
+  var hideMxForeignKeyEdit = function() {
+    $('#mx-foreign-key-edit').animate({ opacity: 'hide' }, { duration: 300 }).promise().done(function() {
+      $('#mx-new-foreign-key-link').show();
+      controllMxTableSubmitCommandsDisplay();
+    });
+  };
+
+  data.editingIndex = { id: mx.randomId(), columnIds: [], name: '', unique: false, condition: '', comment: '' };
+  data.editingForeignKey = { id: mx.randomId(), ref_table_id: '', relations: [], comment: '' };
+  data.refTableColumns = [];
   return new Vue({
     el: '#mx_table_form',
     data: data,
@@ -110,6 +163,13 @@ function prepareMxTableVue(data, $) {
       },
       columns: function() {
         return $.merge($.merge($.merge([], this.headerColumns), this.table_columns), this.footerColumns);
+      },
+      indexUnselectedColumnIds: function() {
+        return mx.unselectedColumnIds(this.columns, this.editingIndex.columnIds);
+      },
+      foreignKeyUnselectedColumnIds: function() {
+        var selectedColumnIds = mx.foreignKeyColumnIds(this.editingForeignKey);
+        return mx.unselectedColumnIds(this.columns, selectedColumnIds);
       }
     },
     methods: {
@@ -125,10 +185,30 @@ function prepareMxTableVue(data, $) {
         if (pkIndex > -1) {
           this.primary_key.column_ids.$remove(pkIndex);
         }
+        // editingIndex
+        var editingIndexColumnIdIndex = $.inArray(column.$data.column.id.toString(), this.editingIndex.columnIds);
+        if (editingIndexColumnIdIndex > -1) {
+          this.editingIndex.columnIds.$remove(editingIndexColumnIdIndex);
+        }
+        // indices
         this.indices.forEach(function(index) {
           var idxIndex = $.inArray(column.$data.column.id.toString(), index.column_ids);
           if (idxIndex > -1) {
             index.column_ids.$remove(idxIndex);
+          }
+        });
+        // editingForeignKey
+        var editingForeignKeyColumnIds = mx.foreignKeyColumnIds(this.editingForeignKey);
+        var editingForeignKeyColumnIdIndex = $.inArray(column.$data.column.id.toString(), editingForeignKeyColumnIds);
+        if (editingForeignKeyColumnIdIndex > -1) {
+          this.editingForeignKey.relations.$remove(editingForeignKeyColumnIdIndex);
+        }
+        // foreignKeys
+        this.foreign_keys.forEach(function(foreignKey) {
+          var foreignKeyColumnIds = mx.foreignKeyColumnIds(foreignKey);
+          var foreignKeyColumnIdIndex = $.inArray(column.$data.column.id.toString(), foreignKeyColumnIds);
+          if (foreignKeyColumnIdIndex > -1) {
+            foreignKey.relations.$remove(foreignKeyColumnIdIndex);
           }
         });
       },
@@ -146,8 +226,53 @@ function prepareMxTableVue(data, $) {
       getColumn: function(columnId) {
         return mx.findById(this.columns, columnId);
       },
+      getPhysicalName: function(columnId) {
+        var col = this.getColumn(columnId);
+        return col ? col.physical_name : '';
+      },
+      getLogicalName: function(columnId) {
+        var col = this.getColumn(columnId);
+        return col ? col.logical_name : '';
+      },
       getDataType: function(dataTypeId) {
         return mx.findById(this.data_types, dataTypeId);
+      },
+      changeColumnSet: function() {
+        var baseColumnIds = $.map(this.columns, function(col) { return col.id.toString(); });
+        // editingIndex
+        for (var i = this.editingIndex.columnIds.length - 1; i >= 0; i--) {
+          var columnId = this.editingIndex.columnIds[i].toString();
+          if ($.inArray(columnId, baseColumnIds) === -1) {
+            this.editingIndex.columnIds.$remove(i);
+          }
+        }
+        // indices
+        this.indices.forEach(function(index) {
+          for (var i = index.column_ids.length - 1; i >= 0; i--) {
+            var columnId = index.column_ids[i].toString();
+            if ($.inArray(columnId, baseColumnIds) === -1) {
+              index.column_ids.$remove(i);
+            }
+          }
+        });
+        // editingForeignKey
+        var editingForeignKeyColumnIds = mx.foreignKeyColumnIds(this.editingForeignKey);
+        for (var i = editingForeignKeyColumnIds.length - 1; i >= 0; i--) {
+          var columnId = editingForeignKeyColumnIds[i].toString();
+          if ($.inArray(columnId, baseColumnIds) === -1) {
+            this.editingForeignKey.relations.$remove(i);
+          }
+        }
+        // foreignKeys
+        this.foreign_keys.forEach(function(foreignKey) {
+          var foreignKeyColumnIds = mx.foreignKeyColumnIds(foreignKey);
+          for (var i = foreignKeyColumnIds.length - 1; i >= 0; i--) {
+            var columnId = foreignKeyColumnIds[i].toString();
+            if ($.inArray(columnId, baseColumnIds) === -1) {
+              foreignKey.relations.$remove(i);
+            }
+          }
+        });
       },
       sizeEditable: function(obj) {
         var dataType = this.getDataType(obj.$data.column.data_type_id);
@@ -181,10 +306,8 @@ function prepareMxTableVue(data, $) {
         }
       },
       newIndex: function() {
-        var allColumnIds = $.map(this.columns, function(column) { return column.id.toString(); });
-        this.editingIndex = { id: mx.randomId(), unselectedColumnIds: allColumnIds, columnIds: [] };
-        $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
-        $('#mx-new-index-link').hide();
+        mx.initEditingIndex(this.editingIndex);
+        showMxIndexEdit();
       },
       editIndex: function(index) {
         this.editingIndex.id = index.$data.index.id;
@@ -193,43 +316,22 @@ function prepareMxTableVue(data, $) {
         this.editingIndex.unique = index.$data.index.unique;
         this.editingIndex.condition = index.$data.index.condition;
         this.editingIndex.comment = index.$data.index.comment;
-        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
-        $('#mx-index-edit').animate({ opacity: 'show' }, { duration: 300 });
-        $('#mx-new-index-link').hide();
+        showMxIndexEdit();
       },
       removeIndex: function(index) {
         this.indices.$remove(index.$index);
       },
       addToIndexColumns: function(columnId) {
         this.editingIndex.columnIds.push(columnId.$data.columnId);
-        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
       },
       removeFromIndexColumns: function(columnId) {
         this.editingIndex.columnIds.$remove(columnId.$index);
-        var selectedColumnIds = this.editingIndex ? this.editingIndex.columnIds : [];
-        this.editingIndex.unselectedColumnIds = mx.unselectedColumnIds(this.columns, selectedColumnIds, $);
-      },
-      upIndexColumn: function(columnId) {
-        this.editingIndex.columnIds.$remove(columnId.$index);
-        this.editingIndex.columnIds.splice(columnId.$index - 1, 0, columnId.$data.columnId);
-      },
-      downIndexColumn: function(columnId) {
-        this.editingIndex.columnIds.$remove(columnId.$index);
-        this.editingIndex.columnIds.splice(columnId.$index + 1, 0, columnId.$data.columnId);
-      },
-      cancelIndexEditing: function() {
-        $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
-        $('#mx-new-index-link').show();
-        this.editingIndex = { id: mx.randomId(), columnIds: [] };
       },
       saveIndex: function() {
-        $('#mx-index-edit').animate({ opacity: 'hide' }, { duration: 300 });
-        $('#mx-new-index-link').show();
+        hideMxIndexEdit();
         var savedIndexIds = $.map(this.indices, function(index) { return index.id.toString(); });
         var indexPosition = $.inArray(this.editingIndex.id.toString(), savedIndexIds);
-        var data = {
+        var indexData = {
           id: this.editingIndex.id,
           name: this.editingIndex.name,
           column_ids: this.editingIndex.columnIds,
@@ -238,21 +340,99 @@ function prepareMxTableVue(data, $) {
           comment: this.editingIndex.comment
         };
         if (indexPosition > -1) {
-          this.indices.$set(indexPosition, data);
+          this.indices.$set(indexPosition, indexData);
         } else {
-          this.indices.push(data);
+          this.indices.push(indexData);
         }
-        this.editingIndex = { id: mx.randomId(), columnIds: [] };
+        mx.initEditingIndex(this.editingIndex);
+      },
+      cancelIndexEditing: function() {
+        hideMxIndexEdit();
+        mx.initEditingIndex(this.editingIndex);
       },
       enumColumnNames: function(columnIds) {
         if (!columnIds) {
           return '';
         }
-        var columns = this.columns;
+        var cols = this.columns;
         var physicalNames = $.map(columnIds, function(columnId) {
-          return mx.findById(columns, columnId).physical_name;
+          var col = mx.findById(cols, columnId);
+          return col ? col.physical_name : '';
         });
         return physicalNames.join(', ');
+      },
+      loadRefTableColumns: function() {
+        var refTableId = $('#ref-table').val();
+        if (refTableId === '') {
+          this.refTableColumns = [];
+          return false;
+        }
+        mx.loadRefTableColumns(this, refTableId);
+      },
+      newForeignKey: function() {
+        mx.initEditingForeignKey(this);
+        showMxForeignKeyEdit();
+      },
+      editForeignKey: function(foreignKey) {
+        var editingFk = this.editingForeignKey;
+        mx.loadRefTableColumns(this, foreignKey.$data.foreign_key.ref_table_id, function() {
+          editingFk.id = foreignKey.$data.foreign_key.id;
+          editingFk.name = foreignKey.$data.foreign_key.name;
+          editingFk.ref_table_id = foreignKey.$data.foreign_key.ref_table_id;
+          editingFk.relations = foreignKey.$data.foreign_key.relations;
+          editingFk.comment = foreignKey.$data.foreign_key.comment;
+          console.log(foreignKey.$data.foreign_key.relations);
+          showMxForeignKeyEdit();
+        });
+      },
+      addToForeignKeyRelations: function(columnId) {
+        this.editingForeignKey.relations.push({ id: mx.randomId(), column_id: columnId.$data.columnId });
+      },
+      removeFromForeignKeyRelations: function(relation) {
+        this.editingForeignKey.relations.$remove(relation.$index);
+      },
+      saveForeignKey: function() {
+        hideMxForeignKeyEdit();
+        var savedForeignKeyIds = $.map(this.foreign_keys, function(foreignKey) { return foreignKey.id.toString(); });
+        var foreignKeyPosition = $.inArray(this.editingForeignKey.id.toString(), savedForeignKeyIds);
+        var foreignKeyData = {
+          id: this.editingForeignKey.id,
+          name: this.editingForeignKey.name,
+          ref_table_id: this.editingForeignKey.ref_table_id,
+          ref_table_name: $('#ref-table option:selected').text(),
+          comment: this.editingForeignKey.comment
+        };
+        foreignKeyData.relations = [];
+        var refTableCols = this.refTableColumns;
+        this.editingForeignKey.relations.forEach(function(relation) {
+          var refColumnName = '';
+          refTableCols.forEach(function(refTableColumn) {
+            if (refTableColumn.id.toString() === relation.ref_column_id.toString()) {
+              refColumnName = refTableColumn.physical_name;
+            }
+          });
+          foreignKeyData.relations.push({ id: relation.id, column_id: relation.column_id, ref_column_id: relation.ref_column_id, ref_column_name: refColumnName });
+        });
+        if (foreignKeyPosition > -1) {
+          this.foreign_keys.$set(foreignKeyPosition, foreignKeyData);
+        } else {
+          this.foreign_keys.push(foreignKeyData);
+        }
+        mx.initEditingForeignKey(this);
+      },
+      cancelForeignKeyEditing: function() {
+        mx.initEditingForeignKey(this);
+        hideMxForeignKeyEdit();
+      },
+      removeForeignKey: function(foreignKey) {
+        this.foreign_keys.$remove(foreignKey.$index);
+      },
+      enumForeignKeyColumnNames: function(foreignKey) {
+        return this.enumColumnNames(mx.foreignKeyColumnIds(foreignKey));
+      },
+      enumRefColumnNames: function(foreignKey) {
+        var refColumnNames = $.map(foreignKey.relations, function(relation) { return relation.ref_column_name; });
+        return refColumnNames.join(', ');
       }
     }
   });

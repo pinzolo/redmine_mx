@@ -50,6 +50,9 @@ ja:
     label_index_new: '新しいインデックス'
     label_condition: '条件'
     label_unique: 'ユニーク'
+    label_foreign_key_name: '外部キー名'
+    label_ref_table: '参照テーブル'
+    label_ref_columns: '参照列'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
@@ -72,6 +75,7 @@ ja:
     title_tables_edit: 'テーブルの編集'
     title_columns: '列一覧'
     title_indices: 'インデックス'
+    title_foreign_keys: '外部キー'
 
     tab_tables: 'テーブル'
     tab_column_sets: '列セット'

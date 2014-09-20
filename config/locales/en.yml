@@ -50,6 +50,10 @@ en:
     label_index_name: 'Index name'
     label_condition: 'Condition'
     label_unique: 'Unique'
+    label_foreign_key_new: 'New foreign key'
+    label_foreign_key_name: 'Foreign key name'
+    label_ref_table: 'Refering table'
+    label_ref_columns: 'Refering columns'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
@@ -72,6 +76,7 @@ en:
     title_tables_edit: 'Edit table'
     title_columns: 'Columns'
     title_indices: 'Indices'
+    title_foreign_keys: 'Foreign keys'
 
     tab_tables: 'Tables'
     tab_column_sets: 'Column set'

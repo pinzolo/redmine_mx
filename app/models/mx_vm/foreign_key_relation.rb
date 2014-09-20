@@ -15,8 +15,12 @@ class MxVm::ForeignKeyRelatin
     simple_load_values!(params, :column_id, :ref_column_id, :position)
   end
 
+  def ref_column_name
+    @ref_column_name ||= MxColumn.where(id: ref_column_id).first.try(:physical_name)
+  end
+
   def as_json_with_mx(options = {})
-    as_json_without_mx(root: false, methods: [:errors])
+    as_json_without_mx(root: false, methods: [:errors, :ref_column_name])
   end
   alias_method_chain :as_json, :mx
 end

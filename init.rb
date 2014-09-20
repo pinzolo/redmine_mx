@@ -7,7 +7,7 @@ Redmine::Plugin.register :redmine_mx do
   author_url 'https://github.com/pinzolo'
 
   project_module :mx do
-    permission :view_mx_tables, mx_tables: [:index, :show],
+    permission :view_mx_tables, mx_tables: [:index, :show, :columns],
                                 mx_databases: [:index, :show],
                                 mx_column_sets: [:index, :show],
                                 mx_table_versions: [:index, :show]

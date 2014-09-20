@@ -21,6 +21,10 @@ class MxVm::ForeignKey
     self.relations ||= []
   end
 
+  def ref_table_name
+    @ref_table_name ||= MxTable.where(id: ref_table_id).first.try(:physical_name)
+  end
+
   def valid_with_relations?
     valid_without_columns?
     assign_values_to_relations_for_validation
@@ -31,7 +35,7 @@ class MxVm::ForeignKey
   alias_method_chain :valid?, :relations
 
   def as_json_with_mx(options = {})
-    as_json_without_mx(root: false, methods: [:errors, :relations])
+    as_json_without_mx(root: false, methods: [:errors, :relations, :ref_table_name])
   end
   alias_method_chain :as_json, :mx
 

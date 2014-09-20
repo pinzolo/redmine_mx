@@ -46,7 +46,7 @@
     <%= link_to l('mx.label_index_new'), '#mx-index-edit',  class: 'icon icon-add', 'v-on' => 'click: newIndex' %>
   </div>
 </div>
-<div id="mx-index-edit" class="mx-area">
+<div id="mx-index-edit" class="mx-area mx-temp-form">
   <table class="mx-defs">
     <tbody>
       <tr>
@@ -58,14 +58,14 @@
         <td>
           <fieldset class="mx-selected-columns">
             <legend><%= l('mx.label_selected_columns') %></legend>
-            <span v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column" title="{{getColumn(columnId).logical_name}}">
-              <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>&nbsp;{{getColumn(columnId).physical_name}}
+            <span v-repeat="columnId: editingIndex.columnIds" class="mx-selectable-column mx-selected-column" title="{{getLogicalName(columnId)}}">
+              <%= mx_image_button 'delete', 'v-on' => "click: removeFromIndexColumns(this)" %>&nbsp;{{getPhysicalName(columnId)}}
             </span>
           </fieldset>
           <fieldset class="mx-unselected-columns">
             <legend><%= l('mx.label_selectable_columns') %></legend>
-            <span v-repeat="columnId: editingIndex.unselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getColumn(columnId).logical_name}}">
-              <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>&nbsp;{{getColumn(columnId).physical_name}}
+            <span v-repeat="columnId: indexUnselectedColumnIds" class="mx-selectable-column mx-unselected-column" title="{{getLogicalName(columnId)}}">
+              <%= mx_image_button 'add', 'v-on' => 'click: addToIndexColumns(this)' %>&nbsp;{{getPhysicalName(columnId)}}
             </span>
           </fieldset>
         </td>

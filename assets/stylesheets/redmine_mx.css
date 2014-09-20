@@ -147,3 +147,7 @@
 .mx-unselected-column {
   background-color: #fff0f5;
 }
+
+.mx-temp-form {
+  display: none;
+}

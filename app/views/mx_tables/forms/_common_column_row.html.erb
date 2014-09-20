@@ -3,7 +3,7 @@
 <%= render partial: 'mx_tables/forms/primary_key_column_cell' %>
 <td>{{column.physical_name}}</td>
 <td>{{column.logical_name}}</td>
-<td>{{column.data_type.name}}</td>
+<td>{{getDataType(column.data_type_id).name}}</td>
 <td class="mx-numeric">{{column.size}}</td>
 <td class="mx-numeric">{{column.scale}}</td>
 <td class="mx-nullable-check"><%= image_tag('false.png', 'v-show' => '!column.nullable') %></td>

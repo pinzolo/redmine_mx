@@ -8,7 +8,7 @@ class MxVm::Table
   validates :logical_name, length: { maximum: 255 }
   validates :column_set_id, inclusion: { in: ->(table){ table.column_sets.map { |col_set| col_set.id.to_s } }, if: 'column_set_id.present?' }
 
-  def initialize(params = {}, database = {})
+  def initialize(params = {}, database = nil)
     if params.is_a?(Hash)
       build_from_hash(params)
     elsif params.is_a?(MxTable)

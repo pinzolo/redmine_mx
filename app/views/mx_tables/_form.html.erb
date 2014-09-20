@@ -30,5 +30,6 @@
     </tbody>
   </table>
 </div>
-<%= render partial: 'mx_tables/forms/columns', locals: { f: f, database: database } %>
+<%= render partial: 'mx_tables/forms/columns', locals: { database: database } %>
 <%= render partial: 'mx_tables/forms/indices' %>
+<%= render partial: 'mx_tables/forms/foreign_keys', locals: { other_tables: other_tables } %>

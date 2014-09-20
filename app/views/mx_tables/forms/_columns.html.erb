@@ -1,7 +1,7 @@
 <h2 class="mx-section-caption"><%= l('mx.title_columns') %></h2>
 <div id="mx-columns" class="mx-area">
   <div class="mx-header-commands">
-    <%= mx_label_for('column_set') %>: <select name="mx_table[column_set_id]" v-model="column_set_id"><%= mx_options_from_collection(database.column_sets) %></select>
+    <%= mx_label_for('column_set') %>: <select id="mx_table_column_set_id" name="mx_table[column_set_id]" v-model="column_set_id" v-on="change: changeColumnSet"><%= mx_options_from_collection(database.column_sets) %></select>
   </div>
   <table class="mx-grid">
     <thead>
