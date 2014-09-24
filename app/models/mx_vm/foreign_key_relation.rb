@@ -1,4 +1,4 @@
-class MxVm::ForeignKeyRelatin
+class MxVm::ForeignKeyRelation
   include MxVm::VueModel
 
   def_attr :column_id, :ref_column_id, :position
@@ -12,7 +12,7 @@ class MxVm::ForeignKeyRelatin
                        exclusion: { in: ->(record){ record.other_positions }, message: :invalid }
 
   def initialize(params = {})
-    simple_load_values!(params, :column_id, :ref_column_id, :position)
+    simple_load_values!(params, :id, :column_id, :ref_column_id, :position)
   end
 
   def ref_column_name

@@ -1,0 +1,26 @@
+<h2 class="mx-section-caption"><%= l('mx.title_foreign_keys') %></h2>
+<div id="mx-columns" class="mx-area">
+  <table class="mx-grid">
+    <thead>
+      <tr>
+        <th><%= mx_label_for('foreign_key_name') %></th>
+        <th><%= mx_label_for('columns') %></th>
+        <th><%= mx_label_for('ref_table') %></th>
+        <th><%= mx_label_for('ref_columns') %></th>
+        <th><%= mx_label_for('comment') %></th>
+      </tr>
+    </thead>
+    <tbody>
+<% table.foreign_keys.each do |foreign_key| %>
+      <tr id="mx-foreign-key-<%= foreign_key.id %>">
+        <td><%= foreign_key.name %></td>
+        <td><%= mx_enumerate_texts_with_wbr(foreign_key.relations.map(&:column).map(&:physical_name)) %></td>
+        <td><%= link_to(foreign_key.ref_table.physical_name, project_mx_database_table_path(foreign_key.ref_table.project, foreign_key.ref_table.database, foreign_key.ref_table)) %></td>
+        <td><%= mx_enumerate_texts_with_wbr(foreign_key.relations.map(&:ref_column).map(&:physical_name)) %></td>
+        <td><%= foreign_key.comment %></td>
+      </tr>
+<% end %>
+    </tbody>
+  </table>
+</div>
+

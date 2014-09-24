@@ -68,7 +68,7 @@ class MxVm::Table
       self.indices = params[:indices].values.map { |index_params| MxVm::Index.new(index_params) }.sort_by { |idx| idx.position.to_i}
     end
     if params[:foreign_keys]
-      self.foreign_keys = params[:foreign_keys].values.map { |foreign_key_params| MxVm::ForeignKey.new(foreign_keys) }.sort_by { |fk| fk.position.to_i }
+      self.foreign_keys = params[:foreign_keys].values.map { |foreign_key_params| MxVm::ForeignKey.new(foreign_key_params) }.sort_by { |fk| fk.position.to_i }
     end
   end
 
@@ -91,11 +91,12 @@ class MxVm::Table
   def assign_values_for_validation
     assign_values_for_columns_validation
 
-    other_tables = MxDatabase.includes(tables: :indices).find(database_id).tables.reject { |table| table.id.to_s == self.id.to_s }
+    other_tables = MxDatabase.includes(tables: [:indices, :primary_key, :foreign_keys]).find(database_id).tables.reject { |table| table.id.to_s == self.id.to_s }
     belonging_column_ids = columns.map { |column| column.id.to_s }
 
     assign_values_for_primary_key_validation(other_tables, belonging_column_ids)
     assign_values_for_indices_validation(other_tables, belonging_column_ids)
+    assign_values_for_foreign_keys_validation(other_tables, belonging_column_ids)
   end
 
   def assign_values_for_columns_validation
@@ -124,6 +125,7 @@ class MxVm::Table
     foreign_keys.each do |foreign_key|
       foreign_key.used_foreign_key_names = other_foreign_key_names + foreign_keys.reject { |fkey| fkey.id.to_s == foreign_key.id.to_s }.map(&:name)
       foreign_key.belonging_column_ids = belonging_column_ids
+      foreign_key.other_table_ids = other_tables.map { |tbl| tbl.id.to_s }
     end
   end
 
@@ -157,6 +159,7 @@ class MxVm::Table
     foreign_keys.each do |foreign_key|
       foreign_key.used_foreign_key_names = nil
       foreign_key.belonging_column_ids = nil
+      foreign_key.other_table_ids = nil
     end
   end
 end

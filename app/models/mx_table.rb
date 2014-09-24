@@ -4,6 +4,7 @@ class MxTable < ActiveRecord::Base
   unloadable
 
   belongs_to :project
+  belongs_to :database, class_name: 'MxDatabase'
   belongs_to :column_set, class_name: 'MxColumnSet'
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
@@ -21,7 +22,11 @@ class MxTable < ActiveRecord::Base
                      order: :name,
                      include: [:mx_comment, :columns],
                      dependent: :destroy
-  has_many :foreign_keys, class_name: 'MxForeignKey', foreign_key: :table_id, dependent: :destroy
+  has_many :foreign_keys, class_name: 'MxForeignKey',
+                          foreign_key: :table_id,
+                          order: :name,
+                          include: [:mx_comment, :relations],
+                          dependent: :destroy
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
   def self.find_table(database, id)
@@ -62,6 +67,7 @@ class MxTable < ActiveRecord::Base
     create_table_columns!(vue_model)
     create_primary_key!(vue_model) if vue_model.primary_key.columns.present?
     create_indices!(vue_model) if vue_model.indices.present?
+    create_foreign_keys!(vue_model) if vue_model.foreign_keys.present?
   end
 
   def create_table_columns!(vue_model)
@@ -76,11 +82,6 @@ class MxTable < ActiveRecord::Base
     build_primary_key.save_with!(create_primary_key_vue_model_for_saving(vue_model))
   end
 
-  def create_indices!(vue_model)
-    index_vue_models = create_index_vue_models_for_saving(vue_model)
-    index_vue_models.each { |vm_index| indices.build.save_with!(vm_index) }
-  end
-
   def create_primary_key_vue_model_for_saving(vue_model)
     vue_model.primary_key.dup.tap do |pk_vue_model|
       pk_vue_model.columns.each do |column|
@@ -90,12 +91,33 @@ class MxTable < ActiveRecord::Base
     end
   end
 
+  def create_indices!(vue_model)
+    index_vue_models = create_index_vue_models_for_saving(vue_model)
+    index_vue_models.each { |vm_index| indices.build.save_with!(vm_index) }
+  end
+
   def create_index_vue_models_for_saving(vue_model)
     vue_model.indices.map do |index_vue_model|
       index_vue_model.dup.tap do |duplicated_index_vue_model|
         duplicated_index_vue_model.columns.each do |column|
           column_physical_name = vue_model.column_physical_name_for(column.column_id)
           column.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
+        end
+      end
+    end
+  end
+
+  def create_foreign_keys!(vue_model)
+    foreign_key_vue_models = create_foreign_key_vue_models_for_saving(vue_model)
+    foreign_key_vue_models.each { |vm_foreign_key| foreign_keys.build.save_with!(vm_foreign_key) }
+  end
+
+  def create_foreign_key_vue_models_for_saving(vue_model)
+    vue_model.foreign_keys.map do |foreign_key_vue_model|
+      foreign_key_vue_model.dup.tap do |duplicated_foreign_key_vue_model|
+        duplicated_foreign_key_vue_model.relations.each do |relation|
+          column_physical_name = vue_model.column_physical_name_for(relation.column_id)
+          relation.column_id = columns.detect { |col| col.physical_name == column_physical_name }.try(:id)
         end
       end
     end

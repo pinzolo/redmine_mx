@@ -24,6 +24,7 @@
         </td>
         <td>
           {{enumForeignKeyColumnNames(foreign_key)}}
+          <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][id]" value="{{relation.id}}" />
           <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][column_id]" value="{{relation.column_id}}" />
           <input type="hidden" v-repeat="relation: foreign_key.relations" name="<%= prefix %>[relations][{{relation.id}}][position]" value="{{$index}}" />
         </td>

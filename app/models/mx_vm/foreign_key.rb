@@ -1,15 +1,15 @@
 class MxVm::ForeignKey
   include MxVm::VueModel
 
-  def_attr :name, :ref_table_id, :comment, :relations
-  attr_accessor :used_foreign_key_names, :belonging_column_ids
+  def_attr :name, :ref_table_id, :comment, :relations, :position
+  attr_accessor :used_foreign_key_names, :belonging_column_ids, :other_table_ids
 
   validates :name, presence: true,
                    length: { maximum: 255 },
                    exclusion: { in: ->(record){ record.used_foreign_key_names },
                                 message: :taken,
                                 if: 'name.present?' }
-  # TODO: validation for ref_table_id
+  validates :ref_table_id, inclusion: { in: ->(record){ record.other_table_ids } }
   validates :relations, presence: true
 
   def initialize(params={})
@@ -26,7 +26,7 @@ class MxVm::ForeignKey
   end
 
   def valid_with_relations?
-    valid_without_columns?
+    valid_without_relations?
     assign_values_to_relations_for_validation
     merge_children_errors!(relations, :relation)
     clear_assigned_values_to_relations
@@ -44,18 +44,14 @@ class MxVm::ForeignKey
   def build_from_hash(params)
     simple_load_values_from_hash!(params, :id, :name, :ref_table_id, :comment)
     if params[:relations]
-      relation_vms = params[:relations].values.map do |relation_params|
-        MxVm::ForeignKeyRelatin.new(column_id: relation_params[:column_id],
-                                    ref_column_id: relation_params[:ref_column_id],
-                                    position: relation_params[:position])
-      end
+      relation_vms = params[:relations].values.map { |relation_params| MxVm::ForeignKeyRelation.new(relation_params) }
       self.relations = relation_vms.sort_by { |vm| vm.position.to_i }
     end
   end
 
   def build_from_mx_foreign_key(foreign_key)
     simple_load_values_from_object!(index, :id, :name, :ref_table_id, :comment)
-    self.relations = foreign_key.relations.map { |relation| MxVm::ForeignKeyRelatin.new(relation) }
+    self.relations = foreign_key.relations.map { |relation| MxVm::ForeignKeyRelation.new(relation) }
   end
 
   def assign_values_to_relations_for_validation

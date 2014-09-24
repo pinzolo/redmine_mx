@@ -48,7 +48,7 @@ var mx = {
   loadRefTableColumns: function(vueModel, refTalbleId, func) {
     $.ajax({
       type: 'GET',
-      url: '../' + refTalbleId + '/columns'
+      url: $('#load_ref_table_columns_base_path').val() + '/' + refTalbleId + '/columns'
     }).done(function(columnsData) {
       vueModel.refTableColumns = columnsData;
     }).done(function() {
