@@ -48,6 +48,7 @@ class MxTablesController < ApplicationController
       render action: :edit
     end
   rescue ActiveRecord::StaleObjectError
+    @other_tables = @database.tables.where('id <> ?', @table.id)
     flash.now[:error] = l(:notice_locking_conflict)
     render action: :edit
   end
