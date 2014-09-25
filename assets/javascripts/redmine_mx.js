@@ -2,6 +2,9 @@ var mx = {
   randomId: function() {
     return 'v-' + Math.random().toString(36).slice(-8);
   },
+  isSame: function(a, b) {
+    return a.toString() === b.toString();
+  },
   findById: function(collection, id) {
     if (!id) { return null; }
     if (!collection) { return null; }
@@ -173,6 +176,9 @@ function prepareMxTableVue(data, $) {
       }
     },
     methods: {
+      isSame: function(a, b) {
+        return mx.isSame(a, b);
+      },
       addColumn: function() {
         this.table_columns.push({ id: mx.randomId() });
       },
@@ -381,12 +387,11 @@ function prepareMxTableVue(data, $) {
           editingFk.ref_table_id = foreignKey.$data.foreign_key.ref_table_id;
           editingFk.relations = foreignKey.$data.foreign_key.relations;
           editingFk.comment = foreignKey.$data.foreign_key.comment;
-          console.log(foreignKey.$data.foreign_key.relations);
           showMxForeignKeyEdit();
         });
       },
       addToForeignKeyRelations: function(columnId) {
-        this.editingForeignKey.relations.push({ id: mx.randomId(), column_id: columnId.$data.columnId });
+        this.editingForeignKey.relations.push({ id: mx.randomId(), column_id: columnId.$data.columnId, ref_column_id: '' });
       },
       removeFromForeignKeyRelations: function(relation) {
         this.editingForeignKey.relations.$remove(relation.$index);

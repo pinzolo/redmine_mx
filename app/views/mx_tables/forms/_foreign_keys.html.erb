@@ -77,7 +77,7 @@
                       <option value=""></option>
                       <option value="{{refTableColumn.id}}"
                               v-repeat="refTableColumn: refTableColumns"
-                              v-attr="selected: rel.ref_column_id === refTableColumn.id.toString()">{{refTableColumn.physical_name}}</option>
+                              v-attr="selected: isSame(rel.ref_column_id, refTableColumn.id)">{{refTableColumn.physical_name}}</option>
                     </select>
                   </td>
                 </tr>
