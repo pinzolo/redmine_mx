@@ -54,6 +54,8 @@ en:
     label_foreign_key_name: 'Foreign key name'
     label_ref_table: 'Refering table'
     label_ref_columns: 'Refering columns'
+    label_referrer: 'Referrer'
+    label_referenced_columns: 'Referenced columns'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
@@ -77,6 +79,7 @@ en:
     title_columns: 'Columns'
     title_indices: 'Indices'
     title_foreign_keys: 'Foreign keys'
+    title_referenced_keys: 'Referenced keys'
 
     tab_tables: 'Tables'
     tab_column_sets: 'Column set'

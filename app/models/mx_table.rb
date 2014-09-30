@@ -3,6 +3,8 @@ class MxTable < ActiveRecord::Base
   include MxTaggable
   unloadable
 
+  # associations {{{
+
   belongs_to :project
   belongs_to :database, class_name: 'MxDatabase'
   belongs_to :column_set, class_name: 'MxColumnSet'
@@ -27,7 +29,13 @@ class MxTable < ActiveRecord::Base
                           order: :name,
                           include: [:mx_comment, :relations],
                           dependent: :destroy
+  has_many :referenced_keys, class_name: 'MxForeignKey',
+                             foreign_key: :ref_table_id,
+                             order: :name,
+                             include: [:mx_comment, :relations]
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
+
+  # }}}
 
   def self.find_table(database, id)
     table = where(database_id: database.id, physical_name: id).first || where(database_id: database.id, id: id).first

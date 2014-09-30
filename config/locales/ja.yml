@@ -53,6 +53,8 @@ ja:
     label_foreign_key_name: '外部キー名'
     label_ref_table: '参照テーブル'
     label_ref_columns: '参照列'
+    label_referrer_table: '参照元テーブル'
+    label_referenced_columns: '被参照列'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'
@@ -76,6 +78,7 @@ ja:
     title_columns: '列一覧'
     title_indices: 'インデックス'
     title_foreign_keys: '外部キー'
+    title_referenced_keys: '被参照外部キー'
 
     tab_tables: 'テーブル'
     tab_column_sets: '列セット'

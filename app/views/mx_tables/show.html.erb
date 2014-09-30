@@ -39,6 +39,7 @@
   <%= render partial: 'columns', locals: { table: @table } %>
   <%= render partial: 'indices', locals: { table: @table } if @table.indices.present? %>
   <%= render partial: 'foreign_keys', locals: { table: @table } if @table.foreign_keys.present? %>
+  <%= render partial: 'referenced_keys', locals: { table: @table} if @table.referenced_keys.present? %>
 </div>
 
 <% html_title(l('mx.title_tables_detail', name: @table.physical_name)) %>
