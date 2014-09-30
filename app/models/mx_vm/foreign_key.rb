@@ -50,7 +50,7 @@ class MxVm::ForeignKey
   end
 
   def build_from_mx_foreign_key(foreign_key)
-    simple_load_values_from_object!(index, :id, :name, :ref_table_id, :comment)
+    simple_load_values_from_object!(foreign_key, :id, :name, :ref_table_id, :comment)
     self.relations = foreign_key.relations.map { |relation| MxVm::ForeignKeyRelation.new(relation) }
   end
 

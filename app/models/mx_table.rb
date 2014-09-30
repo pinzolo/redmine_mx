@@ -129,6 +129,7 @@ class MxTable < ActiveRecord::Base
     update_table_columns!(vue_model)
     update_primary_key!(vue_model)
     update_indices!(vue_model)
+    update_foreign_keys!(vue_model)
   end
 
   def update_table_columns!(vue_model)
@@ -194,6 +195,33 @@ class MxTable < ActiveRecord::Base
     idxs = vue_model.indices.select { |vm_index| index_ids.include?(vm_index.id.to_s) }
     idxs.each do |vm_index|
       indices.build.save_with!(vm_index)
+    end
+  end
+
+  def update_foreign_keys!(vue_model)
+    foreign_key_vue_models = create_foreign_key_vue_models_for_saving(vue_model)
+    foreign_key_ids = foreign_key_vue_models.map { |fk| fk.id.to_s }
+    base_foreign_key_ids = foreign_keys.map { |fk| fk.id.to_s }
+    delete_foreign_keys_for_update!(base_foreign_key_ids - foreign_key_ids)
+    update_foreign_keys_for_update!(base_foreign_key_ids & foreign_key_ids, vue_model)
+    create_foreign_keys_for_update!(foreign_key_ids - base_foreign_key_ids, vue_model)
+  end
+
+  def delete_foreign_keys_for_update!(foreign_key_ids)
+    foreign_key_ids.each { |id| foreign_keys.find(id).destroy }
+  end
+
+  def update_foreign_keys_for_update!(foreign_key_ids, vue_model)
+    idxs = vue_model.foreign_keys.select { |vm_foreign_key| foreign_key_ids.include?(vm_foreign_key.id.to_s) }
+    idxs.each do |vm_foreign_key|
+      foreign_keys.find(vm_foreign_key.id).save_with!(vm_foreign_key)
+    end
+  end
+
+  def create_foreign_keys_for_update!(foreign_key_ids, vue_model)
+    idxs = vue_model.foreign_keys.select { |vm_foreign_key| foreign_key_ids.include?(vm_foreign_key.id.to_s) }
+    idxs.each do |vm_foreign_key|
+      foreign_keys.build.save_with!(vm_foreign_key)
     end
   end
 end
