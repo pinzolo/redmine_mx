@@ -3,7 +3,11 @@ var mx = {
     return 'v-' + Math.random().toString(36).slice(-8);
   },
   isSame: function(a, b) {
-    return a.toString() === b.toString();
+    if (a && b) {
+      return a.toString() === b.toString();
+    }
+
+    return a === b;
   },
   findById: function(collection, id) {
     if (!id) { return null; }
@@ -373,7 +377,12 @@ function prepareMxTableVue(data, $) {
           this.refTableColumns = [];
           return false;
         }
-        mx.loadRefTableColumns(this, refTableId);
+        var editingRelations = this.editingForeignKey.relations;
+        mx.loadRefTableColumns(this, refTableId, function() {
+          editingRelations.forEach(function(rel) {
+            rel.ref_column_id = null;
+          });
+        });
       },
       newForeignKey: function() {
         mx.initEditingForeignKey(this);
