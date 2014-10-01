@@ -67,6 +67,8 @@ class MxTable < ActiveRecord::Base
 
   private
 
+  # create {{{
+
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment)
     self.created_user_id = User.current.id
@@ -130,6 +132,10 @@ class MxTable < ActiveRecord::Base
       end
     end
   end
+
+  # }}}
+
+  # update {{{
 
   def update_with!(vue_model)
     self.updated_user_id = User.current.id
@@ -232,4 +238,6 @@ class MxTable < ActiveRecord::Base
       foreign_keys.build.save_with!(vm_foreign_key)
     end
   end
+
+  # }}}
 end
