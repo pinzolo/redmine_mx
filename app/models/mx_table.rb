@@ -27,12 +27,12 @@ class MxTable < ActiveRecord::Base
   has_many :foreign_keys, class_name: 'MxForeignKey',
                           foreign_key: :table_id,
                           order: :name,
-                          include: [:mx_comment, :relations],
+                          include: [:mx_comment, { relations: [:column, :ref_column] }],
                           dependent: :destroy
   has_many :referenced_keys, class_name: 'MxForeignKey',
                              foreign_key: :ref_table_id,
                              order: :name,
-                             include: [:mx_comment, :relations]
+                             include: [:mx_comment, { relations: [:column, :ref_column] }]
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
   # }}}
