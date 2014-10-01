@@ -14,7 +14,7 @@
 <% table.referenced_keys.each do |referenced_key| %>
       <tr id="mx-referenced-key-<%= referenced_key.id %>">
         <td><%= mx_enumerate_texts_with_wbr(referenced_key.relations.map(&:ref_column).map(&:physical_name)) %></td>
-        <td><%= link_to(referenced_key.table.physical_name, project_mx_database_table_path(referenced_key.ref_table.project, referenced_key.ref_table.database, referenced_key.ref_table)) %></td>
+        <td><%= link_to(referenced_key.table.physical_name, project_mx_database_table_path(referenced_key.table.project, referenced_key.table.database, referenced_key.table)) %></td>
         <td><%= referenced_key.name %></td>
         <td><%= mx_enumerate_texts_with_wbr(referenced_key.relations.map(&:column).map(&:physical_name)) %></td>
         <td><%= referenced_key.comment %></td>
