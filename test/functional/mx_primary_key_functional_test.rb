@@ -16,9 +16,11 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
 
   # create {{{
 
+  NEXT_TABLE_ID = 7
+
   def test_create_with_primary_key_params
     assert_create_success(valid_create_params)
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert table.primary_key
     assert_equal 'test_pk', table.primary_key.name
     assert_equal 1, table.primary_key.columns.size
@@ -33,7 +35,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
     assert table.primary_key.nil?
   end
@@ -41,7 +43,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   def test_create_without_primary_key_name
     params = valid_create_params.tap { |p| p[:primary_key].delete(:name) }
     assert_create_success(params)
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert table.primary_key
     assert table.primary_key.name.nil?
     assert_equal 1, table.primary_key.columns.size
@@ -51,7 +53,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   def test_create_with_empty_primary_key_name
     params = valid_create_params.tap { |p| p[:primary_key][:name] = '' }
     assert_create_success(params)
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert table.primary_key
     assert table.primary_key.name.blank?
     assert_equal 1, table.primary_key.columns.size
@@ -67,7 +69,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   def test_create_with_just_long_primary_key_name
     params = valid_create_params.tap { |p| p[:primary_key][:name] = 'a' * 255 }
     assert_create_success(params)
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert table.primary_key
     assert_equal 'a' * 255, table.primary_key.name
     assert_equal 1, table.primary_key.columns.size
@@ -88,7 +90,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
     assert table.primary_key.nil?
   end
@@ -101,7 +103,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
     assert table.primary_key.nil?
   end
@@ -109,7 +111,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
   def test_create_with_multi_primary_key_columns
     params = valid_create_params.tap { |p| p[:primary_key][:columns] = { '1' => '1', 'v-column1' => '2' } }
     assert_create_success(params, 2)
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert table.primary_key
     assert_equal 'test_pk', table.primary_key.name
     assert_equal 2, table.primary_key.columns.size
@@ -485,7 +487,7 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
   end
 

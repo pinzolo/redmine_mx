@@ -167,9 +167,11 @@ class MxTablesControllerTest < ActionController::TestCase
 
   # create {{{
 
+  NEXT_TABLE_ID = 7
+
   def test_create_by_manager_with_valid_params
     assert_create_success(valid_create_params)
-    assert_saved_table(7, valid_create_params)
+    assert_saved_table(NEXT_TABLE_ID, valid_create_params)
   end
 
   def test_create_by_viewer
@@ -223,7 +225,7 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_just_long_physical_name
     params = valid_create_params.tap { |p| p[:physical_name] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_already_taken_physical_name
@@ -235,19 +237,19 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_already_taken_physical_name_in_other_database
     params = valid_create_params.tap { |p| p[:physical_name] = 'books' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_logical_name
     params = valid_create_params.tap { |p| p.delete(:logical_name) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_logical_name
     params = valid_create_params.tap { |p| p[:logical_name] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_too_long_logical_name
@@ -259,31 +261,31 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_just_long_logical_name
     params = valid_create_params.tap { |p| p[:logical_name] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_comment
     params = valid_create_params.tap { |p| p.delete(:comment) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_comment
     params = valid_create_params.tap { |p| p[:comment] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_column_set_id
     params = valid_create_params.tap { |p| p.delete(:column_set_id) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_column_set_id
     params = valid_create_params.tap { |p| p[:column_set_id] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_invalid_column_set_id
@@ -300,10 +302,10 @@ class MxTablesControllerTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
-    assert_saved_table(7, params)
-    assert MxTableColumn.where(owner_id: 7).empty?
+    assert_saved_table(NEXT_TABLE_ID, params)
+    assert MxTableColumn.where(owner_id: NEXT_TABLE_ID).empty?
   end
 
   def test_create_without_column_physical_name
@@ -321,7 +323,7 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_just_long_coumn_physical_name
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:physical_name] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_duplicated_column_physical_name
@@ -339,7 +341,7 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_without_column_logical_name
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'].delete(:logical_name) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_too_long_column_logical_name
@@ -351,7 +353,7 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_just_long_coumn_logical_name
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:logical_name] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_column_data_type_id
@@ -369,13 +371,13 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_without_column_size
     params = valid_create_params.tap { |p| p[:table_columns]['v-column3'].delete(:size) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_column_size
     params = valid_create_params.tap { |p| p[:table_columns]['v-column3'][:size] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_not_numeric_column_size
@@ -393,21 +395,21 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_column_size_when_data_type_is_not_sizable
     params = valid_create_params.tap { |p| p[:table_columns]['v-column2'][:size] = '10' }
     assert_create_success(params)
-    assert_saved_table(7, params, :column_size)
-    table = MxTable.find(7)
+    assert_saved_table(NEXT_TABLE_ID, params, :column_size)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_nil table.table_columns.where(physical_name: 'bar').first.size
   end
 
   def test_create_without_column_scale
     params = valid_create_params.tap { |p| p[:table_columns]['v-column3'].delete(:scale) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_column_scale
     params = valid_create_params.tap { |p| p[:table_columns]['v-column3'][:scale] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_not_numeric_column_scale
@@ -425,39 +427,39 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_column_scale_when_data_type_is_not_scalable
     params = valid_create_params.tap { |p| p[:table_columns]['v-column2'][:scale] = '10' }
     assert_create_success(params)
-    assert_saved_table(7, params, :column_scale)
-    table = MxTable.find(7)
+    assert_saved_table(NEXT_TABLE_ID, params, :column_scale)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_nil table.table_columns.where(physical_name: 'bar').first.scale
   end
 
   def test_create_without_column_nullable
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'].delete(:nullable) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_column_nullable
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:nullable] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_column_nullable_not_true
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:nullable] = 'foo' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_column_default_value
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'].delete(:default_value) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_empty_column_default_value
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = '' }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_too_long_column_default_value
@@ -469,13 +471,13 @@ class MxTablesControllerTest < ActionController::TestCase
   def test_create_with_just_long_coumn_default_value
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'][:default_value] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_column_comment
     params = valid_create_params.tap { |p| p[:table_columns]['v-column1'].delete(:comment) }
     assert_create_success(params)
-    assert_saved_table(7, params)
+    assert_saved_table(NEXT_TABLE_ID, params)
   end
 
   # }}}
@@ -1059,7 +1061,7 @@ class MxTablesControllerTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
   end
 

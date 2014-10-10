@@ -29,10 +29,12 @@ class MxIndicesFunctionalTest < ActionController::TestCase
 
   # create {{{
 
+  NEXT_TABLE_ID = 7
+
   def test_create_with_indices_params
     params = valid_create_params
     assert_create_success(params)
-    assert_saved_indices(7, params)
+    assert_saved_indices(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_indices_params
@@ -43,7 +45,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
     assert table.indices.empty?
   end
@@ -56,7 +58,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
     assert table.indices.empty?
   end
@@ -82,7 +84,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
   def test_create_with_just_long_index_name
     params = valid_create_params.tap { |p| p[:indices]['v-index1'][:name] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_indices(7, params)
+    assert_saved_indices(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_already_taken_index_name
@@ -100,7 +102,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
   def test_create_with_already_taken_index_name_in_other_database
     params = valid_create_params.tap { |p| p[:indices]['v-index1'][:name] = 'books_idx1' }
     assert_create_success(params)
-    assert_saved_indices(7, params)
+    assert_saved_indices(NEXT_TABLE_ID, params)
   end
 
   def test_create_with_too_long_index_condition
@@ -112,7 +114,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
   def test_create_with_just_long_index_condition
     params = valid_create_params.tap { |p| p[:indices]['v-index1'][:condition] = 'a' * 255 }
     assert_create_success(params)
-    assert_saved_indices(7, params)
+    assert_saved_indices(NEXT_TABLE_ID, params)
   end
 
   def test_create_without_index_columns
@@ -495,7 +497,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
       end
     end
     assert_response 302
-    table = MxTable.find(7)
+    table = MxTable.find(NEXT_TABLE_ID)
     assert_redirected_to project_mx_database_table_path(@project, @database, table)
   end
 
@@ -509,7 +511,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
     assert_template 'new'
   end
 
-  def assert_update_success(params, index_count = 1, column_count = 3)
+  def assert_update_success(params, index_count = 1, column_count = 4)
     assert_difference 'MxIndex.count', index_count do
       assert_difference 'MxIndexColumn.count', column_count do
         put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
