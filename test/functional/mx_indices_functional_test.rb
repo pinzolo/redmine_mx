@@ -511,7 +511,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
     assert_template 'new'
   end
 
-  def assert_update_success(params, index_count = 1, column_count = 4)
+  def assert_update_success(params, index_count = 1, column_count = 3)
     assert_difference 'MxIndex.count', index_count do
       assert_difference 'MxIndexColumn.count', column_count do
         put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
