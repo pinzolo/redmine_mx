@@ -26,10 +26,11 @@ class MxVm::ForeignKey
   end
 
   def valid_with_relations?
-    valid_without_relations?
-    assign_values_to_relations_for_validation
-    merge_children_errors!(relations, :relation)
-    clear_assigned_values_to_relations
+    if valid_without_relations?
+      assign_values_to_relations_for_validation
+      merge_children_errors!(relations, :relation)
+      clear_assigned_values_to_relations
+    end
     errors.empty?
   end
   alias_method_chain :valid?, :relations
