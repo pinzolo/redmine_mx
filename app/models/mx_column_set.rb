@@ -1,5 +1,6 @@
 class MxColumnSet < ActiveRecord::Base
   include MxCommentable
+  include MxSavingWithVueModel
   unloadable
 
   belongs_to :database, class_name: 'MxDatabase', foreign_key: :database_id
@@ -16,16 +17,6 @@ class MxColumnSet < ActiveRecord::Base
 
   def columns
     @columns ||= header_columns + footer_columns
-  end
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
   end
 
   private

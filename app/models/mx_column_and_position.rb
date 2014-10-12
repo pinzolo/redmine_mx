@@ -1,19 +1,10 @@
 module MxColumnAndPosition
   extend ActiveSupport::Concern
+  include MxSavingWithVueModel
 
   included do
     unloadable
     belongs_to :column, class_name: 'MxColumn'
-  end
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
   end
 
   private

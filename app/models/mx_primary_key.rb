@@ -1,4 +1,5 @@
 class MxPrimaryKey < ActiveRecord::Base
+  include MxSavingWithVueModel
   unloadable
 
   belongs_to :table, class_name: 'MxTable'
@@ -7,16 +8,6 @@ class MxPrimaryKey < ActiveRecord::Base
 
   def position_for(column)
     columns_rels.detect { |pk_col| pk_col.column_id == column.id }.try(:position)
-  end
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
   end
 
   private

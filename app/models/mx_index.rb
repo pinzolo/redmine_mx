@@ -1,20 +1,11 @@
 class MxIndex < ActiveRecord::Base
   include MxCommentable
+  include MxSavingWithVueModel
   unloadable
 
   belongs_to :table, class_name: 'MxTable'
   has_many :columns_rels, class_name: 'MxIndexColumn', foreign_key: :index_id, order: :position, dependent: :destroy
   has_many :columns, through: :columns_rels
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
-  end
 
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:name, :unique, :condition, :comment)

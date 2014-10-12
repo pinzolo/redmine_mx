@@ -1,5 +1,6 @@
 class MxColumn < ActiveRecord::Base
   include MxCommentable
+  include MxSavingWithVueModel
   unloadable
 
   belongs_to :data_type, class_name: 'MxDataType'
@@ -9,16 +10,6 @@ class MxColumn < ActiveRecord::Base
   def adujest_attribute_values
     self.size = nil unless self.data_type.sizable
     self.scale = nil unless self.data_type.scalable
-  end
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
   end
 
   private

@@ -1,5 +1,6 @@
 class MxDbmsProduct < ActiveRecord::Base
   include MxCommentable
+  include MxSavingWithVueModel
   unloadable
 
   has_many :data_types, class_name: 'MxDataType', foreign_key: :dbms_product_id, order: :name, dependent: :destroy
@@ -8,16 +9,6 @@ class MxDbmsProduct < ActiveRecord::Base
 
   def type_name
     PRODUCT_TYPES[type]
-  end
-
-  def save_with!(vue_model)
-    ActiveRecord::Base.transaction do
-      if persisted?
-        update_with!(vue_model)
-      else
-        create_with!(vue_model)
-      end
-    end
   end
 
   private
