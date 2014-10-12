@@ -130,7 +130,7 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
     assert_have_error(:foreign_key_relations, "can't be blank")
   end
 
-  def test_create_with_empty_index_columns
+  def test_create_with_empty_foreign_key_relations
     params = valid_create_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations] = {} }
     assert_create_failure(params)
     assert_have_error(:foreign_key_relations, "can't be blank")
@@ -204,6 +204,190 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
 
   # }}}
 
+  # update {{{
+
+  def test_update_with_foreign_keys_params
+    params = valid_update_params
+    assert_update_success(params)
+    assert_saved_foreign_keys(1, params)
+  end
+
+  def test_update_without_foreign_keys_params
+    foreign_key_ids = MxTable.find(1).foreign_keys.map(&:id)
+    params = valid_update_params.tap { |p| p.delete(:foreign_keys) }
+    assert_difference 'MxForeignKey.count', -1 do
+      assert_difference 'MxForeignKeyRelation.count', -1 do
+        put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(1)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert table.foreign_keys.empty?
+    assert MxForeignKey.where(table_id: 1).empty?
+    assert MxForeignKeyRelation.where(foreign_key_id: foreign_key_ids).empty?
+  end
+
+  def test_update_without_foreign_keys_params
+    params = valid_update_params.tap { |p| p[:foreign_keys] = {} }
+    assert_difference 'MxForeignKey.count', -1 do
+      assert_difference 'MxForeignKeyRelation.count', -1 do
+        put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(1)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+    assert table.foreign_keys.empty?
+  end
+
+  def test_update_without_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'].delete(:name) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_name, "can't be blank")
+  end
+
+  def test_update_with_empty_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = '' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_name, "can't be blank")
+  end
+
+  def test_update_with_too_long_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'a' * 256 }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_name, /is too long/)
+  end
+
+  def test_update_with_just_long_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'a' * 255 }
+    assert_update_success(params)
+    assert_saved_foreign_keys(1, params)
+  end
+
+  def test_update_with_already_taken_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'order_items_fk1' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_name, 'has already been taken')
+  end
+
+  def test_update_with_same_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'customers_fk1' }
+    assert_update_success(params)
+    assert_saved_foreign_keys(1, params)
+  end
+
+  def test_update_with_duplicated_foreign_key_name
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'test_fk2' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_name, 'has already been taken')
+  end
+
+  def test_update_without_ref_table_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'].delete(:ref_table_id) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_ref_table_id, 'is not included in the list')
+  end
+
+  def test_update_with_empty_ref_table_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:ref_table_id] = '' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_ref_table_id, 'is not included in the list')
+  end
+
+  def test_update_with_ref_table_id_not_exist
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:ref_table_id] = '0' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_ref_table_id, 'is not included in the list')
+  end
+
+  # TODO: Add data
+  # def test_update_with_already_taken_foreign_key_name_in_other_database
+  #  params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'books_fk1' }
+  #  assert_update_failure(params)
+  #  assert_saved_foreign_keys(1, params)
+  # end
+
+  def test_update_without_foreign_key_relations
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'].delete(:relations) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relations, "can't be blank")
+  end
+
+  def test_update_with_empty_foreign_key_relations
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations] = {} }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relations, "can't be blank")
+  end
+
+  def test_update_without_foreign_key_relation_column_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'].delete(:column_id) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_column_id, "can't be blank")
+  end
+
+  def test_update_with_empty_foreign_key_relation_column_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:column_id] = '' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_column_id, "can't be blank")
+  end
+
+  def test_update_when_foreign_key_relations_contains_invalid_column_id_that_not_exist_in_table
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:column_id] = '0' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_column_id, 'is not included in the list')
+  end
+
+  def test_update_without_foreign_key_relation_position
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'].delete(:position) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_position, "can't be blank")
+  end
+
+  def test_update_with_empty_foreign_key_relation_position
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:position] = '' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_position, "can't be blank")
+  end
+
+  def test_update_with_not_number_foreign_key_relation_position
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:position] = 'a' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_position, 'is not a number')
+  end
+
+  def test_update_with_duplicated_foreign_key_relation_position
+    params = valid_update_params.tap { |p| p[:foreign_keys]['3'][:relations]['v-fk2-rel1'][:position] = '0' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_position, 'is invalid')
+  end
+
+  def test_update_with_one_origin_foreign_key_relation_poision
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:position] = '1' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_position, 'is invalid')
+  end
+
+  def test_update_without_foreign_key_relation_ref_column_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'].delete(:ref_column_id) }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_ref_column_id, "can't be blank")
+  end
+
+  def test_update_with_empty_foreign_key_relation_ref_column_id
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:ref_column_id] = '' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_ref_column_id, "can't be blank")
+  end
+
+  def test_update_when_foreign_key_relations_contains_invalid_ref_column_id_that_not_exist_in_ref_table
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:relations]['v-fk1-rel1'][:ref_column_id] = '0' }
+    assert_update_failure(params)
+    assert_have_error(:foreign_key_relation_ref_column_id, 'is not included in the list')
+  end
+
+  #} }}
+
   private
 
   def valid_create_params
@@ -256,7 +440,7 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
         'v-fk2' => { id: 'v-fk2',
                      name: 'test_fk2',
                      ref_table_id: '1',
-                     comment: 'v-fk1-comment',
+                     comment: 'v-fk2-comment',
                      relations: {
                        'v-fk2-rel1' => {
                          id: 'v-fk-rel1',
@@ -271,6 +455,117 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
                          position: '1'
                        }
                      }
+        }
+      }
+    }
+  end
+
+  def valid_update_params
+    {
+      physical_name: 'test',
+      logical_name: 'Test table',
+      comment: "foo\nbar\nbaz",
+      column_set_id: '1',
+      table_columns: {
+        '12' => { id: '12',
+                  physical_name: 'name',
+                  logical_name: 'Customer name',
+                  data_type_id: '12',
+                  size: '64',
+                  scale: '',
+                  default_value: '',
+                  position: '0' },
+        '13' => { id: '13',
+                  physical_name: 'birthday',
+                  logical_name: 'Birthday',
+                  data_type_id: '17',
+                  size: '',
+                  scale: '',
+                  nullable: 'true',
+                  default_value: '',
+                  position: '1' },
+        '14' => { id: '14',
+                  physical_name: 'zip_code',
+                  logical_name: 'ZIP code of address',
+                  data_type_id: '11',
+                  size: '8',
+                  scale: '',
+                  nullable: 'true',
+                  default_value: '',
+                  position: '2' },
+        '15' => { id: '15',
+                  physical_name: 'prefecture_id',
+                  logical_name: 'Prefecture ID of address',
+                  data_type_id: '2',
+                  size: '',
+                  scale: '',
+                  nullable: 'true',
+                  default_value: '',
+                  position: '3' },
+        '16' => { id: '16',
+                  physical_name: 'address',
+                  logical_name: "Customer's address",
+                  data_type_id: '12',
+                  size: '255',
+                  scale: '',
+                  nullable: 'true',
+                  default_value: '',
+                  position: '4' },
+        '17' => { id: '17',
+                  physical_name: 'registered_on',
+                  logical_name: 'Date of registration',
+                  data_type_id: '17',
+                  size: '',
+                  scale: '',
+                  default_value: 'current_date',
+                  position: '5' },
+        '18' => { id: '18',
+                  physical_name: 'unregistered_on',
+                  logical_name: 'Date of unregistration',
+                  data_type_id: '17',
+                  size: '',
+                  scale: '',
+                  nullable: 'true',
+                  default_value: '',
+                  position: '6' },
+        'v-column1' => { id: 'v-column1',
+                         physical_name: 'foo',
+                         logical_name: 'FOO',
+                         data_type_id: '12',
+                         size: '150',
+                         nullable: 'true',
+                         comment: 'foo column',
+                         position: '0' },
+      },
+      foreign_keys: {
+        'v-fk1' => { id: 'v-fk1',
+                     name: 'test_fk1',
+                     ref_table_id: '2',
+                     comment: 'v-fk1-comment',
+                     relations: {
+                       'v-fk1-rel1' => {
+                         id: 'v-fk-rel1',
+                         column_id: '13',
+                         ref_column_id: '1',
+                         position: '0' }
+                     }
+        },
+        '3' => { id: '3',
+                 name: 'test_fk2',
+                 ref_table_id: '3',
+                 comment: 'v-fk2-comment',
+                 relations: {
+                   '3' => {
+                     id: '3',
+                     column_id: '15',
+                     ref_column_id: '1',
+                     position: '0' },
+                   'v-fk2-rel1' => {
+                     id: 'v-fk-rel1',
+                     column_id: 'v-column1',
+                     ref_column_id: '21',
+                     position: '1' }
+                 }
         }
       }
     }
@@ -322,5 +617,26 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
     end
     assert_response :success
     assert_template 'new'
+  end
+
+  def assert_update_success(params, foreign_key_count = 1, relation_count = 2)
+    assert_difference 'MxForeignKey.count', foreign_key_count do
+      assert_difference 'MxForeignKeyRelation.count', relation_count do
+        put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
+      end
+    end
+    assert_response 302
+    table = MxTable.find(1)
+    assert_redirected_to project_mx_database_table_path(@project, @database, table)
+  end
+
+  def assert_update_failure(params)
+    assert_no_difference 'MxForeignKey.count' do
+      assert_no_difference 'MxForeignKeyRelation.count' do
+        put :update, project_id: @project, database_id: @database, id: 'customers', mx_table: params
+      end
+    end
+    assert_response :success
+    assert_template 'edit'
   end
 end
