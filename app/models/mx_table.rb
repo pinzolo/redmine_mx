@@ -33,7 +33,7 @@ class MxTable < ActiveRecord::Base
                              foreign_key: :ref_table_id,
                              order: :name,
                              include: [:mx_comment, { relations: [:column, :ref_column] }]
-  has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
+  has_many :snapshots, class_name: 'MxTableSnapshot', foreign_key: :table_id, dependent: :destroy
 
   # }}}
 
