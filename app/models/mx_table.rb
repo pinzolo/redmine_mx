@@ -34,7 +34,7 @@ class MxTable < ActiveRecord::Base
                              foreign_key: :ref_table_id,
                              order: :name,
                              include: [:mx_comment, { relations: [:column, :ref_column] }]
-  has_many :snapshots, class_name: 'MxTableSnapshot', foreign_key: :table_id, dependent: :destroy
+  has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
   # }}}
 
@@ -59,9 +59,9 @@ class MxTable < ActiveRecord::Base
   def save_with(vue_model)
     ActiveRecord::Base.transaction do
       save_with!(vue_model)
-      snapshots.build(version: snapshots.count + 1,
-                      table_data: snapshot,
-                      change_summary: vue_model.change_summary).save!
+      versions.build(version: versions.count + 1,
+                     snapshot: snapshot,
+                     change_summary: vue_model.change_summary).save!
     end
   end
 
