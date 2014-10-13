@@ -27,7 +27,6 @@ class MxVm::ColumnSet
     assign_values_to_columns_for_validation
     merge_children_errors!(header_columns, :header_column)
     merge_children_errors!(footer_columns, :footer_column)
-    clear_assigned_values_to_columns
     errors.empty?
   end
   alias_method_chain :valid?, :columns
@@ -62,13 +61,6 @@ class MxVm::ColumnSet
     columns.each do |column|
       column.data_type_ids = data_type_ids
       column.using_physical_names = columns.reject { |col| col.id == column.id }.map(&:physical_name)
-    end
-  end
-
-  def clear_assigned_values_to_columns
-    columns.each do |column|
-      column.data_type_ids = nil
-      column.using_physical_names = nil
     end
   end
 end

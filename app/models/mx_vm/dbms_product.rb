@@ -19,7 +19,6 @@ class MxVm::DbmsProduct
     valid_without_data_types?
     assign_values_to_data_types_for_validation
     merge_children_errors!(data_types, :data_type)
-    clear_assigned_values_to_data_types
     errors.empty?
   end
   alias_method_chain :valid?, :data_types
@@ -47,12 +46,6 @@ class MxVm::DbmsProduct
   def assign_values_to_data_types_for_validation
     self.data_types.each do |data_type|
       data_type.using_names = self.data_types.reject { |dt| dt.id == data_type.id }.map(&:name)
-    end
-  end
-
-  def clear_assigned_values_to_data_types
-    self.data_types.each do |data_type|
-      data_type.using_names = nil
     end
   end
 end

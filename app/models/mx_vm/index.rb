@@ -24,7 +24,6 @@ class MxVm::Index
     valid_without_columns?
     assign_values_to_columns_for_validation
     merge_children_errors!(columns, :column)
-    clear_assigned_values_to_columns
     errors.empty?
   end
   alias_method_chain :valid?, :columns
@@ -56,14 +55,6 @@ class MxVm::Index
       column.belonging_column_ids = belonging_column_ids
       column.valid_positions = valid_positions
       column.other_positions = self.columns.reject { |col| col.column_id == column.column_id }.map(&:position)
-    end
-  end
-
-  def clear_assigned_values_to_columns
-    self.columns.each do |column|
-      column.belonging_column_ids = nil
-      column.valid_positions = nil
-      column.other_positions = nil
     end
   end
 end

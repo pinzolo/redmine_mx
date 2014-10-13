@@ -29,7 +29,6 @@ class MxVm::ForeignKey
     if valid_without_relations?
       assign_values_to_relations_for_validation
       merge_children_errors!(relations, :relation)
-      clear_assigned_values_to_relations
     end
     errors.empty?
   end
@@ -63,15 +62,6 @@ class MxVm::ForeignKey
       relation.belonging_column_ids_in_ref_table = column_ids_in_ref_table
       relation.valid_positions = valid_positions
       relation.other_positions = relations.reject { |rel| rel.column_id == relation.column_id }.map(&:position)
-    end
-  end
-
-  def clear_assigned_values_to_relations
-    relations.each do |relation|
-      relation.belonging_column_ids = nil
-      relation.belonging_column_ids_in_ref_table = nil
-      relation.valid_positions = nil
-      relation.other_positions = nil
     end
   end
 end

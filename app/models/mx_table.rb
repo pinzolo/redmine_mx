@@ -56,6 +56,50 @@ class MxTable < ActiveRecord::Base
     physical_name
   end
 
+  def save_with(vue_model)
+    ActiveRecord::Base.transaction do
+      save_with!(vue_model)
+      snapshots.build(version: snapshots.count + 1,
+                      table_data: snapshot,
+                      change_summary: vue_model.change_summary).save!
+    end
+  end
+
+  def snapshot
+    { physical_name: physical_name,
+      logical_name: logical_name,
+      database: database.identifier,
+      primary_key_name: primary_key.try(:name),
+      comment: comment }.tap do |data|
+      data[:columns] = columns.map do |column|
+        { mark: column.mark,
+          primary_key_position: primary_key ? primary_key.position_for(column) : nil,
+          physical_name: column.physical_name,
+          logical_name: column.logical_name,
+          data_type_name: column.data_type.name,
+          size: column.size,
+          scale: column.scale,
+          nullable: column.nullable,
+          default_value: column.default_value,
+          comment: column.comment }
+      end
+      data[:indices] = indices.map do |index|
+        { name: index.name,
+          columns: index.column_physical_names.join(', '),
+          unique: index.unique,
+          condition: index.condition,
+          comment: index.comment }
+      end
+      data[:foreign_keys] = foreign_keys.map do |foreign_key|
+        { name: foreign_key.name,
+          columns: foreign_key.column_physical_names,
+          ref_table: foreign_key.ref_table.physical_name,
+          ref_columns: foreign_key.ref_column_physical_names,
+          comment: foreign_key.comment }
+      end
+    end
+  end
+
   private
 
   # create {{{
