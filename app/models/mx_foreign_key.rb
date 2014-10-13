@@ -7,6 +7,16 @@ class MxForeignKey < ActiveRecord::Base
   belongs_to :ref_table, class_name: 'MxTable'
   has_many :relations, class_name: 'MxForeignKeyRelation', foreign_key: :foreign_key_id, order: :position, dependent: :destroy
 
+  def column_physical_names
+    relations.map(&:column).map(&:physical_name)
+  end
+
+  def ref_column_physical_names
+    relations.map(&:ref_column).map(&:physical_name)
+  end
+
+  private
+
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:name, :ref_table_id, :comment)
     save!
