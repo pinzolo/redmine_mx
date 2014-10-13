@@ -7,6 +7,12 @@ class MxIndex < ActiveRecord::Base
   has_many :columns_rels, class_name: 'MxIndexColumn', foreign_key: :index_id, order: :position, dependent: :destroy
   has_many :columns, through: :columns_rels
 
+  def column_physical_names
+    columns.map(&:physical_name)
+  end
+
+  private
+
   def create_with!(vue_model)
     self.attributes = vue_model.params_with(:name, :unique, :condition, :comment)
     save!

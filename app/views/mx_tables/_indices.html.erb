@@ -14,7 +14,7 @@
 <% table.indices.each do |index| %>
       <tr id="mx-index-<%= index.id %>">
         <td><%= index.name %></td>
-        <td><%= mx_enumerate_texts_with_wbr(index.columns.map(&:physical_name)) %></td>
+        <td><%= mx_enumerate_texts_with_wbr(index.column_physical_names) %></td>
         <td class="mx-mark-cell"><%= mx_bool_icon(index.unique, blank_false: true) %></td>
         <td><%= index.condition %></td>
         <td><%= index.comment %></td>
