@@ -55,6 +55,7 @@ ja:
     label_ref_columns: '参照列'
     label_referrer_table: '参照元テーブル'
     label_referenced_columns: '被参照列'
+    label_change_summary: '変更概要'
 
     title_dbms_products_index: 'DBMS 一覧'
     title_dbms_products_show: 'DBMS 詳細'

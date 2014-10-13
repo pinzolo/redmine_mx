@@ -23,7 +23,7 @@ class MxTablesController < ApplicationController
     @vue_model = MxVm::Table.new(params[:mx_table], @database)
     if @vue_model.valid?
       @table.project_id = @project.id
-      @table.save_with!(@vue_model)
+      @table.save_with(@vue_model)
       flash[:notice] = l(:notice_successful_create)
       redirect_to(params[:continue] ? new_project_mx_database_table_path(@project, @database) : project_mx_database_table_path(@project, @database, @table))
     else
@@ -40,7 +40,7 @@ class MxTablesController < ApplicationController
   def update
     @vue_model = MxVm::Table.new(params[:mx_table].merge(id: @table.id), @database)
     if @vue_model.valid?
-      @table.save_with!(@vue_model)
+      @table.save_with(@vue_model)
       flash[:notice] = l(:notice_successful_update)
       redirect_to project_mx_database_table_path(@project, @database, @table)
     else

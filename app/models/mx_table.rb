@@ -60,7 +60,7 @@ class MxTable < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       save_with!(vue_model)
       versions.build(version: versions.count + 1,
-                     snapshot: snapshot,
+                     snapshot: snapshot.to_yaml,
                      change_summary: vue_model.change_summary).save!
     end
   end
