@@ -52,6 +52,12 @@ class MxTable < ActiveRecord::Base
     end
   end
 
+  def reload_columns
+    column_set.try(:reload)
+    table_columns.reload
+    columns
+  end
+
   def to_param
     physical_name
   end
@@ -59,6 +65,7 @@ class MxTable < ActiveRecord::Base
   def save_with(vue_model)
     ActiveRecord::Base.transaction do
       save_with!(vue_model)
+      reload
       versions.build(version: versions.count + 1,
                      snapshot: snapshot.to_yaml,
                      change_summary: vue_model.change_summary).save!
@@ -176,6 +183,7 @@ class MxTable < ActiveRecord::Base
     self.updated_user_id = User.current.id
     update_attributes!(vue_model.params_with(:physical_name, :logical_name, :column_set_id, :comment, :lock_version))
     update_table_columns!(vue_model)
+    delete_unlink_foreign_key_relations
     update_primary_key!(vue_model)
     update_indices!(vue_model)
     update_foreign_keys!(vue_model)
@@ -204,6 +212,15 @@ class MxTable < ActiveRecord::Base
     cols = vue_model.table_columns.select { |vm_column| column_ids.include?(vm_column.id.to_s) }
     cols.each do |vm_column|
       table_columns.build.save_with!(vm_column)
+    end
+  end
+
+  def delete_unlink_foreign_key_relations
+    column_ids = reload_columns.map(&:id)
+    referenced_keys.each do |ref_key|
+      ref_key.relations.each do |ref_rel|
+        ref_rel.destroy unless column_ids.include?(ref_rel.ref_column_id)
+      end
     end
   end
 
