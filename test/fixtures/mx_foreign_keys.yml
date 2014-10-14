@@ -27,3 +27,10 @@ mx_foreign_keys_004:
   table_id: 3
   ref_table_id: 1
   name: orders_fk1
+mx_foreign_keys_005:
+  id: 5
+  created_at: 2014-10-09 19:39:56.478867000 +09:00
+  updated_at: 2014-10-09 19:39:56.478867000 +09:00
+  table_id: 6
+  ref_table_id: 7
+  name: books_fk1

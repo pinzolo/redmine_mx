@@ -29,7 +29,7 @@ class MxIndicesFunctionalTest < ActionController::TestCase
 
   # create {{{
 
-  NEXT_TABLE_ID = 7
+  NEXT_TABLE_ID = 8
 
   def test_create_with_indices_params
     params = valid_create_params

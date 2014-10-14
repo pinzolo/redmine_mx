@@ -29,7 +29,7 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
 
   # create {{{
 
-  NEXT_TABLE_ID = 7
+  NEXT_TABLE_ID = 8
 
   def test_create_with_foreign_keys_params
     params = valid_create_params
@@ -117,12 +117,11 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
     assert_have_error(:foreign_key_ref_table_id, 'is not included in the list')
   end
 
-  # TODO: Add data
-  # def test_create_with_already_taken_foreign_key_name_in_other_database
-  #   params = valid_create_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'books_fk1' }
-  #   assert_create_success(params)
-  #   assert_saved_foreign_keys(NEXT_TABLE_ID, params)
-  # end
+  def test_create_with_already_taken_foreign_key_name_in_other_database
+    params = valid_create_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'books_fk1' }
+    assert_create_success(params)
+    assert_saved_foreign_keys(NEXT_TABLE_ID, params)
+  end
 
   def test_create_without_foreign_key_relations
     params = valid_create_params.tap { |p| p[:foreign_keys]['v-fk1'].delete(:relations) }
@@ -301,12 +300,11 @@ class MxForeignKeysFunctionalTest < ActionController::TestCase
     assert_have_error(:foreign_key_ref_table_id, 'is not included in the list')
   end
 
-  # TODO: Add data
-  # def test_update_with_already_taken_foreign_key_name_in_other_database
-  #  params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'books_fk1' }
-  #  assert_update_failure(params)
-  #  assert_saved_foreign_keys(1, params)
-  # end
+  def test_update_with_already_taken_foreign_key_name_in_other_database
+    params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'][:name] = 'books_fk1' }
+    assert_update_success(params)
+    assert_saved_foreign_keys(1, params)
+  end
 
   def test_update_without_foreign_key_relations
     params = valid_update_params.tap { |p| p[:foreign_keys]['v-fk1'].delete(:relations) }

@@ -167,7 +167,7 @@ class MxTablesControllerTest < ActionController::TestCase
 
   # create {{{
 
-  NEXT_TABLE_ID = 7
+  NEXT_TABLE_ID = 8
 
   def test_create_by_manager_with_valid_params
     assert_create_success(valid_create_params)

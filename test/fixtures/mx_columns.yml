@@ -8,8 +8,8 @@ mx_columns_001:
   physical_name: id
   logical_name: ID
   data_type_id: 8
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: '1'
   position: 0
@@ -22,8 +22,8 @@ mx_columns_002:
   physical_name: created_at
   logical_name: Created time
   data_type_id: 15
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: current_timestamp
   position: 0
@@ -36,8 +36,8 @@ mx_columns_003:
   physical_name: created_by
   logical_name: Createrd user's ID
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 1
@@ -50,8 +50,8 @@ mx_columns_004:
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 15
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 2
@@ -64,8 +64,8 @@ mx_columns_005:
   physical_name: updated_by
   logical_name: Last updated user's ID
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 3
@@ -78,8 +78,8 @@ mx_columns_006:
   physical_name: id
   logical_name: ID
   data_type_id: 8
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: '1'
   position: 0
@@ -92,8 +92,8 @@ mx_columns_007:
   physical_name: created_at
   logical_name: Created time
   data_type_id: 15
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: current_timestamp
   position: 0
@@ -106,8 +106,8 @@ mx_columns_008:
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 15
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 1
@@ -120,8 +120,8 @@ mx_columns_009:
   physical_name: id
   logical_name: ID
   data_type_id: 25
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: '1'
   position: 0
@@ -134,8 +134,8 @@ mx_columns_010:
   physical_name: created_at
   logical_name: Created time
   data_type_id: 39
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: CURRENT_TIMESTAMP
   position: 0
@@ -148,8 +148,8 @@ mx_columns_011:
   physical_name: updated_at
   logical_name: Last updated time
   data_type_id: 39
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 1
@@ -163,7 +163,7 @@ mx_columns_012:
   logical_name: Customer name
   data_type_id: 12
   size: 64
-  scale: 
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -176,8 +176,8 @@ mx_columns_013:
   physical_name: birthday
   logical_name: Birthday
   data_type_id: 17
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 1
@@ -191,7 +191,7 @@ mx_columns_014:
   logical_name: ZIP code of address
   data_type_id: 11
   size: 8
-  scale: 
+  scale:
   nullable: true
   default_value: ''
   position: 2
@@ -204,8 +204,8 @@ mx_columns_015:
   physical_name: prefecture_id
   logical_name: Prefecture ID of address
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 3
@@ -219,7 +219,7 @@ mx_columns_016:
   logical_name: Customer's address
   data_type_id: 12
   size: 255
-  scale: 
+  scale:
   nullable: true
   default_value: ''
   position: 4
@@ -232,8 +232,8 @@ mx_columns_017:
   physical_name: registered_on
   logical_name: Date of registration
   data_type_id: 17
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: current_date
   position: 5
@@ -246,8 +246,8 @@ mx_columns_018:
   physical_name: unregistered_on
   logical_name: Date of unregistration
   data_type_id: 17
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: true
   default_value: ''
   position: 6
@@ -261,7 +261,7 @@ mx_columns_019:
   logical_name: Item name
   data_type_id: 12
   size: 64
-  scale: 
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -274,8 +274,8 @@ mx_columns_020:
   physical_name: price
   logical_name: Price
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 1
@@ -288,8 +288,8 @@ mx_columns_021:
   physical_name: customer_id
   logical_name: Customer ID
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -302,8 +302,8 @@ mx_columns_022:
   physical_name: ordered_on
   logical_name: Ordered date
   data_type_id: 17
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 1
@@ -316,8 +316,8 @@ mx_columns_023:
   physical_name: order_id
   logical_name: Belonging order ID
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -330,8 +330,8 @@ mx_columns_024:
   physical_name: item_id
   logical_name: ID of bought item
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 1
@@ -344,8 +344,8 @@ mx_columns_025:
   physical_name: amount
   logical_name: Amount per bought item
   data_type_id: 2
-  size: 
-  scale: 
+  size:
+  scale:
   nullable: false
   default_value: '1'
   position: 2
@@ -359,7 +359,7 @@ mx_columns_026:
   logical_name: Code
   data_type_id: 11
   size: 2
-  scale: 
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -373,7 +373,7 @@ mx_columns_027:
   logical_name: Prefecture name
   data_type_id: 12
   size: 4
-  scale: 
+  scale:
   nullable: false
   default_value: ''
   position: 1
@@ -387,7 +387,7 @@ mx_columns_028:
   logical_name: Title
   data_type_id: 42
   size: 64
-  scale: 
+  scale:
   nullable: false
   default_value: ''
   position: 0
@@ -397,11 +397,25 @@ mx_columns_029:
   updated_at: 2014-08-24 07:37:05.277600000 +09:00
   type: MxTableColumn
   owner_id: 6
-  physical_name: author
-  logical_name: Author name
-  data_type_id: 42
-  size: 255
-  scale: 
+  physical_name: author_id
+  logical_name: Author ID
+  data_type_id: 25
+  size:
+  scale:
   nullable: false
   default_value: ''
   position: 1
+mx_columns_030:
+  id: 30
+  created_at: 2014-08-24 07:38:05.274034000 +09:00
+  updated_at: 2014-08-24 07:38:05.274034000 +09:00
+  type: MxTableColumn
+  owner_id: 7
+  physical_name: name
+  logical_name: Name
+  data_type_id: 42
+  size: 255
+  scale:
+  nullable: false
+  default_value: ''
+  position: 0
