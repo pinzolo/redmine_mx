@@ -451,3 +451,14 @@ function prepareMxTableVue(data, $) {
     }
   });
 }
+
+
+$('#mx-add-relational-issue').on('click', function() {
+  // TODO: AJAX
+});
+
+$(function() {
+  $(document).on("keypress", "input:not(.mx-allow-submit)", function(event) {
+    return event.which !== 13;
+  });
+});

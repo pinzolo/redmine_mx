@@ -2,6 +2,16 @@
   <table class="mx-defs">
     <tbody>
       <tr>
+        <th><%= mx_label_for('relational_issues') %></th>
+        <td>
+          <ul id="mx-relational-issues"></ul>
+          <div>
+            <%= l(:label_issue) %> #<%= text_field_tag :mx_relational_issue_id, '', size: 10 %>
+            <input type="button" id="mx-add-relational-issue" value="<%= l(:button_add) %>" />
+          </div>
+        </td>
+      </tr>
+      <tr>
         <th><%= mx_label_for('change_summary') %></th>
         <td><%= text_area 'mx_table', 'change_summary', size: '70x8', 'v-model' => 'change_summary' %></td>
       </tr>

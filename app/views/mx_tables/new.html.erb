@@ -22,3 +22,4 @@
 <%= javascript_include_tag 'vue', plugin: 'redmine_mx' %>
 <%= javascript_include_tag 'redmine_mx', plugin: 'redmine_mx' %>
 <%= javascript_tag "var vm = prepareMxTableVue(#{@vue_model.to_json}, jQuery);" %>
+<%= javascript_tag "observeAutocompleteField('mx_relational_issue_id', '#{escape_javascript auto_complete_issues_path(project_id: @project, scope: (Setting.cross_project_issue_relations? ? 'all' : nil))}')" %>

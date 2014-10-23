@@ -57,6 +57,7 @@ en:
     label_referrer: 'Referrer'
     label_referenced_columns: 'Referenced columns'
     label_change_summary: 'Change summary'
+    label_relational_issues: 'Relational issues'
 
     title_dbms_products_index: 'DBMS list'
     title_dbms_products_show: 'DBMS details'
