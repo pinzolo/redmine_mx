@@ -452,7 +452,8 @@ function prepareMxTableVue(data, $) {
       addRelationalIssue: function() {
         var issueId = $('#mx_relational_issue_id').val();
         var vueModel = this;
-        if (issueId) {
+        var relatedIssue = mx.findById(vueModel.relationalIssues, issueId);
+        if (issueId && !relatedIssue) {
           $.ajax({
             type: 'GET',
             url: '/issues/' + issueId + '.json'
