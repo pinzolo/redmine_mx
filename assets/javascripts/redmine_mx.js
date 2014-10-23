@@ -156,6 +156,7 @@ function prepareMxTableVue(data, $) {
   data.editingIndex = { id: mx.randomId(), columnIds: [], name: '', unique: false, condition: '', comment: '' };
   data.editingForeignKey = { id: mx.randomId(), ref_table_id: '', relations: [], comment: '' };
   data.refTableColumns = [];
+  data.relationalIssues = [];
   return new Vue({
     el: '#mx_table_form',
     data: data,
@@ -447,15 +448,23 @@ function prepareMxTableVue(data, $) {
       enumRefColumnNames: function(foreignKey) {
         var refColumnNames = $.map(foreignKey.relations, function(relation) { return relation.ref_column_name; });
         return refColumnNames.join(', ');
+      },
+      addRelationalIssue: function() {
+        var issueId = $('#mx_relational_issue_id').val();
+        var vueModel = this;
+        if (issueId) {
+          $.ajax({
+            type: 'GET',
+            url: '/issues/' + issueId + '.json'
+          }).done(function(res) {
+            var issue = res.issue;
+            vueModel.relationalIssues.push( { id: issue.id, tracker: issue.tracker.name, subject: issue.subject });
+          });
+        }
       }
     }
   });
 }
-
-
-$('#mx-add-relational-issue').on('click', function() {
-  // TODO: AJAX
-});
 
 $(function() {
   $(document).on("keypress", "input:not(.mx-allow-submit)", function(event) {

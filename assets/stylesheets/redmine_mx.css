@@ -151,3 +151,12 @@
 .mx-temp-form {
   display: none;
 }
+
+.mx-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.mx-list li {
+  margin: 3px;
+}
