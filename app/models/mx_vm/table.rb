@@ -1,7 +1,7 @@
 class MxVm::Table
   include MxVm::VueModel
   def_attr :physical_name, :logical_name, :database_id, :column_set_id, :table_columns, :comment, :lock_version,
-           :primary_key, :indices, :foreign_keys, :data_types, :column_sets, :change_summary
+           :primary_key, :indices, :foreign_keys, :data_types, :column_sets, :change_summary, :relational_issue_ids
 
   validates :physical_name, presence: true, length: { maximum: 255 }, mx_db_absence: { class_name: 'MxTable', scope: :database_id }
   validates :logical_name, length: { maximum: 255 }
@@ -57,7 +57,7 @@ class MxVm::Table
   private
 
   def build_from_hash(params)
-    simple_load_values_from_hash!(params, :id, :physical_name, :logical_name, :database_id, :column_set_id, :comment, :lock_version, :change_summary)
+    simple_load_values_from_hash!(params, :id, :physical_name, :logical_name, :database_id, :column_set_id, :comment, :lock_version, :change_summary, :relational_issue_ids)
     if params[:table_columns]
       self.table_columns = params[:table_columns].values.map { |column_params| MxVm::Column.new(column_params) }.sort_by { |col| col.position.to_i }
     end
@@ -84,6 +84,7 @@ class MxVm::Table
     self.column_sets ||= []
     self.indices ||= []
     self.foreign_keys ||= []
+    self.relational_issue_ids ||= []
   end
 
   def assign_values_for_validation

@@ -66,9 +66,13 @@ class MxTable < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       save_with!(vue_model)
       reload
-      versions.build(version: versions.count + 1,
-                     snapshot: snapshot.to_yaml,
-                     change_summary: vue_model.change_summary).save!
+      version = versions.build(version: versions.count + 1,
+                               snapshot: snapshot.to_yaml,
+                               change_summary: vue_model.change_summary)
+      vue_model.relational_issue_ids.each do |relational_issue_id|
+        version.add_issue(relational_issue_id)
+      end
+      version.save!
     end
   end
 

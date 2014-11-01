@@ -5,7 +5,8 @@
         <th><%= mx_label_for('relational_issues') %></th>
         <td>
           <ul id="mx-relational-issues" class="mx-list">
-            <li v-repeat="relationalIssue: relationalIssues" id="mx-related-issue-{{relationalIssue.id}}" class="mx-relational-issue mx-fade" v-transition>
+            <li v-repeat="relationalIssue: relationalIssues" id="mx-relational-issue-{{relationalIssue.id}}" class="mx-relational-issue mx-fade" v-transition>
+              <input type="hidden" name="mx_table[relational_issue_ids][]" v-model="relationalIssue.id" />
               <a href="/issues/{{relationalIssue.id}}">{{relationalIssue.tracker}} #{{relationalIssue.id}}</a>: {{relationalIssue.subject}}
             </li>
           </ul>
