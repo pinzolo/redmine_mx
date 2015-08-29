@@ -11,29 +11,25 @@ class MxTable < ActiveRecord::Base
   belongs_to :column_set, class_name: 'MxColumnSet'
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
-  has_one :primary_key, class_name: 'MxPrimaryKey',
+  has_one :primary_key, ->{ includes(:columns) },
+                        class_name: 'MxPrimaryKey',
                         foreign_key: :table_id,
-                        include: :columns,
                         dependent: :destroy
-  has_many :table_columns, class_name: 'MxTableColumn',
+  has_many :table_columns, ->{ order(:position).includes(:mx_comment, :data_type) },
+                           class_name: 'MxTableColumn',
                            foreign_key: :owner_id,
-                           order: :position,
-                           include: [:mx_comment, :data_type],
                            dependent: :destroy
-  has_many :indices, class_name: 'MxIndex',
+  has_many :indices, ->{ order(:name).includes(:mx_comment, :columns) },
+                     class_name: 'MxIndex',
                      foreign_key: :table_id,
-                     order: :name,
-                     include: [:mx_comment, :columns],
                      dependent: :destroy
-  has_many :foreign_keys, class_name: 'MxForeignKey',
+  has_many :foreign_keys, ->{ order(:name).includes(:mx_comment, { relations: [:column, :ref_column] }) },
+                          class_name: 'MxForeignKey',
                           foreign_key: :table_id,
-                          order: :name,
-                          include: [:mx_comment, { relations: [:column, :ref_column] }],
                           dependent: :destroy
-  has_many :referenced_keys, class_name: 'MxForeignKey',
-                             foreign_key: :ref_table_id,
-                             order: :name,
-                             include: [:mx_comment, { relations: [:column, :ref_column] }]
+  has_many :referenced_keys, ->{ order(:name).includes(:mx_comment, { relations: [:column, :ref_column] }) },
+                             class_name: 'MxForeignKey',
+                             foreign_key: :ref_table_id
   has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
 
   # }}}

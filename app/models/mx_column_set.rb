@@ -4,15 +4,13 @@ class MxColumnSet < ActiveRecord::Base
   unloadable
 
   belongs_to :database, class_name: 'MxDatabase', foreign_key: :database_id
-  has_many :header_columns, class_name: 'MxHeaderColumn',
+  has_many :header_columns, ->{ order(:position).includes(:data_type, :mx_comment) },
+                            class_name: 'MxHeaderColumn',
                             foreign_key: :owner_id,
-                            order: :position,
-                            include: [:data_type, :mx_comment],
                             dependent: :destroy
-  has_many :footer_columns, class_name: 'MxFooterColumn',
+  has_many :footer_columns, ->{ order(:position).includes(:data_type, :mx_comment) },
+                            class_name: 'MxFooterColumn',
                             foreign_key: :owner_id,
-                            order: :position,
-                            include: [:data_type, :mx_comment],
                             dependent: :destroy
 
   def columns

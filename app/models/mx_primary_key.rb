@@ -3,7 +3,7 @@ class MxPrimaryKey < ActiveRecord::Base
   unloadable
 
   belongs_to :table, class_name: 'MxTable'
-  has_many :columns_rels, class_name: 'MxPrimaryKeyColumn', foreign_key: :primary_key_id, order: :position, dependent: :destroy
+  has_many :columns_rels, ->{ order(:position) }, class_name: 'MxPrimaryKeyColumn', foreign_key: :primary_key_id, dependent: :destroy
   has_many :columns, through: :columns_rels
 
   def position_for(column)

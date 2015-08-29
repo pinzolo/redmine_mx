@@ -5,7 +5,10 @@ class MxForeignKey < ActiveRecord::Base
 
   belongs_to :table, class_name: 'MxTable'
   belongs_to :ref_table, class_name: 'MxTable'
-  has_many :relations, class_name: 'MxForeignKeyRelation', foreign_key: :foreign_key_id, order: :position, dependent: :destroy
+  has_many :relations, ->{ order(:position) },
+                       class_name: 'MxForeignKeyRelation',
+                       foreign_key: :foreign_key_id,
+                       dependent: :destroy
 
   def column_physical_names
     relations.map(&:column).map(&:physical_name)
