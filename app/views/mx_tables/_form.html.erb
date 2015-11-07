@@ -1,4 +1,4 @@
-<%= hidden_field_tag 'load_ref_table_columns_base_path', project_mx_database_tables_path(database.project) %>
+<%= hidden_field_tag 'load_ref_table_columns_base_path', project_mx_database_tables_path(database.project, database) %>
 <%= render partial: 'mx_tables/forms/metadata' %>
 <h2 class="mx-section-caption"><%= l('mx.title_tables_show') %></h2>
 <div id="mx-table" class="mx-area">
