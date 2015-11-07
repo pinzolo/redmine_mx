@@ -45,7 +45,7 @@ def setup_mx_permissions!
 end
 
 def assert_conflict_flash
-  assert_tag tag: 'div', attributes: { id: 'flash_error' }, content: I18n.t(:notice_locking_conflict)
+  assert_select "div#flash_error", text: I18n.t(:notice_locking_conflict)
 end
 
 def assert_have_error(attribute, error, model = :vue_model)
