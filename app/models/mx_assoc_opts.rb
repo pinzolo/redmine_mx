@@ -2,21 +2,21 @@ module MxAssocOpts
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def assoc_opts(params)
+    def assoc_opts(options)
       if Gem::Version.new(Rails.version) > Gem::Version.new('4.0.0')
-        order_param = params.delete(:order)
-        include_param = params.delete(:include)
-        if order_param && include_param
-          [Proc.new { order(order_param).includes(include_param) }, params]
-        elsif order_param
-          [Proc.new { order(order_param) }, params]
-        elsif include_param
-          [Proc.new { includes(include_param) }, params]
+        order_option = options.delete(:order)
+        include_option = options.delete(:include)
+        if order_option && include_option
+          [Proc.new { order(order_option).includes(include_option) }, options]
+        elsif order_option
+          [Proc.new { order(order_option) }, options]
+        elsif include_option
+          [Proc.new { includes(include_option) }, options]
         else
-          [params]
+          [options]
         end
       else
-        [params]
+        [options]
       end
     end
   end
