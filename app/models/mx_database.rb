@@ -1,17 +1,20 @@
 class MxDatabase < ActiveRecord::Base
   include MxCommentable
+  include MxAssocOpts
   unloadable
 
   belongs_to :project
   belongs_to :dbms_product, class_name: 'MxDbmsProduct'
-  has_many :tables, ->{ order(:physical_name).includes(:mx_comment) },
-                    class_name: 'MxTable',
-                    foreign_key: :database_id,
-                    dependent: :destroy
-  has_many :column_sets, ->{ order(:name).includes(:mx_comment) },
-                         class_name: 'MxColumnSet',
-                         foreign_key: :database_id,
-                         dependent: :destroy
+  has_many :tables, *assoc_opts(order: :physical_name,
+                                include: :mx_comment,
+                                class_name: 'MxTable',
+                                foreign_key: :database_id,
+                                dependent: :destroy)
+  has_many :column_sets, *assoc_opts(order: :name,
+                                     include: :mx_comment,
+                                     class_name: 'MxColumnSet',
+                                     foreign_key: :database_id,
+                                     dependent: :destroy)
 
   def self.find_database(project, id)
     database = where(project_id: project.id, identifier: id).first || where(project_id: project.id, id: id).first

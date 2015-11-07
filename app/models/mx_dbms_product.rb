@@ -1,12 +1,13 @@
 class MxDbmsProduct < ActiveRecord::Base
   include MxCommentable
   include MxSavingWithVueModel
+  include MxAssocOpts
   unloadable
 
-  has_many :data_types, ->{ order(:name) },
-                        class_name: 'MxDataType',
-                        foreign_key: :dbms_product_id,
-                        dependent: :destroy
+  has_many :data_types, *assoc_opts(order: :name,
+                                    class_name: 'MxDataType',
+                                    foreign_key: :dbms_product_id,
+                                    dependent: :destroy)
 
   PRODUCT_TYPES = { 'MxDbms::Postgresql' => 'PostgreSQL', 'MxDbms::Mysql' => 'MySQL', 'MxDbms::Oracle' => 'Oracle', 'MxDbms::SqlServer' => 'SQL Server', 'MxDbms::Other' => 'Other'}.freeze
 

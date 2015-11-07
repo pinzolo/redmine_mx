@@ -2,6 +2,7 @@ class MxTable < ActiveRecord::Base
   include MxCommentable
   include MxTaggable
   include MxSavingWithVueModel
+  include MxAssocOpts
   unloadable
 
   # associations {{{
@@ -11,26 +12,30 @@ class MxTable < ActiveRecord::Base
   belongs_to :column_set, class_name: 'MxColumnSet'
   belongs_to :created_user, class_name: 'User'
   belongs_to :updated_user, class_name: 'User'
-  has_one :primary_key, ->{ includes(:columns) },
-                        class_name: 'MxPrimaryKey',
-                        foreign_key: :table_id,
-                        dependent: :destroy
-  has_many :table_columns, ->{ order(:position).includes(:mx_comment, :data_type) },
-                           class_name: 'MxTableColumn',
-                           foreign_key: :owner_id,
-                           dependent: :destroy
-  has_many :indices, ->{ order(:name).includes(:mx_comment, :columns) },
-                     class_name: 'MxIndex',
-                     foreign_key: :table_id,
-                     dependent: :destroy
-  has_many :foreign_keys, ->{ order(:name).includes(:mx_comment, { relations: [:column, :ref_column] }) },
-                          class_name: 'MxForeignKey',
-                          foreign_key: :table_id,
-                          dependent: :destroy
-  has_many :referenced_keys, ->{ order(:name).includes(:mx_comment, { relations: [:column, :ref_column] }) },
-                             class_name: 'MxForeignKey',
-                             foreign_key: :ref_table_id
-  has_many :versions, class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy
+  has_one :primary_key, *assoc_opts(include: :columns,
+                                    class_name: 'MxPrimaryKey',
+                                    foreign_key: :table_id,
+                                    dependent: :destroy)
+  has_many :table_columns, *assoc_opts(order: :position,
+                                       include: [:mx_comment, :data_type],
+                                       class_name: 'MxTableColumn',
+                                       foreign_key: :owner_id,
+                                       dependent: :destroy)
+  has_many :indices, *assoc_opts(order: :name,
+                                 include: [:mx_comment, :columns],
+                                 class_name: 'MxIndex',
+                                 foreign_key: :table_id,
+                                 dependent: :destroy)
+  has_many :foreign_keys, *assoc_opts(order: :name,
+                                      include: [:mx_comment, { relations: [:column, :ref_column] }],
+                                      class_name: 'MxForeignKey',
+                                      foreign_key: :table_id,
+                                      dependent: :destroy)
+  has_many :referenced_keys, *assoc_opts(order: :name,
+                                         include: [:mx_comment, { relations: [:column, :ref_column] }],
+                                         class_name: 'MxForeignKey',
+                                         foreign_key: :ref_table_id)
+  has_many :versions, *assoc_opts(class_name: 'MxTableVersion', foreign_key: :table_id, dependent: :destroy)
 
   # }}}
 

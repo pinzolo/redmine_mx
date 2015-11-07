@@ -1,17 +1,20 @@
 class MxColumnSet < ActiveRecord::Base
   include MxCommentable
   include MxSavingWithVueModel
+  include MxAssocOpts
   unloadable
 
   belongs_to :database, class_name: 'MxDatabase', foreign_key: :database_id
-  has_many :header_columns, ->{ order(:position).includes(:data_type, :mx_comment) },
-                            class_name: 'MxHeaderColumn',
-                            foreign_key: :owner_id,
-                            dependent: :destroy
-  has_many :footer_columns, ->{ order(:position).includes(:data_type, :mx_comment) },
-                            class_name: 'MxFooterColumn',
-                            foreign_key: :owner_id,
-                            dependent: :destroy
+  has_many :header_columns, *assoc_opts(order: :position,
+                                        include: [:data_type, :mx_comment],
+                                        class_name: 'MxHeaderColumn',
+                                        foreign_key: :owner_id,
+                                        dependent: :destroy)
+  has_many :footer_columns, *assoc_opts(order: :position,
+                                        include: [:data_type, :mx_comment],
+                                        class_name: 'MxFooterColumn',
+                                        foreign_key: :owner_id,
+                                        dependent: :destroy)
 
   def columns
     @columns ||= header_columns + footer_columns
