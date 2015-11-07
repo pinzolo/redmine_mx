@@ -13,6 +13,10 @@ env:
   - TARGET=plugin  REDMINE_VERSION=3.0.5
   - TARGET=redmine REDMINE_VERSION=3.1.1
   - TARGET=plugin  REDMINE_VERSION=3.1.1
+matrix:
+  allow_failures:
+    - rvm: 2.2
+      env: REDMINE_VERSION=2.5.3
 before_install: sh travis/before_install.sh
 script: sh travis/exec_test.sh
 
