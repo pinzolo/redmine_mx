@@ -5,6 +5,8 @@ rvm:
   - 2.1
   - 2.2
 env:
+  - TARGET=redmine REDMINE_VERSION=2.5.3
+  - TARGET=plugin  REDMINE_VERSION=2.5.3
   - TARGET=redmine REDMINE_VERSION=2.6.7
   - TARGET=plugin  REDMINE_VERSION=2.6.7
   - TARGET=redmine REDMINE_VERSION=3.0.5
