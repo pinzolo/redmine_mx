@@ -392,7 +392,6 @@ class MxPrimaryKeyFunctionalTest < ActionController::TestCase
                          logical_name: 'BAZ',
                          data_type_id: '5',
                          size: '10',
-                         size: '2',
                          nulable: 'true',
                          default_value: '0.0',
                          comment: 'baz column',

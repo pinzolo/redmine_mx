@@ -20,9 +20,9 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     assert_template 'index'
     database = assigns(:database)
     assert_equal 2, database.column_sets.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, 1) }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, 2) }
-    assert_tag tag: 'a', attributes: { href: new_project_mx_database_column_set_path(@project, @database) }
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, 1)}']"
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, 2)}']"
+    assert_select "a[href='#{new_project_mx_database_column_set_path(@project, @database)}']"
   end
 
   def test_index_by_viewer
@@ -32,9 +32,9 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     assert_template 'index'
     database = assigns(:database)
     assert_equal 2, database.column_sets.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, 1) }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, 2) }
-    assert_no_tag tag: 'a', attributes: { href: new_project_mx_database_column_set_path(@project, @database) }
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, 1)}']"
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, 2)}']"
+    assert_select "a[href='#{new_project_mx_database_column_set_path(@project, @database)}']", false
   end
 
   def test_index_by_not_member
@@ -65,9 +65,9 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     assert column_set
     assert_equal 'default', column_set.name
     assert_equal 5, column_set.columns.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_sets_path(@project, @database) }
-    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_column_set_path(@project, @database, column_set) }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, column_set) }
+    assert_select "a[href='#{project_mx_database_column_sets_path(@project, @database)}']"
+    assert_select "a[href='#{edit_project_mx_database_column_set_path(@project, @database, column_set)}']"
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, column_set)}']"
   end
 
   def test_show_by_viewer
@@ -79,9 +79,9 @@ class MxColumnSetsControllerTest < ActionController::TestCase
     assert column_set
     assert_equal 'default', column_set.name
     assert_equal 5, column_set.columns.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_column_sets_path(@project, @database) }
-    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_column_set_path(@project, @database, column_set) }
-    assert_no_tag tag: 'a', attributes: { href: project_mx_database_column_set_path(@project, @database, column_set) }
+    assert_select "a[href='#{project_mx_database_column_sets_path(@project, @database)}']"
+    assert_select "a[href='#{edit_project_mx_database_column_set_path(@project, @database, column_set)}']", false
+    assert_select "a[href='#{project_mx_database_column_set_path(@project, @database, column_set)}']", false
   end
 
   def test_show_by_not_member
@@ -1200,7 +1200,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
                     logical_name: 'H-BAZ',
                     data_type_id: '5',
                     size: '10',
-                    size: '2',
                     nulable: 'true',
                     default_value: '0.0',
                     comment: 'baz header column',
@@ -1227,7 +1226,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
                     logical_name: 'F-BAZ',
                     data_type_id: '5',
                     size: '10',
-                    size: '2',
                     nulable: 'true',
                     default_value: '0.0',
                     comment: 'baz footer column',
@@ -1262,7 +1260,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
                     logical_name: 'H-BAZ',
                     data_type_id: '5',
                     size: '10',
-                    size: '2',
                     nulable: 'true',
                     default_value: '0.0',
                     comment: 'baz header column',
@@ -1289,7 +1286,6 @@ class MxColumnSetsControllerTest < ActionController::TestCase
                     logical_name: 'F-BAZ',
                     data_type_id: '5',
                     size: '10',
-                    size: '2',
                     nulable: 'true',
                     default_value: '0.0',
                     comment: 'baz footer column',

@@ -18,13 +18,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_template 'index'
     databases = assigns(:databases)
     assert_equal 2, databases.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, 'main') }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, 'sub') }
-    assert_tag tag: 'a', attributes: { href: new_project_mx_database_path(@project) }
-    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_path(@project, 'main') }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_path(@project, 'main') }
-    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_path(@project, 'sub') }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_path(@project, 'sub') }
+    assert_select "a[href='#{project_mx_database_tables_path(@project, 'main')}']"
+    assert_select "a[href='#{project_mx_database_tables_path(@project, 'sub')}']"
+    assert_select "a[href='#{new_project_mx_database_path(@project)}']"
+    assert_select "a[href='#{edit_project_mx_database_path(@project, 'main')}']"
+    assert_select "a[href='#{project_mx_database_path(@project, 'main')}']"
+    assert_select "a[href='#{edit_project_mx_database_path(@project, 'sub')}']"
+    assert_select "a[href='#{project_mx_database_path(@project, 'sub')}']"
   end
 
   def test_index_by_viewer
@@ -34,13 +34,13 @@ class MxDatabasesControllerTest < ActionController::TestCase
     assert_template 'index'
     databases = assigns(:databases)
     assert_equal 2, databases.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, 'main') }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, 'sub') }
-    assert_no_tag tag: 'a', attributes: { href: new_project_mx_database_path(@project) }
-    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_path(@project, 'main') }
-    assert_no_tag tag: 'a', attributes: { href: project_mx_database_path(@project, 'main') }
-    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_path(@project, 'sub') }
-    assert_no_tag tag: 'a', attributes: { href: project_mx_database_path(@project, 'sub') }
+    assert_select "a[href='#{project_mx_database_tables_path(@project, 'main')}']"
+    assert_select "a[href='#{project_mx_database_tables_path(@project, 'sub')}']"
+    assert_select "a[href='#{new_project_mx_database_path(@project)}']", false
+    assert_select "a[href='#{edit_project_mx_database_path(@project, 'main')}']", false
+    assert_select "a[href='#{project_mx_database_path(@project, 'main')}']", false
+    assert_select "a[href='#{edit_project_mx_database_path(@project, 'sub')}']", false
+    assert_select "a[href='#{project_mx_database_path(@project, 'sub')}']", false
   end
 
   def test_index_by_not_member

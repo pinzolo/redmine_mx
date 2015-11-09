@@ -21,10 +21,10 @@ class MxTablesControllerTest < ActionController::TestCase
     database = assigns(:database)
     assert_equal 5, database.tables.size
     database.tables.each do |table|
-      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
-      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table), 'data-method' => 'delete' }
+      assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}']"
+      assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}'][data-method='delete']"
     end
-    assert_tag tag: 'a', attributes: { href: new_project_mx_database_table_path(@project, @database) }
+    assert_select "a[href='#{new_project_mx_database_table_path(@project, @database)}']"
   end
 
   def test_index_by_viewer
@@ -35,10 +35,10 @@ class MxTablesControllerTest < ActionController::TestCase
     database = assigns(:database)
     assert_equal 5, database.tables.size
     database.tables.each do |table|
-      assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
-      assert_no_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table), 'data-method' => 'delete' }
+      assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}']"
+      assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}'][data-method='delete']", false
     end
-    assert_no_tag tag: 'a', attributes: { href: new_project_mx_database_table_path(@project, @database) }
+    assert_select "a[href='#{new_project_mx_database_table_path(@project, @database)}']", false
   end
 
   def test_index_by_not_member
@@ -70,9 +70,9 @@ class MxTablesControllerTest < ActionController::TestCase
     assert_equal 'customers', table.physical_name
     assert_equal 12, table.columns.size
     assert_equal 7, table.table_columns.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
-    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+    assert_select "a[href='#{project_mx_database_tables_path(@project, @database)}']"
+    assert_select "a[href='#{edit_project_mx_database_table_path(@project, @database, table)}']"
+    assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}']"
   end
 
   def test_show_by_viewer
@@ -85,9 +85,9 @@ class MxTablesControllerTest < ActionController::TestCase
     assert_equal 'customers', table.physical_name
     assert_equal 12, table.columns.size
     assert_equal 7, table.table_columns.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
-    assert_no_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
-    assert_no_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+    assert_select "a[href='#{project_mx_database_tables_path(@project, @database)}']"
+    assert_select "a[href='#{edit_project_mx_database_table_path(@project, @database, table)}']", false
+    assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}']", false
   end
 
   def test_show_by_not_member
@@ -105,9 +105,9 @@ class MxTablesControllerTest < ActionController::TestCase
     assert_equal 'customers', table.physical_name
     assert_equal 12, table.columns.size
     assert_equal 7, table.table_columns.size
-    assert_tag tag: 'a', attributes: { href: project_mx_database_tables_path(@project, @database) }
-    assert_tag tag: 'a', attributes: { href: edit_project_mx_database_table_path(@project, @database, table) }
-    assert_tag tag: 'a', attributes: { href: project_mx_database_table_path(@project, @database, table) }
+    assert_select "a[href='#{project_mx_database_tables_path(@project, @database)}']"
+    assert_select "a[href='#{edit_project_mx_database_table_path(@project, @database, table)}']"
+    assert_select "a[href='#{project_mx_database_table_path(@project, @database, table)}']"
   end
 
   def test_show_with_invalid_project
@@ -951,7 +951,6 @@ class MxTablesControllerTest < ActionController::TestCase
                          logical_name: 'BAZ',
                          data_type_id: '5',
                          size: '10',
-                         size: '2',
                          nulable: 'true',
                          default_value: '0.0',
                          comment: 'baz column',
@@ -988,7 +987,6 @@ class MxTablesControllerTest < ActionController::TestCase
                          logical_name: 'BAZ',
                          data_type_id: '5',
                          size: '10',
-                         size: '2',
                          nulable: 'true',
                          default_value: '0.0',
                          comment: 'baz column',

@@ -11,7 +11,7 @@ module Mx
 
     def test_index_with_mx
       get :index
-      assert_tag tag: 'a', attributes: { href: mx_dbms_products_path }
+      assert_select "a[href='#{mx_dbms_products_path}']"
     end
   end
 end

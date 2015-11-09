@@ -16,33 +16,21 @@ module Mx
       by_manager
 
       get :show, id: 'ecookbook'
-      assert_tag tag: 'a',
-                 attributes: { href: project_mx_path(@project) },
-                 ancestor: {
-                   tag: 'div', attributes: { id: 'main-menu' }
-                 }
+      assert_select "div#main-menu a[href='#{project_mx_path(@project)}']"
     end
 
     def test_show_with_mx_by_viewer
       by_viewer
 
       get :show, id: 'ecookbook'
-      assert_tag tag: 'a',
-                 attributes: { href: project_mx_path(@project) },
-                 ancestor: {
-                   tag: 'div', attributes: { id: 'main-menu' }
-                 }
+      assert_select "div#main-menu a[href='#{project_mx_path(@project)}']"
     end
 
     def test_show_with_mx_by_not_member
       by_not_member
 
       get :show, id: 'ecookbook'
-      assert_no_tag tag: 'a',
-                    attributes: { href: project_mx_path(@project) },
-                    ancestor: {
-                      tag: 'div', attributes: { id: 'main-menu' }
-                    }
+      assert_select "div#main-menu a[href='#{project_mx_path(@project)}']", false
     end
   end
 end
