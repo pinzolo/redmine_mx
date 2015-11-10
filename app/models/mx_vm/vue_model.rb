@@ -35,8 +35,8 @@ module MxVm::VueModel
     false
   end
 
-  def params_with(*attributes)
-    Hash[attributes.map { |attr| [attr, send(attr)] }]
+  def params_with(*attrs)
+    Hash[attrs.map { |attr| [attr, send(attr)] }]
   end
 
   def attributes
@@ -47,8 +47,8 @@ module MxVm::VueModel
     end
   end
 
-  def safe_collections(*attributes)
-    attributes.each { |attr| send("#{attr}=", []) unless send(attr) }
+  def safe_collections(*attrs)
+    attrs.each { |attr| send("#{attr}=", []) unless send(attr) }
   end
 
   private
