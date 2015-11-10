@@ -36,12 +36,12 @@ module MxVm::VueModel
   end
 
   def params_with(*attributes)
-    Hash[attributes.map { |attribute| [attribute, send(attribute)] }]
+    Hash[attributes.map { |attr| [attr, send(attr)] }]
   end
 
   def attributes
     if self.class.defined_attributes
-      Hash[self.class.defined_attributes.map { |attr| [attr, nil] }]
+      Hash[self.class.defined_attributes.map { |attr| [attr, send(attr)] }]
     else
       {}
     end
