@@ -18,7 +18,7 @@ class MxVm::Table
       self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) }
       self.column_sets = database.column_sets.map { |column_set| MxVm::ColumnSet.new(column_set) }
     end
-    safe_collections
+    safe_collections(:table_columns, :data_types, :column_sets, :indices, :foreign_keys, :relational_issue_ids)
   end
 
   def column_set
@@ -76,15 +76,6 @@ class MxVm::Table
     self.primary_key = MxVm::PrimaryKey.new(table.primary_key)
     self.indices = table.indices.map { |index| MxVm::Index.new(index) }
     self.foreign_keys = table.foreign_keys.map { |foreign_key| MxVm::ForeignKey.new(foreign_key) }
-  end
-
-  def safe_collections
-    self.table_columns ||= []
-    self.data_types ||= []
-    self.column_sets ||= []
-    self.indices ||= []
-    self.foreign_keys ||= []
-    self.relational_issue_ids ||= []
   end
 
   def assign_values_for_validation

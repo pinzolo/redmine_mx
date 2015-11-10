@@ -47,6 +47,10 @@ module MxVm::VueModel
     end
   end
 
+  def safe_collections(*attributes)
+    attributes.each { |attr| send("#{attr}=", []) unless send(attr) }
+  end
+
   private
 
   def merge_children_errors!(children, prefix)

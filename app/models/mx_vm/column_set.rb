@@ -15,7 +15,7 @@ class MxVm::ColumnSet
       self.database_id = database.id
       self.data_types = database.dbms_product.data_types.map { |data_type| MxVm::DataType.new(data_type) }
     end
-    safe_collections
+    safe_collections(:header_columns, :footer_columns, :data_types)
   end
 
   def columns
@@ -48,12 +48,6 @@ class MxVm::ColumnSet
     simple_load_values_from_object!(column_set, :id, :name, :database_id, :comment, :lock_version)
     self.header_columns = column_set.header_columns.map { |column| MxVm::Column.new(column) }
     self.footer_columns = column_set.footer_columns.map { |column| MxVm::Column.new(column) }
-  end
-
-  def safe_collections
-    self.header_columns ||= []
-    self.footer_columns ||= []
-    self.data_types ||= []
   end
 
   def assign_values_to_columns_for_validation
