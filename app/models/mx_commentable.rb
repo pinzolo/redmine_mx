@@ -21,7 +21,7 @@ module MxCommentable
       if mx_comment
         mx_comment.update_attributes!(comment: @comment)
       else
-        build_mx_comment(comment: @comment).save
+        build_mx_comment(comment: @comment).save!
       end
     else
       mx_comment.destroy if mx_comment
