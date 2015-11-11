@@ -17,7 +17,7 @@ module MxCommentable
   private
 
   def save_comment
-    if @comment.presence
+    if @comment.present?
       if mx_comment
         mx_comment.update_attributes!(comment: @comment)
       else
