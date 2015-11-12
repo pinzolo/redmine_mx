@@ -67,7 +67,7 @@ class MxTable < ActiveRecord::Base
     ActiveRecord::Base.transaction do
       save_with!(vue_model)
       reload
-      save_version! if need_version_save?
+      save_version!(vue_model) if need_version_save?
     end
   end
 
@@ -296,7 +296,7 @@ class MxTable < ActiveRecord::Base
     versions.empty? || (versions.last.snapshot != snapshot.to_json)
   end
 
-  def save_version!
+  def save_version!(vue_model)
     version = versions.build(version: versions.count + 1,
                              snapshot: snapshot.to_json,
                              change_summary: vue_model.change_summary)
