@@ -1,4 +1,5 @@
 language: ruby
+sudo: require
 rvm:
   - 1.9.3
   - 2.0
@@ -7,12 +8,14 @@ rvm:
 env:
   - TARGET=redmine REDMINE_VERSION=2.5.3
   - TARGET=plugin  REDMINE_VERSION=2.5.3
-  - TARGET=redmine REDMINE_VERSION=2.6.7
-  - TARGET=plugin  REDMINE_VERSION=2.6.7
-  - TARGET=redmine REDMINE_VERSION=3.0.5
-  - TARGET=plugin  REDMINE_VERSION=3.0.5
-  - TARGET=redmine REDMINE_VERSION=3.1.1
-  - TARGET=plugin  REDMINE_VERSION=3.1.1
+  - TARGET=redmine REDMINE_VERSION=2.6.9
+  - TARGET=plugin  REDMINE_VERSION=2.6.9
+  - TARGET=redmine REDMINE_VERSION=3.0.7
+  - TARGET=plugin  REDMINE_VERSION=3.0.7
+  - TARGET=redmine REDMINE_VERSION=3.1.3
+  - TARGET=plugin  REDMINE_VERSION=3.1.3
+  - TARGET=redmine REDMINE_VERSION=3.2.0
+  - TARGET=plugin  REDMINE_VERSION=3.2.0
 matrix:
   allow_failures:
     - rvm: 2.2
