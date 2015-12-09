@@ -13,6 +13,8 @@ env:
   - TARGET=plugin  REDMINE_VERSION=3.0.5
   - TARGET=redmine REDMINE_VERSION=3.1.1
   - TARGET=plugin  REDMINE_VERSION=3.1.1
+  - TARGET=redmine REDMINE_VERSION=3.2.0
+  - TARGET=plugin  REDMINE_VERSION=3.2.0
 matrix:
   allow_failures:
     - rvm: 2.2
